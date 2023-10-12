@@ -6,14 +6,14 @@
         <h4>Pokemon</h4>
         <h5>100AED</h5>
       </div>
-      <p>inof about the product</p>
+      <p class="txt-small">inof about the product</p>
       <div class="row">
         <h5>Date:</h5>
-        <span>12/12/2023</span>
+        <span class="txt-small black">12/12/2023</span>
       </div>
       <div class="row">
         <h6>Seller number:</h6>
-        <span>+971502597949</span>
+        <span class="txt-small">+971502597949</span>
       </div>
     </div>
   </div>
@@ -61,6 +61,14 @@ defineProps(['imgUrl'])
     h6 {
       font-weight: bold;
       font-size: 0.8rem;
+    }
+  }
+  .txt-small {
+    font-size: 13px;
+
+    &.black {
+      color: black;
+      font-weight: bold;
     }
   }
 }

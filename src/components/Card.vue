@@ -16,8 +16,8 @@ defineProps(['imgUrl'])
   @include round-m;
   @include flex-center;
   background: #f6f6f6;
-  max-height: 275px;
-  max-width: 275px;
+  max-height: 500px;
+  max-width: 500px;
   aspect-ratio: 1/1;
 
   img {

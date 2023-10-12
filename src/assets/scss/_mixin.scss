@@ -144,7 +144,7 @@
   }
   
   @mixin pc-m {
-    @media (min-width: #{$breakpoint-lg}) and (max-width: #{$breakpoint-xl - 1}) {
+    @media (min-width: #{$breakpoint-lg}) {
       @content;
     }
   }

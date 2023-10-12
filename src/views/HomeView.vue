@@ -1,14 +1,20 @@
+<template>
+  <div class="home">
+    <Products></Products>
+  </div>
+</template>
+
 <script setup>
-import Button from '@/components/Button.vue'
-import Card from '@/components/Card.vue'
-import Sidebar from '../components/Sidebar.vue'
-import CartItem from '../components/CartItem.vue'
+import Products from '@/components/Products.vue'
 </script>
 
-<template>
-  <h1>home</h1>
-  <Button></Button>
-  <Card></Card>
-  <Sidebar></Sidebar>
-  <CartItem></CartItem>
-</template>
+<style lang="scss">
+@import '@/assets/scss/main.scss';
+
+.home {
+  width: 100%;
+  height: 100%;
+  border: solid red;
+  overflow-y: scroll;
+}
+</style>

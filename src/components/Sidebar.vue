@@ -1,14 +1,18 @@
 <template>
   <div :class="['side-bar', { expand }]">
+    <RouterLink :to="{ name: 'home' }">
+      <div class="item">
+        <img src="@/assets/images/home.png" alt="home" />
+      </div>
+    </RouterLink>
     <div class="item">
-      <img src="@/assets/images/home.png" alt="home" />
+      <img src="@/assets/images/search.png" alt="search" />
     </div>
-    <div class="item">
-      <img src="@/assets/images/search.png" alt="home" />
-    </div>
-    <div class="item">
-      <img src="@/assets/images/bookmark-outline.png" alt="home" />
-    </div>
+    <RouterLink :to="{ name: 'favorite' }">
+      <div class="item">
+        <img src="@/assets/images/bookmark-outline.png" alt="saved" />
+      </div>
+    </RouterLink>
     <div class="item">
       <img src="@/assets/images/instagram.png" alt="home" />
     </div>
@@ -42,6 +46,10 @@ defineProps(['expand'])
   height: 400px;
   background: #fff;
   font-size: large;
+
+  @include pc-m {
+    right: 50px;
+  }
 
   .item {
     padding: 0.6rem;
