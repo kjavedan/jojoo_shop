@@ -1,0 +1,100 @@
+// --------------------------------colors--------------------------
+// primary
+$clr-p-1: #D6E4FF;
+$clr-p-2: #ADC8FF;
+$clr-p-3: #84A9FF;
+$clr-p-4: #6690FF;
+$clr-p-5: #3366FF;
+$clr-p-6: #254EDB;
+$clr-p-7: #1939B7;
+$clr-p-8: #102693;
+$clr-p-9: #091A7A;
+// success
+$clr-s-1: #F6FDCC;
+$clr-s-2: #EBFC9B;
+$clr-s-3: #DAF668;
+$clr-s-4: #C7ED42;
+$clr-s-5: #ACE209;
+$clr-s-6: #8EC206;
+$clr-s-7: #73A204;
+$clr-s-8: #598302;
+$clr-s-9: #466C01;
+//info
+$clr-i-1: #D7FEF5;
+$clr-i-2: #AFFEF1;
+$clr-i-3: #88FDF3;
+$clr-i-4: #6AFBFB;
+$clr-i-5: #39E9F9;
+$clr-i-6: #29B9D6;
+$clr-i-7: #1C8EB3;
+$clr-i-8: #126690;
+$clr-i-9: #0A4A77;
+//warning
+$clr-w-1: #FFF5D8;
+$clr-w-2: #FFE8B2;
+$clr-w-3: #FFD88B;
+$clr-w-4: #FFC96F;
+$clr-w-5: #FFAF3F;
+$clr-w-6: #DB8B2E;
+$clr-w-7: #B76B1F;
+$clr-w-8: #934E14;
+$clr-w-9: #7A390C;
+//danger
+$clr-d-1: #FFE4D4;
+$clr-d-2: #FFC3AA;
+$clr-d-3: #FF9B7F;
+$clr-d-4: #FF7460;
+$clr-d-5: #FF352B;
+$clr-d-6: #DB1F26;
+$clr-d-7: #B71529;
+$clr-d-8: #930D29;
+$clr-d-9: #7A0829;
+
+// --------------------------------typography--------------------------
+$primary-font: 'Arista 2.0', sans-serif;
+$secondary-font: Mulish, sans-serif;
+
+$font-size-base: 16px;
+$line-height-base: 1.6;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+
+// --------------------------------spacing--------------------------
+$spacing-unit: 8px; 
+
+$spacing: (
+    0: 0,                 // 0px
+    1: $spacing-unit,     // 8px
+    2: $spacing-unit * 2, // 16px
+    3: $spacing-unit * 3, // 24px
+    4: $spacing-unit * 4, // 32px
+    5: $spacing-unit * 5, // 40px
+    6: $spacing-unit * 6, // 48px
+    7: $spacing-unit * 7, // 56px
+    8: $spacing-unit * 8, // 64px
+    9: $spacing-unit * 9, // 72px
+    );
+    
+    
+// --------------------------------shadows--------------------------
+$box-shadow-small:1px 1px 7px 1px rgba(191, 191, 191, 0.10);;
+$box-shadow-medium: 3px 3px 7px 1px rgba(187, 187, 187, 0.25);
+$box-shadow-large: 3px 3px 7px 2px rgba(68, 68, 68, 0.3);
+$box-shadow-hover: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+
+// --------------------------------border radius--------------------------
+$border-radius-small: 4px;
+$border-radius-medium: 12px;
+$border-radius-large: 16px;
+$border-radius-xlarge: 20px;
+$border-radius-circle: 50%;
+
+// --------------------------------break points--------------------------
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1500px;

@@ -1,0 +1,163 @@
+@import '_variables.scss';
+
+//----------------------------typography-----------------------------
+@mixin heading-style($font-size, $line-height, $font-weight) {
+    font-family: $primary-font;
+    font-size: $font-size;
+    line-height: $line-height;
+    font-weight: $font-weight;
+  }
+  
+  @mixin paragraph-style {
+    font-family: $secondary-font;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    font-weight: $font-weight-regular;
+  }
+  
+
+//----------------------------spacing-----------------------------
+@mixin margin-spacing($top: 0, $right: 0, $bottom: 0, $left: 0) {
+    margin-top: map-get($spacing, $top);
+    margin-right: map-get($spacing, $right);
+    margin-bottom: map-get($spacing, $bottom);
+    margin-left: map-get($spacing, $left);
+  }
+  
+  @mixin padding-spacing($top: 0, $right: 0, $bottom: 0, $left: 0) {
+    padding-top: map-get($spacing, $top);
+    padding-right: map-get($spacing, $right);
+    padding-bottom: map-get($spacing, $bottom);
+    padding-left: map-get($spacing, $left);
+  }
+
+//-----------------------------shadow------------------------------
+@mixin shadow-s {
+    box-shadow: $box-shadow-small;
+  }
+  
+  @mixin shadow-m {
+    box-shadow: $box-shadow-medium;
+  }
+  
+  @mixin shadow-l {
+    box-shadow: $box-shadow-large;
+  }
+  
+  @mixin shadow-hover {
+    transition: box-shadow 0.3s ease-in-out;
+    &:hover {
+      box-shadow: $box-shadow-hover;
+    }
+  }
+// -------------------------flex box----------------------------------
+    @mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    @mixin flex-row {
+    display: flex;
+    align-items: center;
+    }
+    @mixin row-around {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    }
+    @mixin row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+    @mixin flex-col {
+    display: flex;
+    flex-direction: column;
+    }
+    @mixin col-space-around {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    }
+    @mixin col-space-between {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    }
+    @mixin absolute-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
+    @mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+    @mixin absolute-bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
+// -------------------------------border-radius------------------------------
+@mixin round-s{
+    border-radius: $border-radius-small;
+  }
+  
+  @mixin round-m {
+    border-radius: $border-radius-medium;
+  }
+  
+  @mixin round-l{
+    border-radius: $border-radius-large;
+  }
+  
+  @mixin round-xl{
+    border-radius: $border-radius-xlarge;
+  }
+  
+  @mixin round-circle {
+    border-radius: $border-radius-circle;
+  }
+  
+
+// -------------------------------media query------------------------------
+@mixin mobile {
+    @media (max-width: #{$breakpoint-sm - 1}) {
+      @content;
+    }
+  }
+  
+  @mixin tablet {
+    @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-md - 1}) {
+      @content;
+    }
+  }
+  
+  @mixin pc-s {
+    @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1}) {
+      @content;
+    }
+  }
+  
+  @mixin pc-m {
+    @media (min-width: #{$breakpoint-lg}) and (max-width: #{$breakpoint-xl - 1}) {
+      @content;
+    }
+  }
+  
+  @mixin pc-l {
+    @media (min-width: #{$breakpoint-xl}) {
+      @content;
+    }
+  }
+  
+  @mixin pc-xl {
+    @media (min-width: #{$breakpoint-xxl}) {
+      @content;
+    }
+  }
+  

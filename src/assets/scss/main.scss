@@ -1,0 +1,23 @@
+@import './_base.scss';
+@import './_mixin';
+@import './_variables';
+
+body{
+
+    h1 {
+        @include heading-style(32px, 1.2, $font-weight-bold);
+      }
+      
+      h2 {
+        @include heading-style(28px, 1.4, $font-weight-bold);
+      }
+      
+      h3 {
+        @include heading-style(24px, 1.6, $font-weight-bold);
+      }
+      
+      p {
+        @include paragraph-style;
+      }
+       
+}
