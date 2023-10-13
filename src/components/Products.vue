@@ -5,6 +5,7 @@
       :key="product.id"
       :id="product.id"
       :name="product.name"
+      :imgUrl="product.imgUrl"
       :price="product.price"
       :description="product.description"
       :selected="product.selected"
@@ -22,13 +23,16 @@ import { products } from '@/data/indx.js'
 @import '@/assets/scss/main.scss';
 
 .products {
-  border: solid;
+  position: relative;
+  border: solid yellow;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  max-width: 100%;
 
   @include pc-m {
-    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
 </style>

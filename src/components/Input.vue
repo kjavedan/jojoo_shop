@@ -9,6 +9,7 @@
         v-model="inputValue"
         @focus="isFocused = true"
         @blur="onBlur"
+        @input="handleChange"
       />
       <i class="icon">
         <img height="16" src="@/assets/images/search.png" alt="" />
@@ -20,7 +21,14 @@
 <script setup>
 import { ref } from 'vue'
 
-const inputValue = ref('')
+//emit
+const emits = defineEmits(['change'])
+
+//prps
+
+//refs
+
+const inputValue = ref()
 const isFocused = ref(false)
 const inputRef = ref(null)
 
@@ -29,6 +37,10 @@ const onBlur = () => {
     isFocused.value = false
   }
 }
+
+const handleChange = (e) => {
+  emits('change', e.target.value)
+}
 </script>
 
 <style scoped lang="scss">
@@ -36,23 +48,23 @@ const onBlur = () => {
 
 .custom-input {
   position: relative;
-  margin: 40px 30px;
+  margin: 20px 0;
 }
 
 .input-label {
   position: absolute;
-  top: 5px;
+  top: 8px;
   left: 20px;
   transform-origin: left top;
   transition: all 0.4s ease-out;
   pointer-events: none;
   z-index: 2;
-  color: gray;
+  color: lightgray;
 }
 
 .input-field {
   width: 100%;
-  padding: 10px;
+  padding: 13px 10px;
   border-radius: 5px;
   outline: none;
   border: none;
@@ -93,6 +105,7 @@ const onBlur = () => {
   transform: translate(-10px, -30px);
   opacity: 1;
   font-size: 14px;
+  color: gray;
 }
 
 /* Additional styling for the input when focused */

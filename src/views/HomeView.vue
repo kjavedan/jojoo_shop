@@ -12,6 +12,7 @@ import Products from '@/components/Products.vue'
 @import '@/assets/scss/main.scss';
 
 .home {
+  position: relative;
   width: 100%;
   height: 100%;
   border: solid red;

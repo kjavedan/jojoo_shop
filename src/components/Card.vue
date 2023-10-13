@@ -1,6 +1,6 @@
 <template>
   <div :class="['card']" @click="handleClick(id)">
-    <img src="imgUrl" alt="product" />
+    <img :src="imgUrl" alt="product" />
   </div>
 </template>
 
@@ -26,8 +26,7 @@ const handleClick = (id) => {
   @include round-m;
   @include flex-center;
   background: #f6f6f6;
-  max-height: 500px;
-  max-width: 500px;
+
   aspect-ratio: 1/1;
 
   img {
