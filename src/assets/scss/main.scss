@@ -1,44 +1,43 @@
 @import './_base.scss';
 @import './_mixin';
 @import './_variables';
+@import './disign-system';
 
-html{
+html {
   ::-webkit-scrollbar {
     width: 6px; /* Adjust the width to your preference */
     height: 6px;
     font-family: 'Kanit', sans-serif;
     background-color: transparent;
   }
-  
+
   /* Style the scrollbar thumb */
   ::-webkit-scrollbar-thumb {
-    background-color:#d5d5d5; /* Color of the thumb */
+    background-color: #d5d5d5; /* Color of the thumb */
     border-radius: 8px; /* Set the thumb's border-radius */
   }
-  
+
   /* Optional: Style the scrollbar on hover */
   ::-webkit-scrollbar-thumb:hover {
     width: 6px; /* Adjust the width to your preference */
-    background-color:#bbbbbb; /* Hover color for the thumb */
+    background-color: #bbbbbb; /* Hover color for the thumb */
   }
 }
 
-body{
+body {
+  h1 {
+    @include heading-style(32px, 1.2, $font-weight-bold);
+  }
 
-    h1 {
-        @include heading-style(32px, 1.2, $font-weight-bold);
-      }
-      
-      h2 {
-        @include heading-style(28px, 1.4, $font-weight-bold);
-      }
-      
-      h3 {
-        @include heading-style(24px, 1.6, $font-weight-bold);
-      }
-      
-      p {
-        @include paragraph-style;
-      }
-       
+  h2 {
+    @include heading-style(28px, 1.4, $font-weight-bold);
+  }
+
+  h3 {
+    @include heading-style(24px, 1.6, $font-weight-bold);
+  }
+
+  p {
+    @include paragraph-style;
+  }
 }

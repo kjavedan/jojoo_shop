@@ -1,0 +1,39 @@
+@import './base';
+@import './mixin';
+@import './variables';
+
+.order-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .dialog-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    @include shadow-m;
+    width: 80%;
+
+    @include pc-s {
+      width: 600px;
+    }
+  }
+}
+.animate__animated.animate__pulse {
+  --animate-duration: 0.8s;
+}

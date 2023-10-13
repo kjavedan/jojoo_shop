@@ -5,7 +5,7 @@
         <img src="@/assets/images/home.png" alt="home" />
       </div>
     </RouterLink>
-    <div class="item">
+    <div class="item" @click="toggleSearch">
       <img src="@/assets/images/search.png" alt="search" />
     </div>
     <RouterLink :to="{ name: 'favorite' }">
@@ -26,7 +26,17 @@
 </template>
 
 <script setup>
+import { useProductStore } from '@/stores/product'
+
+//stores
+const store = useProductStore()
+
 defineProps(['expand'])
+
+//fucs
+const toggleSearch = () => {
+  store.toggleSearch(true)
+}
 </script>
 
 <style lang="scss">
@@ -39,7 +49,7 @@ defineProps(['expand'])
 
   position: fixed;
   top: 50%;
-  right: 20px;
+  right: 10px;
   transform: translateY(-50%);
 
   width: 50px;

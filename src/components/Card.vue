@@ -1,11 +1,21 @@
 <template>
-  <div :class="['card']">
-    <img :src="imgUrl" alt="product" />
+  <div :class="['card']" @click="handleClick(id)">
+    <img src="imgUrl" alt="product" />
   </div>
 </template>
 
 <script setup>
-defineProps(['imgUrl'])
+import { useProductStore } from '@/stores/product'
+
+defineProps(['id', 'name', 'price', 'imgUrl', 'description', 'selected'])
+
+//store
+const store = useProductStore()
+
+//funcs
+const handleClick = (id) => {
+  store.holdId(id)
+}
 </script>
 
 <style lang="scss">

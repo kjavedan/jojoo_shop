@@ -1,6 +1,15 @@
 <template>
   <div class="products">
-    <Card v-for="product in products" :key="product.id"></Card>
+    <Card
+      v-for="product in products"
+      :key="product.id"
+      :id="product.id"
+      :name="product.name"
+      :price="product.price"
+      :description="product.description"
+      :selected="product.selected"
+    >
+    </Card>
   </div>
 </template>
 
@@ -19,7 +28,7 @@ import { products } from '@/data/indx.js'
   gap: 20px;
 
   @include pc-m {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 </style>
