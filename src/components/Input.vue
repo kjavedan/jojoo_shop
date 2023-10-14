@@ -48,7 +48,7 @@ const handleChange = (e) => {
 
 .custom-input {
   position: relative;
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
 }
 
 .input-label {

@@ -9,9 +9,7 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   z-index: 999;
   opacity: 0;
   visibility: hidden;
@@ -24,10 +22,10 @@
 
   .dialog-content {
     background-color: #fff;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 8px;
     @include shadow-m;
-    width: 85%;
+    width: 95%;
     @include pc-s {
       width: 600px;
     }

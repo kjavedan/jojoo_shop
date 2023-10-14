@@ -24,7 +24,7 @@ import { products } from '@/data/indx.js'
 
 .products {
   position: relative;
-  border: solid yellow;
+  // border: solid yellow;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;

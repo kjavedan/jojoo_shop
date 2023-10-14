@@ -78,11 +78,6 @@ const toggleSearch = () => {
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     @include flex-center;
-
-    &:hover {
-      background: $clr-white-soft;
-      @include round-s;
-    }
   }
 
   img {
@@ -97,6 +92,11 @@ const toggleSearch = () => {
 
     .item {
       margin: 10px 0;
+
+      &:hover {
+        background: $clr-white-soft;
+        @include round-s;
+      }
     }
 
     @include pc-m {

@@ -1,5 +1,9 @@
 <template>
-  <div class="order-dialog" :class="{ show: isSearch }" @click="toggleSearch">
+  <div
+    class="order-dialog"
+    :class="{ show: isSearch, 'show-results': searchResults.length }"
+    @click="toggleSearch"
+  >
     <div class="dialog-content animate__animated animate__pulse" v-if="isSearch" @click.stop>
       <p class="title">What are you looking for?</p>
       <Input @change="handleChange"></Input>
@@ -63,7 +67,6 @@ watch(inputValue, (newVal) => {
 }
 
 .search-results {
-  max-height: 0;
   overflow-y: hidden;
   @include flex-col;
   gap: 13px;
@@ -71,13 +74,21 @@ watch(inputValue, (newVal) => {
   padding-bottom: 2rem;
   overflow-y: scroll;
 }
+.order-dialog {
+  @include ease;
 
-.order-dialog .dialog-content {
-  padding-bottom: 0;
+  align-items: start !important;
+  padding-top: 3rem;
+
+  @include ease;
+
+  .search-results {
+    max-height: 70svh;
+  }
 }
-
-.show-results {
-  max-height: 60svh; /* Set the desired maximum height when the results are shown */
+.order-dialog .dialog-content {
+  padding: 0.5rem;
+  padding-bottom: 0;
 }
 
 .no-result {

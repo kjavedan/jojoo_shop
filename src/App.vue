@@ -29,11 +29,11 @@ import DialogSearch from './components/DialogSearch.vue'
 @import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
 
 .container {
-  width: 95%;
+  width: 97%;
   min-height: 100%;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   margin: 0 auto;
-  border: solid;
+  // border: solid;
   position: relative;
 
   @include pc-s {

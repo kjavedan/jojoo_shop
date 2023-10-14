@@ -1,5 +1,5 @@
 /* color palette from <https://github.com/vuejs/theme> */
-$clr-white: #FEFEFC;
+$clr-white: #fefefc;
 $clr-white-soft: #f8f8f8;
 $clr-white-mute: #f2f2f2;
 
@@ -30,23 +30,21 @@ $clr-text-dark-2: $clr-white-soft;
   --color-text: #{$clr-text-light-1};
 
   --section-gap: 160px;
-
-  
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #{$clr-black};
-    --color-background-soft: #{$clr-black-soft};
-    --color-background-mute: #{$clr-black-mute};
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --color-background: #{$clr-black};
+//     --color-background-soft: #{$clr-black-soft};
+//     --color-background-mute: #{$clr-black-mute};
 
-    --color-border: #{$clr-divider-dark-1};
-    --color-border-hover: #{$clr-divider-dark-1};
+//     --color-border: #{$clr-divider-dark-1};
+//     --color-border-hover: #{$clr-divider-dark-1};
 
-    --color-heading: #{$clr-text-dark-1};
-    --color-text: #{$clr-text-dark-2};
-  }
-}
+//     --color-heading: #{$clr-text-dark-1};
+//     --color-text: #{$clr-text-dark-2};
+//   }
+// }
 
 *,
 *::before,
@@ -60,7 +58,9 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
-  transition: color 0.5s, background-color 0.5s;
+  transition:
+    color 0.5s,
+    background-color 0.5s;
   line-height: 1.6;
   font-family:
     Mulish,

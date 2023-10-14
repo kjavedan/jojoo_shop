@@ -9,12 +9,14 @@
 
 .logo {
   width: fit-content;
-
+  h1 {
+    font-size: 1.4rem;
+  }
   span {
     display: block;
     margin-left: 60%;
     line-height: 0.8;
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 }
 </style>

@@ -51,7 +51,7 @@ defineProps(['id', 'imgUrl', 'name', 'price', 'description'])
     }
 
     h4 {
-      font-size: 1.2rem;
+      font-size: 1rem;
       line-height: normal;
       font-family: $primary-font;
     }
