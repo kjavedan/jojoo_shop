@@ -11,7 +11,7 @@
         <SearchResultItem
           v-for="result in searchResults"
           :key="result.id"
-          :imgUrl="result.imgUrl"
+          :imgUrl="result.imgUrls[0]"
           :name="result.name"
           :description="result.description"
           :price="result.price"

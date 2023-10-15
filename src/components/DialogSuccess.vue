@@ -15,7 +15,7 @@ const store = useProductStore()
 const { heldProductId } = storeToRefs(store)
 
 const unHeldProductId = () => {
-  store.holdId(null)
+  store.holdProductInfo(null)
 }
 
 watch(heldProductId, (newValue) => {

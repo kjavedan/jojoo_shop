@@ -26,6 +26,8 @@ defineProps(['id', 'imgUrl', 'name', 'price', 'description'])
   margin-bottom: 1rem;
   @include row-between;
   gap: 10px;
+  cursor: pointer;
+
   .product-img {
     height: 80px;
     width: 110px;

@@ -23,7 +23,7 @@
   .dialog-content {
     background-color: #fff;
     padding: 1rem;
-    border-radius: 8px;
+    @include round-xl;
     @include shadow-m;
     width: 95%;
     @include pc-s {

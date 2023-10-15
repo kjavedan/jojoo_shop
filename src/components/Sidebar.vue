@@ -3,7 +3,8 @@
     <div v-if="isSidebar">
       <RouterLink :to="{ name: 'home' }">
         <div class="item">
-          <img src="@/assets/images/home.png" alt="home" />
+          <img v-if="route.name === 'home'" src="@/assets/images/home.png" alt="home" />
+          <img v-else src="@/assets/images/home-outline.png" alt="home" />
         </div>
       </RouterLink>
       <div class="item" @click="toggleSearch">
@@ -11,7 +12,14 @@
       </div>
       <RouterLink :to="{ name: 'favorite' }">
         <div class="item">
-          <img src="@/assets/images/bookmark-outline.png" alt="saved" />
+          <img v-if="route.name === 'favorite'" src="@/assets/images/bookmark.png" alt="saved" />
+          <img v-else src="@/assets/images/bookmark-outline.png" alt="saved" />
+        </div>
+      </RouterLink>
+      <RouterLink :to="{ name: 'cart' }">
+        <div class="item">
+          <img v-if="route.name === 'cart'" src="@/assets/images/cart.png" alt="saved" />
+          <img v-else src="@/assets/images/cart-outline.png" alt="saved" />
         </div>
       </RouterLink>
       <div class="item">
@@ -30,7 +38,13 @@
 
 <script setup>
 import { useProductStore } from '@/stores/product'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+//routing
+const route = useRoute()
+
+console.log(route)
 
 //stores
 const store = useProductStore()
@@ -39,12 +53,17 @@ const store = useProductStore()
 defineProps(['expand'])
 
 //refs
-const isSidebar = ref(true)
+const isSidebar = ref(false)
 
 //fucs
 const toggleSearch = () => {
   store.toggleSearch(true)
 }
+
+//hooks
+watch(route, (newRoute) => {
+  console.log(newRoute)
+})
 </script>
 
 <style lang="scss">
@@ -87,8 +106,8 @@ const toggleSearch = () => {
   &.expand {
     transform: translateY(-50%);
     top: 50%;
-    background: #fff;
-    @include shadow-m;
+    background: white;
+    @include shadow-s;
 
     .item {
       margin: 10px 0;

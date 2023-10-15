@@ -1,20 +1,25 @@
 <template>
   <div :class="['card']" @click="handleClick(id)">
-    <img :src="imgUrl" alt="product" />
+    <img :src="imgUrls[0]" alt="product" />
   </div>
 </template>
 
 <script setup>
 import { useProductStore } from '@/stores/product'
-
-defineProps(['id', 'name', 'price', 'imgUrl', 'description', 'selected'])
+import { ref, toRef } from 'vue'
 
 //store
 const store = useProductStore()
 
+// props
+const props = defineProps(['id', 'name', 'price', 'imgUrls', 'description', 'selected'])
+
+//refs
+const prodctInfo = toRef(props)
+
 //funcs
-const handleClick = (id) => {
-  store.holdId(id)
+const handleClick = () => {
+  store.holdProductInfo(prodctInfo.value)
 }
 </script>
 
@@ -26,7 +31,7 @@ const handleClick = (id) => {
   @include round-m;
   @include flex-center;
   background: #f6f6f6;
-
+  cursor: pointer;
   aspect-ratio: 1/1;
 
   img {

@@ -27,12 +27,11 @@ defineProps(['imgUrl'])
 @import '@/assets/scss/main.scss';
 
 .cart-item {
-  height: 110px;
-  width: 400px;
+  height: 80px;
   @include row-between;
   gap: 10px;
   .product-img {
-    width: 110px;
+    min-width: 80px;
     background: #f6f6f6;
     height: 100%;
     @include round-m;
@@ -50,21 +49,21 @@ defineProps(['imgUrl'])
     }
 
     h4 {
-      font-size: 1.2rem;
+      // font-size: 1.2rem;
       line-height: normal;
       font-family: $primary-font;
     }
     h5 {
       font-weight: bold;
-      font-size: 0.9rem;
+      // font-size: 0.9rem;
     }
     h6 {
       font-weight: bold;
-      font-size: 0.8rem;
+      // font-size: 0.8rem;
     }
   }
   .txt-small {
-    font-size: 13px;
+    font-size: 11px;
 
     &.black {
       color: black;

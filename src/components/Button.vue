@@ -16,7 +16,7 @@ defineProps(['expand'])
   @include round-l;
   @include shadow-l;
   @include padding-spacing(1, 2, 1, 2);
-  min-width: 250px;
+  min-width: 150px;
   height: 45px;
   cursor: pointer;
   background: $clr-black;
