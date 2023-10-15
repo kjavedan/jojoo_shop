@@ -1,7 +1,7 @@
 <template>
   <div class="products">
     <Card
-      v-for="product in products"
+      v-for="product in productsData"
       :key="product.id"
       :id="product.id"
       :name="product.name"
@@ -15,8 +15,12 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+import { useProductStore } from '../stores/product'
 import Card from './Card.vue'
-import { products } from '@/data/indx.js'
+
+const store = useProductStore()
+const { productsData } = storeToRefs(store)
 </script>
 
 <style lang="scss" scoped>

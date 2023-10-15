@@ -5,8 +5,14 @@
       v-if="heldProduct !== null"
       @click.stop
     >
-      <span class="save-icon">
-        <img height="24" src="@/assets/images/bookmark.png" alt="" />
+      <span class="save-icon" @click="store.toggleFavorite(heldProduct.id)">
+        <img
+          v-if="!heldProduct.selected"
+          height="24"
+          src="@/assets/images/bookmark-outline.png"
+          alt=""
+        />
+        <img v-else height="24" src="@/assets/images/bookmark.png" alt="" />
       </span>
       <div class="images-wrapper">
         <div class="main-img">
@@ -60,8 +66,12 @@ const handleImageChange = (index) => {
   heldImg.value = heldProduct.value.imgUrls[index]
 }
 
+//hooks
 watch(heldProduct, (newValue) => {
   console.log(newValue)
+  if (!heldImg.value) {
+    heldImg.value = newValue.imgUrls[0]
+  }
 })
 </script>
 
@@ -79,6 +89,7 @@ watch(heldProduct, (newValue) => {
       position: absolute;
       top: 20px;
       right: 20px;
+      cursor: pointer;
     }
 
     .images-wrapper {
