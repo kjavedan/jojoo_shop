@@ -1,6 +1,8 @@
 <template>
   <div class="logo">
-    <h1>jojoo <span>shop.</span></h1>
+    <RouterLink :to="{ name: 'home' }">
+      <h1>jojoo <span>shop.</span></h1>
+    </RouterLink>
   </div>
 </template>
 
@@ -9,6 +11,11 @@
 
 .logo {
   width: fit-content;
+  cursor: pointer;
+  a {
+    text-decoration: none;
+    color: unset;
+  }
   h1 {
     font-size: 1.4rem;
   }

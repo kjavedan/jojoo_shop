@@ -7,9 +7,6 @@
           <img v-else src="@/assets/images/home-outline.png" alt="home" />
         </div>
       </RouterLink>
-      <div class="item" @click="toggleSearch">
-        <img src="@/assets/images/search.png" alt="search" />
-      </div>
       <RouterLink :to="{ name: 'favorite' }">
         <div class="item">
           <img v-if="route.name === 'favorite'" src="@/assets/images/bookmark.png" alt="saved" />
@@ -22,11 +19,18 @@
           <img v-else src="@/assets/images/cart-outline.png" alt="saved" />
         </div>
       </RouterLink>
-      <div class="item">
-        <img src="@/assets/images/instagram.png" alt="home" />
+      <div class="item" @click="toggleSearch">
+        <img src="@/assets/images/search.png" alt="search" />
       </div>
       <div class="item">
-        <img src="@/assets/images/whatsapp.png" alt="home" />
+        <a target="_blank" href="https://www.instagram.com/jojooshop_com/">
+          <img src="@/assets/images/instagram.png" alt="home" />
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://wa.me/+971502597949">
+          <img src="@/assets/images/whatsapp.png" alt="home" />
+        </a>
       </div>
     </div>
 
@@ -92,6 +96,10 @@ const toggleSearch = () => {
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     @include flex-center;
+  }
+
+  a {
+    line-height: 1rem;
   }
 
   img {

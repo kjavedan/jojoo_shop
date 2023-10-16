@@ -12,7 +12,7 @@
     >
     </Card>
   </div>
-  <div>
+  <div v-else class="no-data">
     <img src="@/assets/images/no-data-folder.png" alt="monkey" class="folder" />
     <img src="@/assets/images/no-data-monkey.png" alt="monkey" class="monkey" />
     <p>sorry no data found !</p>
@@ -40,10 +40,9 @@ const routeName = ref(route.name)
 //funcs
 const handlePageData = () => {
   if (route.name === 'favorite') {
-    currentData.value = favoriteData
-    console.log(favoriteData.value)
+    currentData.value = favoriteData.value
   } else {
-    currentData.value = productsData
+    currentData.value = productsData.value
   }
 }
 
@@ -55,6 +54,11 @@ onMounted(() => {
 watch(route, () => {
   routeName.value = route.name
   handlePageData()
+})
+watch(favoriteData, () => {
+  if (routeName.value === 'favorite') {
+    currentData.value = favoriteData.value
+  }
 })
 </script>
 
@@ -73,5 +77,10 @@ watch(route, () => {
     gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
+}
+.no-data {
+  @include flex-col;
+  align-items: center;
+  margin-top: 10rem;
 }
 </style>

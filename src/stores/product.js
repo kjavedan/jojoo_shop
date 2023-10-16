@@ -21,6 +21,7 @@ export const useProductStore = defineStore('product', () => {
   }
 
   function toggleFavorite(id) {
+    heldProduct.value = { ...heldProduct.value, selected: !heldProduct.value.selected }
     productsData.value = productsData.value.map((product) =>
       product.id === id ? { ...product, selected: !product.selected } : product
     )
@@ -28,7 +29,6 @@ export const useProductStore = defineStore('product', () => {
 
   //hooks
   onBeforeMount(() => {
-
     const savedData = localStorage.getItem('favoriteProducts')
     favoriteData.value = JSON.parse(savedData)
 
@@ -45,19 +45,20 @@ export const useProductStore = defineStore('product', () => {
     productsData,
     (newVal) => {
       localStorage.setItem('productsData', JSON.stringify(newVal))
-      const savedData = productsData.value.filter(product => product.selected)
+      const savedData = productsData.value.filter((product) => product.selected)
+      favoriteData.value = savedData
       localStorage.setItem('favoriteProducts', JSON.stringify(savedData))
     },
     { deep: true }
   )
 
-
-  return { heldProduct,
-          holdProductInfo,
-          isSearch,
-          toggleSearch,
-          productsData,
-          favoriteData ,
-          toggleFavorite,
-        }
+  return {
+    heldProduct,
+    holdProductInfo,
+    isSearch,
+    toggleSearch,
+    productsData,
+    favoriteData,
+    toggleFavorite
+  }
 })

@@ -68,7 +68,6 @@ const handleImageChange = (index) => {
 
 //hooks
 watch(heldProduct, (newValue) => {
-  console.log(newValue)
   if (!heldImg.value) {
     heldImg.value = newValue.imgUrls[0]
   }
@@ -84,7 +83,11 @@ watch(heldProduct, (newValue) => {
     padding: 0.5rem 2rem;
     position: relative;
     @include flex-col;
+    margin-top: -3rem;
 
+    @include pc-m {
+      margin-top: unset;
+    }
     .save-icon {
       position: absolute;
       top: 20px;
@@ -98,7 +101,7 @@ watch(heldProduct, (newValue) => {
       position: relative;
       gap: 10px;
       .main-img {
-        height: 80%;
+        height: 70%;
         @include flex-center;
         img {
           height: 95%;
@@ -106,6 +109,7 @@ watch(heldProduct, (newValue) => {
       }
 
       .childs-img {
+        margin-top: 2rem;
         @include row-around;
         height: 20%;
         .child-img {
@@ -127,7 +131,7 @@ watch(heldProduct, (newValue) => {
       }
     }
     .info {
-      margin-top: 3rem;
+      margin-top: 2rem;
       height: 20%;
       .row {
         @include row-between;
