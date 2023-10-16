@@ -5,6 +5,7 @@ import { products } from '../data/indx'
 export const useProductStore = defineStore('product', () => {
   //refs
   const productsData = ref()
+  const favoriteData = ref()
 
   const heldProduct = ref(null)
 
@@ -20,7 +21,6 @@ export const useProductStore = defineStore('product', () => {
   }
 
   function toggleFavorite(id) {
-    console.log(id)
     productsData.value = productsData.value.map((product) =>
       product.id === id ? { ...product, selected: !product.selected } : product
     )
@@ -28,8 +28,11 @@ export const useProductStore = defineStore('product', () => {
 
   //hooks
   onBeforeMount(() => {
+
+    const savedData = localStorage.getItem('favoriteProducts')
+    favoriteData.value = JSON.parse(savedData)
+
     let storedData = localStorage.getItem('productsData')
-    console.log(storedData)
     if (!storedData) {
       localStorage.setItem('productsData', JSON.stringify(products))
       productsData.value = products
@@ -42,9 +45,19 @@ export const useProductStore = defineStore('product', () => {
     productsData,
     (newVal) => {
       localStorage.setItem('productsData', JSON.stringify(newVal))
+      const savedData = productsData.value.filter(product => product.selected)
+      localStorage.setItem('favoriteProducts', JSON.stringify(savedData))
     },
     { deep: true }
   )
 
-  return { heldProduct, holdProductInfo, isSearch, toggleSearch, productsData, toggleFavorite }
+
+  return { heldProduct,
+          holdProductInfo,
+          isSearch,
+          toggleSearch,
+          productsData,
+          favoriteData ,
+          toggleFavorite,
+        }
 })

@@ -44,8 +44,6 @@ import { useRoute } from 'vue-router'
 //routing
 const route = useRoute()
 
-console.log(route)
-
 //stores
 const store = useProductStore()
 
@@ -61,9 +59,6 @@ const toggleSearch = () => {
 }
 
 //hooks
-watch(route, (newRoute) => {
-  console.log(newRoute)
-})
 </script>
 
 <style lang="scss">

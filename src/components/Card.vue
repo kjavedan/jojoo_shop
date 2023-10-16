@@ -12,7 +12,7 @@ import { ref, toRef } from 'vue'
 const store = useProductStore()
 
 // props
-const props = defineProps(['id', 'name', 'price', 'imgUrls', 'description', 'selected'])
+const props = defineProps(['id', 'name', 'price', 'imgUrls', 'description', 'selected', 'isShow'])
 
 //refs
 const prodctInfo = toRef(props)
