@@ -1,6 +1,19 @@
 <template>
   <div :class="['side-bar', { expand: isSidebar }]">
     <div v-if="isSidebar">
+      <div class="item" @click="toggleSearch">
+        <img src="@/assets/images/search.png" alt="search" />
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://www.instagram.com/jojooshop_com/">
+          <img src="@/assets/images/instagram.png" alt="home" />
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://wa.me/+971502597949">
+          <img src="@/assets/images/whatsapp.png" alt="home" />
+        </a>
+      </div>
       <RouterLink :to="{ name: 'home' }">
         <div class="item">
           <img v-if="route.name === 'home'" src="@/assets/images/home.png" alt="home" />
@@ -19,22 +32,9 @@
           <img v-else src="@/assets/images/cart-outline.png" alt="saved" />
         </div>
       </RouterLink>
-      <div class="item" @click="toggleSearch">
-        <img src="@/assets/images/search.png" alt="search" />
-      </div>
-      <div class="item">
-        <a target="_blank" href="https://www.instagram.com/jojooshop_com/">
-          <img src="@/assets/images/instagram.png" alt="home" />
-        </a>
-      </div>
-      <div class="item">
-        <a target="_blank" href="https://wa.me/+971502597949">
-          <img src="@/assets/images/whatsapp.png" alt="home" />
-        </a>
-      </div>
     </div>
 
-    <div class="item" @click="isSidebar = !isSidebar">
+    <div class="item menu" @click="isSidebar = !isSidebar">
       <img src="@/assets/images/menu.png" alt="menu" />
     </div>
   </div>
@@ -75,7 +75,7 @@ const toggleSearch = () => {
   background: transparent;
   position: fixed;
   transition: all 0.3s ease-in-out;
-  top: 15px;
+  bottom: 15%;
   right: 10px;
 
   z-index: 999;
@@ -96,6 +96,12 @@ const toggleSearch = () => {
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     @include flex-center;
+
+    &.menu {
+      background: $clr-white-soft;
+      @include round-s;
+      @include shadow-m;
+    }
   }
 
   a {
@@ -107,13 +113,17 @@ const toggleSearch = () => {
   }
 
   &.expand {
-    transform: translateY(-50%);
-    top: 50%;
+    bottom: 20%;
     background: white;
     @include shadow-s;
 
     .item {
-      margin: 10px 0;
+      margin: 5px 0;
+
+      &.menu {
+        box-shadow: unset;
+        background: unset;
+      }
 
       &:hover {
         background: $clr-white-soft;

@@ -1,11 +1,16 @@
 <template>
-  <button :class="['btn', { expand }]">
-    <slot>Order</slot>
+  <button :class="['btn', { expand }]" @click="emitClick">
+    <slot>Add To Cart</slot>
   </button>
 </template>
 
 <script setup>
 defineProps(['expand'])
+const emits = defineEmits(['click'])
+
+const emitClick = () => {
+  emits('click')
+}
 </script>
 
 <style lang="scss">

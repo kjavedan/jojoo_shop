@@ -5,7 +5,10 @@ import { products } from '../data/indx'
 export const useProductStore = defineStore('product', () => {
   //refs
   const productsData = ref()
+
   const favoriteData = ref()
+
+  const cartData = ref([])
 
   const heldProduct = ref(null)
 
@@ -27,12 +30,40 @@ export const useProductStore = defineStore('product', () => {
     )
   }
 
+  function addProductToCart(itemToAdd){
+    const isItemAlreadyExist = cartData.value.includes(product => product.id === itemToAdd.id)
+    if(isItemAlreadyExist){
+      //increase item qty
+    }else{
+      cartData.value.push(itemToAdd)
+    }
+    productsData.value.map(product => product.id === id)
+
+  }
+
+  function removeProductFromCart(id){
+
+  }
+
+  function increaseProductQty(id){
+
+  }
+
+  function decreaseProductQty(id){
+
+  }
+
   //hooks
   onBeforeMount(() => {
-    const savedData = localStorage.getItem('favoriteProducts')
-    favoriteData.value = JSON.parse(savedData)
 
-    let storedData = localStorage.getItem('productsData')
+    const savedData = localStorage.getItem('favoriteProducts')
+    const storedCartData = localStorage.getItem('cartData')
+
+    favoriteData.value = JSON.parse(savedData)
+    cartData.value = JSON.parse(storedCartData)
+    
+    const storedData = localStorage.getItem('productsData')
+
     if (!storedData) {
       localStorage.setItem('productsData', JSON.stringify(products))
       productsData.value = products
@@ -52,6 +83,12 @@ export const useProductStore = defineStore('product', () => {
     { deep: true }
   )
 
+  watch(
+    cartData, ()=> {
+      localStorage.setItem('cartData', JSON.stringify(cartData.value))
+    },{deep: true}
+  )
+
   return {
     heldProduct,
     holdProductInfo,
@@ -59,6 +96,7 @@ export const useProductStore = defineStore('product', () => {
     toggleSearch,
     productsData,
     favoriteData,
-    toggleFavorite
+    toggleFavorite,
+    cartData,
   }
 })

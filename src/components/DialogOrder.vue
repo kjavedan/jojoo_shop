@@ -8,11 +8,11 @@
       <span class="save-icon" @click="store.toggleFavorite(heldProduct.id)">
         <img
           v-if="!heldProduct.selected"
-          height="24"
+          height="30"
           src="@/assets/images/bookmark-outline.png"
           alt=""
         />
-        <img v-else height="24" src="@/assets/images/bookmark.png" alt="" />
+        <img v-else height="30" src="@/assets/images/bookmark.png" alt="" />
       </span>
       <div class="images-wrapper">
         <div class="main-img">
@@ -39,7 +39,7 @@
           {{ heldProduct.description }}
         </p>
       </div>
-      <Button></Button>
+      <Button @click="handleClick"></Button>
     </div>
   </div>
 </template>
@@ -66,10 +66,13 @@ const handleImageChange = (index) => {
   heldImg.value = heldProduct.value.imgUrls[index]
 }
 
+const handleClick = () => {
+  console.log('click')
+}
 //hooks
 watch(heldProduct, (newValue) => {
-  if (!heldImg.value) {
-    heldImg.value = newValue.imgUrls[0]
+  if (heldProduct.value) {
+    handleImageChange(0)
   }
 })
 </script>
