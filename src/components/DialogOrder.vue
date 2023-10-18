@@ -112,6 +112,7 @@ const handleDecrease = () => {
 const handleCheckout = () => {
   heldProduct.value = null
   isCheckoutBtn.value = false
+  counter.value = 0
   router.push({ name: 'cart' })
 }
 //hooks

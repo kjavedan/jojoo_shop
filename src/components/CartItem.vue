@@ -10,12 +10,12 @@
       </div>
       <p class="txt-small">{{ description }}</p>
       <div class="row">
-        <h5>Date:</h5>
-        <span class="txt-small black">12/12/2023</span>
+        <h5>count:</h5>
+        <span class="txt-small black">{{ count }}</span>
       </div>
       <div class="row">
-        <h6>Seller number:</h6>
-        <span class="txt-small">+971502597949</span>
+        <h6>Total price:</h6>
+        <span class="txt-small">{{ count * price }}AED</span>
       </div>
     </div>
   </div>

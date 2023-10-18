@@ -1,4 +1,4 @@
-import { onBeforeMount, ref, watch } from 'vue'
+import { computed, onBeforeMount, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { products } from '../data/indx'
 
@@ -13,6 +13,15 @@ export const useProductStore = defineStore('product', () => {
   const heldProduct = ref(null)
 
   const isSearch = ref(false)
+
+  //computed
+  const totalPrice = computed(() => {
+    let sum = 0
+    cartData.value.forEach((item) => {
+      sum += item.count * item.price
+    })
+    return parseFloat(sum).toFixed(2)
+  })
 
   //funcs
   function holdProductInfo(info) {
@@ -30,46 +39,44 @@ export const useProductStore = defineStore('product', () => {
     )
   }
 
-  function addProductToCart(itemToAdd){
-    const isItemAlreadyExist = cartData.value.some(product => product.id === itemToAdd.id)
-    if(isItemAlreadyExist){
-     cartData.value.map(item => item.id === itemToAdd.id ? {...item, count: item.count++} : item  )
-    }else{
-      cartData.value.push({...itemToAdd, count: 1})  
+  function addProductToCart(itemToAdd) {
+    const isItemAlreadyExist = cartData.value.some((product) => product.id === itemToAdd.id)
+    if (isItemAlreadyExist) {
+      cartData.value.map((item) =>
+        item.id === itemToAdd.id ? { ...item, count: item.count++ } : item
+      )
+    } else {
+      cartData.value.push({ ...itemToAdd, count: 1 })
     }
   }
 
-  function decreaseProductQty(id){
+  function decreaseProductQty(id) {
     cartData.value.map((item, index) => {
-      if(item.id !== id) return item
-      else if( item.id === id && item.count > 1){
-        return {...item, count: item.count--}
-      }
-      else {
+      if (item.id !== id) return item
+      else if (item.id === id && item.count > 1) {
+        return { ...item, count: item.count-- }
+      } else {
         cartData.value.pop(index)
       }
     })
   }
 
-
-
-  function removeProductFromCart(id){
-    cartData.value.map((item, index) => item.id === id ? cartData.value.pop(index): item)
+  function removeProductFromCart(id) {
+    cartData.value.map((item, index) => (item.id === id ? cartData.value.pop(index) : item))
   }
 
   //hooks
   onBeforeMount(() => {
-
     const savedData = localStorage.getItem('favoriteProducts')
     favoriteData.value = JSON.parse(savedData)
-    
+
     const storedCartData = localStorage.getItem('cartData')
-    if(storedCartData){
+    if (storedCartData) {
       cartData.value = JSON.parse(storedCartData)
-    }else{
+    } else {
       localStorage.setItem('cartData', JSON.stringify([]))
     }
-    
+
     const storedData = localStorage.getItem('productsData')
 
     if (!storedData) {
@@ -92,9 +99,11 @@ export const useProductStore = defineStore('product', () => {
   )
 
   watch(
-    cartData, ()=> {
+    cartData,
+    () => {
       localStorage.setItem('cartData', JSON.stringify(cartData.value))
-    },{deep: true}
+    },
+    { deep: true }
   )
 
   return {
@@ -108,6 +117,7 @@ export const useProductStore = defineStore('product', () => {
     cartData,
     addProductToCart,
     removeProductFromCart,
-    decreaseProductQty
+    decreaseProductQty,
+    totalPrice
   }
 })
