@@ -66,7 +66,7 @@ const toggleSearch = () => {
 //hooks
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
 .side-bar {

@@ -33,7 +33,7 @@ const handleClick = () => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
 .button {
@@ -100,7 +100,7 @@ const handleClick = () => {
     position: absolute;
     left: 50%;
     top: 50%;
-    margin: -27px 0 0 -18px;
+    margin: -14px 0 0 -18px;
     transform-origin: 12px 23px;
     transform: translateX(-120px) rotate(-18deg);
     &:before,
@@ -113,16 +113,16 @@ const handleClick = () => {
       height: 6px;
       border-radius: 50%;
       box-shadow: inset 0 0 0 2px var(--cart);
-      bottom: 16px;
-      left: 17px;
+      bottom: 0px;
+      left: 10px;
       filter: drop-shadow(11px 0 0 var(--cart));
     }
     &:after {
       width: 16px;
       height: 9px;
       background: var(--cart);
-      left: 18px;
-      bottom: 25px;
+      left: 10px;
+      bottom: 10px;
       transform-origin: 50% 100%;
       transform: perspective(4px) rotateX(-6deg) scaleY(var(--fill, 0));
       transition: transform 1.2s ease var(--fill-d);

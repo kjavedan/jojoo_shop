@@ -1,26 +1,29 @@
 <template>
-  <div class="cart" v-bind="cartData.length">
-    <CartItem
-      v-for="item in cartData"
-      :key="item.id"
-      :id="item.id"
-      :name="item.name"
-      :price="item.price"
-      :description="item.description"
-      :count="item.count"
-      :imgUrl="item.imgUrls[0]"
-    ></CartItem>
-    <div class="checkout">
-      <h2 class="total-price">Total Price: {{ totalPrice }}AED</h2>
-      <a :href="getWhatsAppLink()" class="payment" target="_blank">Make Payment</a>
+  <div class="wrapper">
+    <OrderHistory></OrderHistory>
+    <div class="cart" v-bind="cartData.length">
+      <CartItem
+        v-for="item in cartData"
+        :key="item.id"
+        :id="item.id"
+        :name="item.name"
+        :price="item.price"
+        :description="item.description"
+        :count="item.count"
+        :imgUrl="item.imgUrls[0]"
+      ></CartItem>
+      <div class="checkout">
+        <h2 class="total-price">Total Price: {{ totalPrice }}AED</h2>
+        <a :href="getWhatsAppLink()" class="payment" target="_blank">Make Payment</a>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 import CartItem from '@/components/CartItem.vue'
 import { storeToRefs } from 'pinia'
-import { useProductStore } from '../stores/product'
-
+import OrderHistory from '@/components/OrderHistory.vue'
+import { useProductStore } from '@/stores/product'
 //store
 const store = useProductStore()
 
@@ -43,46 +46,48 @@ const getWhatsAppLink = () => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
-
-.cart {
-  @include flex-col;
-  gap: 15px;
-  padding: 1rem 1rem 1rem 0.5rem;
+.wrapper {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 1rem auto;
 
-  .checkout {
-    border-top: solid 1px lightgray;
+  .cart {
+    @include flex-col;
+    padding: 1rem 1rem 1rem 0.5rem;
+    gap: 15px;
 
-    .total-price {
-      text-align: right;
-      font-family: $secondary-font;
-      font-weight: 300;
-      font-size: 1.5rem;
-    }
-    .payment {
-      @include ease;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      height: 50px;
-      @include flex-center;
-      @include shadow-l;
-      margin-top: 2rem;
-      @include round-xl;
-      background: black;
-      font-family: $primary-font;
-      text-decoration: none;
+    .checkout {
+      border-top: solid 1px lightgray;
 
-      font-size: 1rem;
-      &:active {
-        transform: scale(0.9);
-        box-shadow: unset;
+      .total-price {
+        text-align: right;
+        font-family: $secondary-font;
+        font-weight: 300;
+        font-size: 1.5rem;
       }
-      color: white;
-      width: 100%;
+      .payment {
+        @include ease;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        height: 50px;
+        @include flex-center;
+        @include shadow-l;
+        margin-top: 2rem;
+        @include round-xl;
+        background: black;
+        font-family: $primary-font;
+        text-decoration: none;
+
+        font-size: 1rem;
+        &:active {
+          transform: scale(0.9);
+          box-shadow: unset;
+        }
+        color: white;
+        width: 100%;
+      }
     }
   }
 }

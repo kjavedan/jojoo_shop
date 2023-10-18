@@ -25,7 +25,7 @@
 defineProps(['imgUrl', 'name', 'price', 'description', 'count'])
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
 .cart-item {

@@ -101,7 +101,7 @@ const handleIncrease = () => {
 }
 
 const handleDecrease = () => {
-  store.decreaseProductQty(heldProduct.value.id)
+  store.decreaseProductQty(heldProduct.value)
   counter.value--
 
   if (counter.value <= 0) {
