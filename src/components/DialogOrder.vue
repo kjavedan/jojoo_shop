@@ -81,6 +81,8 @@ const counter = ref(0)
 //funcs
 const unHeldProduct = () => {
   store.holdProductInfo(null)
+  isCheckoutBtn.value = false
+  counter.value = 0
 }
 
 const handleImageChange = (index) => {
