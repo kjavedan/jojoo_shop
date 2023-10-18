@@ -39,7 +39,7 @@
           {{ heldProduct.description }}
         </p>
       </div>
-      <Button @click="handleClick"></Button>
+      <ButtonAddToCart @click="handleClick"></ButtonAddToCart>
     </div>
   </div>
 </template>
@@ -48,7 +48,7 @@
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
-import Button from './Button.vue'
+import ButtonAddToCart from './ButtonAddToCart.vue'
 
 //store
 const store = useProductStore()
