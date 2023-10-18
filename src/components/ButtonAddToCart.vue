@@ -5,8 +5,6 @@
       <svg viewBox="0 0 36 26">
         <polyline points="1 0 6 0 10 16 25.5 16 28.5 5 7 5"></polyline>
         <polyline points="15 11 17 13 22 8"></polyline>
-        <polyline points="1 -2 6 -2 10 14 25.5 14 28.5 3 7 3"></polyline>
-        <polyline points="15 9 17 11 22 6"></polyline>
       </svg>
     </div>
   </button>
@@ -25,11 +23,11 @@ const loading = ref(false) // Initialize loading state to false
 
 //funcs
 const handleClick = () => {
-  emits('click')
   if (!loading.value) {
     loading.value = true
     setTimeout(() => {
       loading.value = false
+      emits('click')
     }, 3700)
   }
 }
@@ -42,16 +40,18 @@ const handleClick = () => {
   --background: #000000;
   --text: #fff;
   --cart: #fff;
-  --tick: #fff;
+  --tick: #1cd200;
+
   height: 45px;
   position: relative;
   border: none;
   background: none;
   padding: 8px 28px;
   border-radius: 8px;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-mask-image: -webkit-radial-gradient(white, rgb(0, 0, 0));
+  @include round-l;
+  // -webkit-appearance: none;
+  // -webkit-tap-highlight-color: transparent;
+  // -webkit-mask-image: -webkit-radial-gradient(white, rgb(0, 0, 0));
   overflow: hidden;
   cursor: pointer;
   text-align: center;
@@ -60,6 +60,8 @@ const handleClick = () => {
   background: var(--background);
   transform: scale(var(--scale, 1));
   transition: transform 0.4s cubic-bezier(0.36, 1.01, 0.32, 1.27);
+  @include shadow-l;
+
   &:active {
     --scale: 0.95;
   }
@@ -68,9 +70,7 @@ const handleClick = () => {
     font-weight: 500;
     display: block;
     position: relative;
-    padding-left: 24px;
-    margin-left: -8px;
-    line-height: 26px;
+
     transform: translateY(var(--span-y, 0));
     transition: transform 0.7s ease;
     &:before,
@@ -85,6 +85,9 @@ const handleClick = () => {
       background: currentColor;
       transform: scale(0.75) rotate(var(--icon-r, 0deg)) translateY(var(--icon-y, 0));
       transition: transform 0.65s ease 0.05s;
+      margin-top: -12px;
+      margin-left: 15px;
+      display: none;
     }
     &:after {
       --w: 14px;
@@ -110,7 +113,7 @@ const handleClick = () => {
       height: 6px;
       border-radius: 50%;
       box-shadow: inset 0 0 0 2px var(--cart);
-      bottom: 15px;
+      bottom: 16px;
       left: 17px;
       filter: drop-shadow(11px 0 0 var(--cart));
     }
@@ -119,7 +122,7 @@ const handleClick = () => {
       height: 9px;
       background: var(--cart);
       left: 18px;
-      bottom: 24px;
+      bottom: 25px;
       transform-origin: 50% 100%;
       transform: perspective(4px) rotateX(-6deg) scaleY(var(--fill, 0));
       transition: transform 1.2s ease var(--fill-d);
@@ -147,7 +150,7 @@ const handleClick = () => {
   }
   &.loading {
     --scale: 0.95;
-    --span-y: -32px;
+    --span-y: -40px;
     --icon-r: 180deg;
     --fill: 1;
     --fill-d: 0.8s;

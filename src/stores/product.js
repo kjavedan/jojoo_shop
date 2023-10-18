@@ -31,36 +31,45 @@ export const useProductStore = defineStore('product', () => {
   }
 
   function addProductToCart(itemToAdd){
-    const isItemAlreadyExist = cartData.value.includes(product => product.id === itemToAdd.id)
+    const isItemAlreadyExist = cartData.value.some(product => product.id === itemToAdd.id)
     if(isItemAlreadyExist){
-      //increase item qty
+      cartData.value.map(item => item.id === itemToAdd.id ? {...item, count: item.count++} : item  )
     }else{
-      cartData.value.push(itemToAdd)
+      cartData.value.push({...itemToAdd, count: 1})
+      
     }
-    productsData.value.map(product => product.id === id)
-
-  }
-
-  function removeProductFromCart(id){
-
-  }
-
-  function increaseProductQty(id){
-
   }
 
   function decreaseProductQty(id){
+    cartData.value.map((item, index) => {
+      if(item.id !== id) return item
+      else if( item.id === id && item.count > 1){
+        return {...item, count: item.count--}
+      }
+      else {
+        cartData.value.pop(index)
+      }
+    })
+  }
 
+
+
+  function removeProductFromCart(id){
+    cartData.value.map((item, index) => item.id === id ? cartData.value.pop(index): item)
   }
 
   //hooks
   onBeforeMount(() => {
 
     const savedData = localStorage.getItem('favoriteProducts')
-    const storedCartData = localStorage.getItem('cartData')
-
     favoriteData.value = JSON.parse(savedData)
-    cartData.value = JSON.parse(storedCartData)
+    
+    const storedCartData = localStorage.getItem('cartData')
+    if(storedCartData){
+      cartData.value = JSON.parse(storedCartData)
+    }else{
+      localStorage.setItem('cartData', JSON.stringify([]))
+    }
     
     const storedData = localStorage.getItem('productsData')
 
@@ -98,5 +107,8 @@ export const useProductStore = defineStore('product', () => {
     favoriteData,
     toggleFavorite,
     cartData,
+    addProductToCart,
+    removeProductFromCart,
+    decreaseProductQty
   }
 })

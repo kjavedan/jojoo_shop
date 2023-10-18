@@ -39,7 +39,22 @@
           {{ heldProduct.description }}
         </p>
       </div>
-      <ButtonAddToCart @click="handleClick"></ButtonAddToCart>
+      <div v-if="isCheckoutBtn" class="action-btns">
+        <button class="samll" @click="handleDecrease">
+          <img src="@/assets/images/Minus.png" alt="remove" />
+        </button>
+        <button class="small" @click="handleIncrease">
+          <img src="@/assets/images/Add.png" alt="remove" />
+        </button>
+        <button class="large" @click="handleCheckout">
+          <div class="basket">
+            <div class="circle">{{ counter }}</div>
+            <img src="@/assets/images/Basket.png" alt="remove" />
+          </div>
+          checkout
+        </button>
+      </div>
+      <ButtonAddToCart v-else @click="handleClick"></ButtonAddToCart>
     </div>
   </div>
 </template>
@@ -48,7 +63,11 @@
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import ButtonAddToCart from './ButtonAddToCart.vue'
+
+//routes
+const router = useRouter()
 
 //store
 const store = useProductStore()
@@ -56,6 +75,8 @@ const { heldProduct } = storeToRefs(store)
 
 //refs
 const heldImg = ref(heldProduct.value?.imgUrls[0])
+const isCheckoutBtn = ref(false)
+const counter = ref(0)
 
 //funcs
 const unHeldProduct = () => {
@@ -67,7 +88,29 @@ const handleImageChange = (index) => {
 }
 
 const handleClick = () => {
-  console.log('click')
+  store.addProductToCart(heldProduct.value)
+  isCheckoutBtn.value = true
+  counter.value++
+}
+
+const handleIncrease = () => {
+  store.addProductToCart(heldProduct.value.id)
+  counter.value++
+}
+
+const handleDecrease = () => {
+  store.decreaseProductQty(heldProduct.value.id)
+  counter.value--
+
+  if (counter.value <= 0) {
+    isCheckoutBtn.value = false
+  }
+}
+
+const handleCheckout = () => {
+  heldProduct.value = null
+  isCheckoutBtn.value = false
+  router.push({ name: 'cart' })
 }
 //hooks
 watch(heldProduct, (newValue) => {
@@ -150,6 +193,57 @@ watch(heldProduct, (newValue) => {
         line-height: 15px;
         margin-top: 0.5rem;
         color: #7c7c7c;
+      }
+    }
+    .action-btns {
+      @include flex-row;
+      gap: 12px;
+      button {
+        @include ease;
+        width: 100%;
+        border: none;
+        outline: none;
+        &:active {
+          transform: scale(0.9);
+        }
+        img {
+          height: 80%;
+        }
+
+        @include flex-center;
+        color: white;
+        height: 45px;
+        @include round-l;
+      }
+      .small {
+        min-height: 12%;
+        box-shadow: 2px 2px 7px 0px rgba(206, 206, 206, 0.43) inset;
+      }
+      .large {
+        min-width: 50%;
+        background: black;
+        font-family: $primary-font;
+        @include shadow-l;
+        gap: 10px;
+        .basket {
+          height: 50%;
+          position: relative;
+          .circle {
+            position: absolute;
+            top: -3px;
+            left: -5px;
+            font-size: 10px;
+            height: 15px;
+            width: 15px;
+            background: white;
+            color: #000;
+
+            @include round-xl;
+          }
+          img {
+            height: 100%;
+          }
+        }
       }
     }
   }
