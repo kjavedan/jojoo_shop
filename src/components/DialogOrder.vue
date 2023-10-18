@@ -96,7 +96,7 @@ const handleClick = () => {
 }
 
 const handleIncrease = () => {
-  store.addProductToCart(heldProduct.value.id)
+  store.addProductToCart(heldProduct.value)
   counter.value++
 }
 

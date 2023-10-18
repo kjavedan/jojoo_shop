@@ -1,12 +1,14 @@
 <template>
   <div :class="['cart-item']">
-    <div class="product-img"></div>
+    <div class="product-img">
+      <img :src="imgUrl" :alt="name" />
+    </div>
     <div class="product-info">
       <div class="row">
-        <h4>Pokemon</h4>
-        <h5>100AED</h5>
+        <h4>{{ name }}</h4>
+        <h5>{{ price }}AED</h5>
       </div>
-      <p class="txt-small">inof about the product</p>
+      <p class="txt-small">{{ description }}</p>
       <div class="row">
         <h5>Date:</h5>
         <span class="txt-small black">12/12/2023</span>
@@ -20,7 +22,7 @@
 </template>
 
 <script setup>
-defineProps(['imgUrl'])
+defineProps(['imgUrl', 'name', 'price', 'description', 'count'])
 </script>
 
 <style lang="scss">
@@ -35,6 +37,10 @@ defineProps(['imgUrl'])
     background: #f6f6f6;
     height: 100%;
     @include round-m;
+    @include flex-center;
+    img {
+      height: 70%;
+    }
   }
 
   .product-info {

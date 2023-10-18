@@ -35,7 +35,8 @@
     </div>
 
     <div class="item menu" @click="isSidebar = !isSidebar">
-      <img src="@/assets/images/menu.png" alt="menu" />
+      <img v-if="!isSidebar" src="@/assets/images/menu.png" alt="menu" />
+      <img v-else src="@/assets/images/menu-black.png" alt="menu" />
     </div>
   </div>
 </template>
@@ -75,7 +76,7 @@ const toggleSearch = () => {
   background: transparent;
   position: fixed;
   transition: all 0.3s ease-in-out;
-  bottom: 15%;
+  bottom: 30px;
   right: 10px;
 
   z-index: 999;
@@ -98,9 +99,9 @@ const toggleSearch = () => {
     @include flex-center;
 
     &.menu {
-      background: $clr-white-soft;
+      background: black;
       @include round-s;
-      @include shadow-m;
+      @include shadow-l;
     }
   }
 
@@ -113,7 +114,7 @@ const toggleSearch = () => {
   }
 
   &.expand {
-    bottom: 20%;
+    bottom: 10%;
     background: white;
     @include shadow-s;
 

@@ -33,10 +33,9 @@ export const useProductStore = defineStore('product', () => {
   function addProductToCart(itemToAdd){
     const isItemAlreadyExist = cartData.value.some(product => product.id === itemToAdd.id)
     if(isItemAlreadyExist){
-      cartData.value.map(item => item.id === itemToAdd.id ? {...item, count: item.count++} : item  )
+     cartData.value.map(item => item.id === itemToAdd.id ? {...item, count: item.count++} : item  )
     }else{
-      cartData.value.push({...itemToAdd, count: 1})
-      
+      cartData.value.push({...itemToAdd, count: 1})  
     }
   }
 
