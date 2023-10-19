@@ -90,6 +90,7 @@ const toggleSearch = () => {
     top: 50%;
     background: transparent;
     box-shadow: none;
+    height: 380px;
   }
 
   .item {
