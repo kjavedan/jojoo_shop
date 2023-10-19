@@ -58,6 +58,19 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
+  function addToOrderHistory () {
+
+    const newOrder = {
+      orderId: orderHistoryData.value.length + 1,
+      status: '1',
+      totalPrice: totalPrice,
+      items: cartData.value
+    }
+
+    orderHistoryData.value.push(newOrder)
+    cartData.value = []
+  }
+
   onBeforeMount(() => {
     const storedFavoriteData = localStorage.getItem('favoriteProducts')
     favoriteData.value = storedFavoriteData ? JSON.parse(storedFavoriteData) : []
@@ -112,6 +125,7 @@ export const useProductStore = defineStore('product', () => {
     removeProductFromCart,
     decreaseProductQty,
     totalPrice,
-    orderHistoryData
+    orderHistoryData,
+    addToOrderHistory
   }
 })

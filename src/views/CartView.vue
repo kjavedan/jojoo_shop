@@ -12,9 +12,9 @@
         :count="item.count"
         :imgUrl="item.imgUrls[0]"
       ></CartItem>
-      <div class="checkout">
+      <div class="checkout" v-if="cartData.length">
         <h2 class="total-price">Total Price: {{ totalPrice }}AED</h2>
-        <a :href="getWhatsAppLink()" class="payment" target="_blank">Make Payment</a>
+        <button @click="handlePayment" class="payment">Make Payment</button>
       </div>
     </div>
   </div>
@@ -31,7 +31,8 @@ const store = useProductStore()
 const { cartData, totalPrice } = storeToRefs(store)
 
 //funcs
-const getWhatsAppLink = () => {
+// methods
+const handlePayment = () => {
   const message = `Hello. Here is my order:\n\n`
   const items = cartData.value
     .map((item) => {
@@ -40,9 +41,12 @@ const getWhatsAppLink = () => {
     .join('')
   const totalPriceMessage = `\nTotal Price: ${totalPrice.value} AED`
 
-  return `https://wa.me/+971502597949?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/+971502597949?text=${encodeURIComponent(
     message + items + totalPriceMessage
   )}`
+  window.open(whatsappLink, '_blank')
+
+  store.addToOrderHistory()
 }
 </script>
 
@@ -51,7 +55,6 @@ const getWhatsAppLink = () => {
 .wrapper {
   max-width: 500px;
   margin: 1rem auto;
-
   .cart {
     @include flex-col;
     padding: 1rem 1rem 1rem 0.5rem;
