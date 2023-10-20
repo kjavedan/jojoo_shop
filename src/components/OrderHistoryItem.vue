@@ -1,5 +1,5 @@
 <template>
-  <div class="order">
+  <div class="order" @click="handleClick">
     <h4 class="order__status">{{ getStatus }}</h4>
     <h5 class="order__id">#{{ orderId }}</h5>
   </div>
@@ -7,7 +7,12 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
+//router
+const router = useRouter()
+
+//props
 const props = defineProps(['orderId', 'status', 'totalPrice', 'items'])
 
 //computed
@@ -25,6 +30,11 @@ const getStatus = computed(() => {
       return undefined
   }
 })
+
+//funcs
+const handleClick = () => {
+  router.push({ name: 'confirmed-order', params: { id: props.orderId } })
+}
 </script>
 
 <style lang="scss" scoped>

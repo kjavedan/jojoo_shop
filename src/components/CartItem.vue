@@ -20,8 +20,8 @@
         <span class="txt-small">{{ count * price }}AED</span>
       </div>
     </div>
-    <div class="delete" @click="store.removeProductFromCart(id)">
-      <img height="24" src="@/assets/images/Trash.png" :alt="trash" />
+    <div v-if="!history" class="delete" @click="store.removeProductFromCart(id)">
+      <img height="24" src="@/assets/images/Trash.png" alt="trash" />
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@
 <script setup>
 import { useProductStore } from '@/stores/product'
 
-defineProps(['id', 'imgUrl', 'name', 'price', 'description', 'count'])
+defineProps(['id', 'imgUrl', 'name', 'price', 'description', 'count', 'history'])
 
 //store
 const store = useProductStore()

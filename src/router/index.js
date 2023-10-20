@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import CartView from '@/views/CartView.vue'
 import FavoriteView from '@/views/FavoriteView.vue'
+import confirmedOrderView from '@/views/confirmedOrderView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
       name: 'favorite',
       component: FavoriteView
     },
+    {
+      path: '/confirmed-order/:id',
+      name: 'confirmed-order',
+      component: confirmedOrderView
+    }
   ]
 })
 
