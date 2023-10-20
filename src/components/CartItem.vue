@@ -1,7 +1,12 @@
 <template>
   <div :class="['cart-item']">
-    <div class="product-img">
-      <img :src="imgUrl" :alt="name" />
+    <div class="left">
+      <div class="delete" @click="store.removeProductFromCart(id)">
+        <img height="24" src="@/assets/images/Trash.png" :alt="trash" />
+      </div>
+      <div class="product-img">
+        <img :src="imgUrl" :alt="name" />
+      </div>
     </div>
     <div class="product-info">
       <div class="row">
@@ -22,7 +27,12 @@
 </template>
 
 <script setup>
-defineProps(['imgUrl', 'name', 'price', 'description', 'count'])
+import { useProductStore } from '@/stores/product'
+
+defineProps(['id', 'imgUrl', 'name', 'price', 'description', 'count'])
+
+//store
+const store = useProductStore()
 </script>
 
 <style lang="scss" scoped>
@@ -32,14 +42,27 @@ defineProps(['imgUrl', 'name', 'price', 'description', 'count'])
   height: 80px;
   @include row-between;
   gap: 10px;
-  .product-img {
-    min-width: 80px;
-    background: #f6f6f6;
+  .left {
+    width: 130px;
     height: 100%;
-    @include round-m;
-    @include flex-center;
-    img {
-      height: 70%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    .delete {
+      cursor: pointer;
+      width: 30px;
+      @include flex-center;
+    }
+    .product-img {
+      min-width: 80px;
+      background: #f6f6f6;
+      height: 100%;
+      @include round-m;
+      @include flex-center;
+
+      img {
+        height: 70%;
+      }
     }
   }
 
