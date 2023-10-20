@@ -1,9 +1,6 @@
 <template>
   <div :class="['cart-item']">
     <div class="left">
-      <div class="delete" @click="store.removeProductFromCart(id)">
-        <img height="24" src="@/assets/images/Trash.png" :alt="trash" />
-      </div>
       <div class="product-img">
         <img :src="imgUrl" :alt="name" />
       </div>
@@ -22,6 +19,9 @@
         <h6>Total price:</h6>
         <span class="txt-small">{{ count * price }}AED</span>
       </div>
+    </div>
+    <div class="delete" @click="store.removeProductFromCart(id)">
+      <img height="24" src="@/assets/images/Trash.png" :alt="trash" />
     </div>
   </div>
 </template>
@@ -43,16 +43,11 @@ const store = useProductStore()
   @include row-between;
   gap: 10px;
   .left {
-    width: 130px;
+    // width: 130px;
     height: 100%;
     display: flex;
     align-items: center;
-    gap: 20px;
-    .delete {
-      cursor: pointer;
-      width: 30px;
-      @include flex-center;
-    }
+
     .product-img {
       min-width: 80px;
       background: #f6f6f6;
@@ -98,6 +93,12 @@ const store = useProductStore()
       color: black;
       font-weight: bold;
     }
+  }
+  .delete {
+    cursor: pointer;
+    width: 20px;
+    @include flex-center;
+    margin-left: 10px;
   }
 }
 </style>

@@ -65,9 +65,10 @@ const handlePayment = () => {
 .wrapper {
   max-width: 500px;
   margin: 1rem auto;
+  margin-top: 1.5rem;
   .cart {
     @include flex-col;
-    padding: 1rem 1rem 1rem 0.5rem;
+    padding: 1rem 0.5rem;
     gap: 15px;
 
     .checkout {
@@ -82,10 +83,8 @@ const handlePayment = () => {
     }
   }
   .empty-cart {
-    height: 300px;
-    width: 400px;
-    margin: 0 auto;
     text-align: center;
+    padding: 2rem;
     img {
       width: 200px;
       margin: 0 auto;

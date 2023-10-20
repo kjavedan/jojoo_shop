@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" v-if="orderHistoryData.length">
-    <h2>Order history</h2>
+    <h3>Order history</h3>
     <div class="order-history">
       <OrderHistoryItem
         v-for="order in orderHistoryData"
@@ -34,7 +34,7 @@ const { orderHistoryData } = storeToRefs(store)
   .order-history {
     width: calc(100% + 6px);
     overflow-x: scroll;
-    height: 90px;
+    height: 100px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -46,7 +46,7 @@ const { orderHistoryData } = storeToRefs(store)
       min-width: 110px;
       padding: 10px;
       @include round-l;
-      @include shadow-s;
+      @include shadow-m;
       background: $clr-white-soft;
       @include flex-col;
       justify-content: center;

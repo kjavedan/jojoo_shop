@@ -28,7 +28,7 @@ const handleClick = () => {
     setTimeout(() => {
       loading.value = false
       emits('click')
-    }, 3700)
+    }, 2500)
   }
 }
 </script>
@@ -102,7 +102,7 @@ const handleClick = () => {
     top: 50%;
     margin: -14px 0 0 -18px;
     transform-origin: 12px 23px;
-    transform: translateX(-120px) rotate(-18deg);
+    transform: translateX(-100px) rotate(-18deg);
     &:before,
     &:after {
       content: '';
@@ -157,14 +157,14 @@ const handleClick = () => {
     --offset: 0;
     --offset-d: 1.73s;
     .cart {
-      animation: cart 3.4s linear forwards 0.2s;
+      animation: cart 2.2s linear forwards 0.2s;
     }
   }
 }
 
 @keyframes cart {
   12.5% {
-    transform: translateX(-60px) rotate(-18deg);
+    transform: translateX(-40px) rotate(-18deg);
   }
   25%,
   45%,

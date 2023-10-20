@@ -35,9 +35,9 @@ const getStatus = computed(() => {
   min-width: 110px;
   padding: 10px;
   @include round-m;
-  @include shadow-s;
   background: $clr-white-soft;
   @include flex-col;
+
   justify-content: center;
   align-items: center;
 

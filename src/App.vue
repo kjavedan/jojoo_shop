@@ -32,7 +32,7 @@ import Footer from '@/components/Footer.vue'
 
 .container {
   width: 97%;
-  min-height: 100%;
+  min-height: 100svh;
   padding-top: 0.5rem;
   margin: 0 auto;
   // border: solid;

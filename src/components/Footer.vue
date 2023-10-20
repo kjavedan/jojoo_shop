@@ -13,8 +13,8 @@
         </div>
         <div class="footer-section">
           <h3>Contact Us</h3>
-          <p>Email: info@jojooshop.com</p>
-          <p>Phone: 123-456-7890</p>
+          <p>Email: admin@jojooshop.com</p>
+          <p>Phone: 050-259-7949</p>
         </div>
       </div>
       <div class="copyright">
@@ -29,11 +29,14 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/main.scss';
+
 .footer {
   background-color: #f8f9fa;
   padding: 2rem 0;
   color: #333;
   text-align: center;
+  width: 100%;
 }
 
 .container {
@@ -43,17 +46,24 @@ import { RouterLink } from 'vue-router'
 
 .footer-content {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+
+  @include tablet {
+    justify-content: space-around;
+  }
 }
 
 .footer-section {
   flex: 1;
   margin-bottom: 1.5rem;
-
   h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 0.8rem;
   }
 
   ul {
@@ -67,6 +77,6 @@ import { RouterLink } from 'vue-router'
 
 .copyright {
   margin-top: 2rem;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 </style>
