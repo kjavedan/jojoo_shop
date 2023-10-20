@@ -4,7 +4,7 @@
     <Sidebar></Sidebar>
     <DialogSearch></DialogSearch>
     <DialogOrder></DialogOrder>
-    <div class="wrapper">
+    <main class="wrapper">
       <RouterView v-slot="{ Component }">
         <Transition
           name="custom-classes"
@@ -13,15 +13,17 @@
           <component :is="Component" />
         </Transition>
       </RouterView>
-    </div>
+    </main>
   </div>
+  <Footer></Footer>
 </template>
 
 <script setup>
 import Logo from '@/components/Logo.vue'
 import Sidebar from '@/components/Sidebar.vue'
-import DialogOrder from './components/DialogOrder.vue'
-import DialogSearch from './components/DialogSearch.vue'
+import DialogOrder from '@/components/DialogOrder.vue'
+import DialogSearch from '@/components/DialogSearch.vue'
+import Footer from '@/components/Footer.vue'
 </script>
 
 <style lang="scss" scoped>

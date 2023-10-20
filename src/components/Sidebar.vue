@@ -1,5 +1,5 @@
 <template>
-  <div :class="['side-bar', { expand: isSidebar }]">
+  <nav :class="['side-bar', { expand: isSidebar }]">
     <div v-if="isSidebar">
       <div class="item" @click="toggleSearch">
         <img src="@/assets/images/search.png" alt="search" />
@@ -38,7 +38,7 @@
       <img v-if="!isSidebar" src="@/assets/images/menu.png" alt="menu" />
       <img v-else src="@/assets/images/menu-black.png" alt="menu" />
     </div>
-  </div>
+  </nav>
 </template>
 
 <script setup>

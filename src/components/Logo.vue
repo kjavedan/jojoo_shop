@@ -1,9 +1,9 @@
 <template>
-  <div class="logo">
+  <header class="logo">
     <RouterLink :to="{ name: 'home' }">
       <h1>jojoo <span>shop.</span></h1>
     </RouterLink>
-  </div>
+  </header>
 </template>
 
 <style lang="scss" scoped>
