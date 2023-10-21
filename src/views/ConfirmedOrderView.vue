@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <Stepper :status="orderData.status"></Stepper>
     <div class="cart">
       <CartItem
         v-for="item in orderData.items"
@@ -21,6 +22,7 @@ import { useProductStore } from '@/stores/product'
 import { useRoute, useRouter } from 'vue-router'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import Stepper from '../components/Stepper.vue'
 
 //routes
 const router = useRouter()

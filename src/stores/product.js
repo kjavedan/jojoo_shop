@@ -62,7 +62,7 @@ export const useProductStore = defineStore('product', () => {
 
     const newOrder = {
       orderId: orderHistoryData.value.length + 1,
-      status: '1',
+      status: 0,
       totalPrice: totalPrice,
       items: cartData.value
     }
