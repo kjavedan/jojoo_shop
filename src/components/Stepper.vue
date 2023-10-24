@@ -1,30 +1,26 @@
 <template>
   <div class="stepper">
-    <div class="steps">
-      <div
-        v-for="(step, index) in steps"
-        :key="index"
-        @click="selectStep(index)"
-        :class="['step', { active: index === status }]"
-      >
-        <div class="top">
-          <div class="step-circle">
-            <img :src="step.icon" class="icon" />
+    <div class="steps" v-for="(step, index) in steps" :key="index">
+      <div class="line"></div>
+      <div class="step-wrapper">
+        <div @click="selectStep(index)" :class="['step', { active: index == status }]">
+          <div class="top">
+            <div class="step-circle">
+              <img :src="step.icon" class="icon" />
+            </div>
           </div>
+          <div class="step-label">{{ step.title }}</div>
         </div>
-
-        <div class="step-label">{{ step.title }}</div>
       </div>
     </div>
-
-    <div class="step-info" v-if="currentStep !== null">
-      {{ steps[currentStep].info }}
-    </div>
+  </div>
+  <div class="step-info" v-if="currentStep !== null">
+    {{ steps[currentStep].info }}
   </div>
 </template>
 
 <script setup>
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, defineProps, onMounted, watch, onBeforeUnmount } from 'vue'
 import inProcessIcon from '@/assets/images/Process.png'
 import packedIcon from '@/assets/images/Packed.png'
 import onTheWayIcon from '@/assets/images/On-the-way.png'
@@ -33,8 +29,8 @@ import deliveredIcon from '@/assets/images/Shipped.png'
 // props
 const props = defineProps(['status'])
 
-// static
-const steps = [
+// refs
+const steps = ref([
   {
     title: 'In Process',
     info: 'This step represents the initial processing of your order.',
@@ -55,7 +51,7 @@ const steps = [
     info: 'Congratulations! Your order has been successfully delivered..',
     icon: deliveredIcon
   }
-]
+])
 
 // ref
 const currentStep = ref(null)
@@ -76,39 +72,40 @@ onBeforeMount(() => {
 
 .stepper {
   display: flex;
-  flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  border: solid;
 }
 
 .steps {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  // justify-content: space-between;
   margin-bottom: 20px;
+  border: solid;
 
-  .step {
-    @include flex-col;
+  .line {
+    width: 100%;
+    border: solid 2px green;
+  }
+  .step-wrapper {
+    width: 100%;
+    border: solid blue;
+    display: flex;
     align-items: center;
-    width: 25%;
-    .top {
-      border: solid;
+
+    .step {
+      border: solid red;
+      @include flex-col;
+      align-items: center;
       position: relative;
-      &::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0%;
-        width: calc(20svw - 34px);
-        height: 2px;
-        background-color: #ccc;
-        transform: translate(-100%, -50%);
+      .top {
+        // position: relative;
       }
-    }
-    &:nth-child(1) {
-      ::before {
-        display: none;
+
+      &:nth-child(1) {
+        .top::before {
+          display: none;
+        }
       }
     }
   }
@@ -145,6 +142,7 @@ onBeforeMount(() => {
 
 .steps div.active .step-circle {
   background-color: #000000;
+  box-shadow: none;
   border: none;
 
   .icon {
