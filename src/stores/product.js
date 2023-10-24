@@ -11,8 +11,13 @@ export const useProductStore = defineStore('product', () => {
   const isSearch = ref(false)
 
   const totalPrice = computed(() => {
+    console.log(cartData.value)
     return cartData.value.reduce((sum, item) => sum + item.count * item.price, 0).toFixed(2)
   })
+
+  function getTotalPrice() {
+    return cartData.value.reduce((sum, item) => sum + item.count * item.price, 0).toFixed(2)
+  }
 
   function holdProductInfo(info) {
     heldProduct.value = info
@@ -58,12 +63,11 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  function addToOrderHistory () {
-
+  function addToOrderHistory() {
     const newOrder = {
       orderId: orderHistoryData.value.length + 1,
-      status: 0,
-      totalPrice: totalPrice,
+      status: '1',
+      totalPrice: getTotalPrice(),
       items: cartData.value
     }
 

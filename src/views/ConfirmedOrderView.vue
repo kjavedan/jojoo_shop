@@ -13,6 +13,9 @@
         :imgUrl="item.imgUrls"
         :history="true"
       ></CartItem>
+      <div class="checkout">
+        <h2 class="total-price">Total Price: {{ orderData.totalPrice }}AED</h2>
+      </div>
     </div>
   </div>
 </template>

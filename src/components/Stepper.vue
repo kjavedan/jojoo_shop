@@ -1,13 +1,11 @@
 <template>
   <div class="stepper">
     <div class="steps" v-for="(step, index) in steps" :key="index">
-      <div class="line"></div>
+      <div :class="['line', { active: index < status }]" v-if="index != 0"></div>
       <div class="step-wrapper">
-        <div @click="selectStep(index)" :class="['step', { active: index == status }]">
-          <div class="top">
-            <div class="step-circle">
-              <img :src="step.icon" class="icon" />
-            </div>
+        <div @click="selectStep(index)" :class="['step', { active: index < status }]">
+          <div class="step-circle">
+            <img :src="step.icon" class="icon" />
           </div>
           <div class="step-label">{{ step.title }}</div>
         </div>
@@ -32,7 +30,7 @@ const props = defineProps(['status'])
 // refs
 const steps = ref([
   {
-    title: 'In Process',
+    title: 'Process',
     info: 'This step represents the initial processing of your order.',
     icon: inProcessIcon
   },
@@ -42,12 +40,12 @@ const steps = ref([
     icon: packedIcon
   },
   {
-    title: 'On the Way',
+    title: 'sent',
     info: 'Your order is on the way to your delivery address.',
     icon: onTheWayIcon
   },
   {
-    title: 'Delivered',
+    title: 'shipped',
     info: 'Congratulations! Your order has been successfully delivered..',
     icon: deliveredIcon
   }
@@ -58,7 +56,7 @@ const currentStep = ref(null)
 
 // funcs
 const selectStep = (index) => {
-  currentStep.value = index
+  currentStep.value = index - 1
 }
 
 // hooks
@@ -71,33 +69,43 @@ onBeforeMount(() => {
 @import '@/assets/scss/main.scss';
 
 .stepper {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  border: solid;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr 1fr 1fr;
+  align-items: start;
+  margin: 20px auto;
+  width: 90%;
 }
 
 .steps {
   align-items: center;
   // justify-content: space-between;
-  margin-bottom: 20px;
-  border: solid;
-
+  // border: solid yellow;
+  // height: 100px;
   .line {
     width: 100%;
-    border: solid 2px green;
+    border: solid 1px rgb(208, 208, 208);
+    margin-top: -15px;
+
+    &.active {
+      border: solid 1px #000000;
+    }
   }
   .step-wrapper {
-    width: 100%;
-    border: solid blue;
+    // min-width: 40px;
+    // width: fit-content;
+    // width: 100px;
+    // border: solid blue;
+    overflow: visible;
     display: flex;
     align-items: center;
 
     .step {
-      border: solid red;
+      // border: solid red;
       @include flex-col;
       align-items: center;
       position: relative;
+      margin: 0 auto;
+
       .top {
         // position: relative;
       }
@@ -119,8 +127,8 @@ onBeforeMount(() => {
 }
 
 .step-circle {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   background: #ededed;
   border-radius: 50%;
   display: flex;
@@ -138,6 +146,7 @@ onBeforeMount(() => {
 .step-label {
   font-size: 11px;
   text-align: center;
+  text-wrap: nowrap;
 }
 
 .steps div.active .step-circle {
@@ -153,8 +162,13 @@ onBeforeMount(() => {
 .step-info {
   font-size: 18px;
   text-align: center;
-  width: 300px;
+  width: 90%;
   padding: 20px;
-  border: 1px solid #ccc;
+  @include shadow-s;
+  @include round-m;
+  @include flex-center;
+  background-color: $clr-white-soft;
+  margin: 2rem auto;
+  height: 100px;
 }
 </style>
