@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="step-info" v-if="currentStep !== null">
-    {{ steps[currentStep].info }}
+    {{ steps[currentStep]?.info }}
   </div>
 </template>
 

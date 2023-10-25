@@ -19,13 +19,13 @@
           <img :src="heldImg" alt="" />
         </div>
         <div class="childs-img">
-          <div class="child-img" @click="handleImageChange(0)">
+          <div class="child-img" @mouseenter="handleImageChange(0)">
             <img :src="heldProduct.imgUrls[0]" alt="" />
           </div>
-          <div class="child-img" @click="handleImageChange(1)">
+          <div class="child-img" @mouseenter="handleImageChange(1)">
             <img :src="heldProduct.imgUrls[1]" alt="" />
           </div>
-          <div class="child-img" @click="handleImageChange(2)">
+          <div class="child-img" @mouseenter="handleImageChange(2)">
             <img :src="heldProduct.imgUrls[2]" alt="" />
           </div>
         </div>
@@ -133,6 +133,8 @@ watch(heldProduct, (newValue) => {
     position: relative;
     @include flex-col;
     margin-top: -3rem;
+
+    max-height: 700px;
 
     @include pc-m {
       margin-top: unset;

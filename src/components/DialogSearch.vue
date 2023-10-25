@@ -27,7 +27,7 @@
 <script setup>
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Input from './Input.vue'
 import SearchResultItem from './SearchResultItem.vue'
 import { products } from '../data/indx'
@@ -49,6 +49,8 @@ const toggleSearch = () => {
 const handleChange = (value) => {
   inputValue.value = value
 }
+
+//hooks
 
 watch(inputValue, (newVal) => {
   searchResults.value = products.filter(

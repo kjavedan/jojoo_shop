@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 
 //emit
 const emits = defineEmits(['change'])
@@ -27,11 +27,11 @@ const emits = defineEmits(['change'])
 //prps
 
 //refs
-
-const inputValue = ref()
+const inputValue = ref('')
 const isFocused = ref(false)
 const inputRef = ref(null)
 
+//funcs
 const onBlur = () => {
   if (!inputValue.value) {
     isFocused.value = false
@@ -41,6 +41,13 @@ const onBlur = () => {
 const handleChange = (e) => {
   emits('change', e.target.value)
 }
+
+//hooks
+onMounted(() => {
+  setTimeout(() => {
+    inputRef.value?.focus()
+  }, 200)
+})
 </script>
 
 <style scoped lang="scss">
