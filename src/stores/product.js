@@ -11,7 +11,6 @@ export const useProductStore = defineStore('product', () => {
   const isSearch = ref(false)
 
   const totalPrice = computed(() => {
-    console.log(cartData.value)
     return cartData.value.reduce((sum, item) => sum + item.count * item.price, 0).toFixed(2)
   })
 
@@ -87,7 +86,7 @@ export const useProductStore = defineStore('product', () => {
 
     const storedProductData = localStorage.getItem('productsData')
     productsData.value = storedProductData ? JSON.parse(storedProductData) : products
-  })
+  }) 
 
   watch(
     productsData,
