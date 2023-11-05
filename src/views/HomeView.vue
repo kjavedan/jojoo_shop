@@ -6,14 +6,7 @@
 
 <script setup>
 import Products from '@/components/Products.vue'
-import { getProductsData } from '@/api'
 import { onMounted } from 'vue'
-
-onMounted(() => {
-  getProductsData()
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
-})
 </script>
 
 <style lang="scss" scoped>
