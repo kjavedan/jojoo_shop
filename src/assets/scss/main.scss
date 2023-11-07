@@ -30,11 +30,11 @@ body {
   }
 
   h2 {
-    @include heading-style(28px, 1.4, $font-weight-bold);
+    @include heading-style(24px, 1.2, $font-weight-bold);
   }
 
   h3 {
-    @include heading-style(24px, 1.6, $font-weight-bold);
+    @include heading-style(20px, 1.1, $font-weight-bold);
   }
 
   p {

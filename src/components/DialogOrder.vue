@@ -186,7 +186,7 @@ watch(heldProduct, (newValue) => {
     }
     .info {
       margin-top: 2rem;
-      height: 17%;
+      height: 18%;
       .row {
         @include row-between;
 
@@ -257,7 +257,7 @@ watch(heldProduct, (newValue) => {
   }
   .more-btn {
     @include flex-center;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 }
 </style>
