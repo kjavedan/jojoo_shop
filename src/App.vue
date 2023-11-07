@@ -31,11 +31,11 @@ import Footer from '@/components/Footer.vue'
 @import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
 
 .container {
-  width: 97%;
-  min-height: 100svh;
-  padding-top: 0.5rem;
-  margin: 0 auto;
   // border: solid;
+  width: 97%;
+  min-height: 100dvh;
+  margin: 0 auto;
+  // border: solid red;
   position: relative;
 
   @include pc-s {
@@ -47,7 +47,7 @@ import Footer from '@/components/Footer.vue'
   }
 }
 .wrapper {
-  margin-top: 1rem;
+  // margin-top: 0.5rem;
   padding-bottom: 10rem;
 }
 .animate__animated.animate__fadeInLeft {

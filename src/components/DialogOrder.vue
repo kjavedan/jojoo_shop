@@ -55,6 +55,9 @@
         </button>
       </div>
       <ButtonAddToCart v-else @click="handleClick"></ButtonAddToCart>
+      <div class="more-btn" @click="unHeldProduct">
+        <RouterLink :to="{ name: 'product', params: { id: '123' } }">see more details</RouterLink>
+      </div>
     </div>
   </div>
 </template>
@@ -183,7 +186,7 @@ watch(heldProduct, (newValue) => {
     }
     .info {
       margin-top: 2rem;
-      height: 20%;
+      height: 17%;
       .row {
         @include row-between;
 
@@ -251,6 +254,10 @@ watch(heldProduct, (newValue) => {
         }
       }
     }
+  }
+  .more-btn {
+    @include flex-center;
+    margin-top: 1.5rem;
   }
 }
 </style>
