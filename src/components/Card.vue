@@ -1,6 +1,7 @@
 <template>
   <div :class="['card']" @click="handleClick(id)">
     <img :src="imgUrls[0]" alt="product" />
+    <span class="price-tag">{{ price }}AED </span>
   </div>
 </template>
 
@@ -29,13 +30,23 @@ const handleClick = () => {
 .card {
   @include shadow-s;
   @include round-m;
-  @include flex-center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   background: #f6f6f6;
   cursor: pointer;
   aspect-ratio: 1/1;
-
+  position: relative;
   img {
-    height: 80%;
+    height: 70%;
+  }
+  .price-tag {
+    // position: absolute;
+    font-weight: 600;
+    color: rgb(115, 115, 115);
+    font-family: 'Poppins';
   }
 }
 </style>

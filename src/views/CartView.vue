@@ -62,6 +62,7 @@ const handlePayment = () => {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+
 .wrapper {
   max-width: 500px;
   margin: 1rem auto;

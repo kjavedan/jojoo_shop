@@ -11,7 +11,7 @@ import { ref } from 'vue'
 const pageRef = ref(null)
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
 .favorite {

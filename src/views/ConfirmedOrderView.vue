@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="confirmed-orders-wrapper">
     <Stepper :status="orderData.status"></Stepper>
     <div class="cart">
       <CartItem
@@ -51,7 +51,7 @@ onBeforeMount(() => {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
-.wrapper {
+.confirmed-orders-wrapper {
   max-width: 500px;
   margin: 1rem auto;
   margin-top: 1.5rem;

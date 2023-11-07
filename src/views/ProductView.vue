@@ -1,5 +1,5 @@
 <template>
-  <h1>product</h1>
+  <h1 class="page-title">product</h1>
 </template>
 
 <script>
