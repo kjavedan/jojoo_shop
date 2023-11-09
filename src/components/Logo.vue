@@ -98,6 +98,10 @@ watch(route, () => {
     img {
       height: 100%;
     }
+    .back-btn {
+      // border: solid;
+      margin-left: -10px;
+    }
   }
 }
 </style>

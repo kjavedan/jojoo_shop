@@ -4,7 +4,7 @@
     <Sidebar></Sidebar>
     <DialogSearch></DialogSearch>
     <DialogOrder></DialogOrder>
-    <main class="wrapper">
+    <main class="main-wrapper">
       <RouterView v-slot="{ Component }">
         <Transition
           name="custom-classes"
@@ -32,7 +32,7 @@ import Footer from '@/components/Footer.vue'
 
 .container {
   // border: solid;
-  width: 97%;
+  width: 95%;
   min-height: 100dvh;
   margin: 0 auto;
   // border: solid red;
@@ -46,9 +46,17 @@ import Footer from '@/components/Footer.vue'
     width: 1400px;
   }
 }
-.wrapper {
-  // margin-top: 0.5rem;
+.main-wrapper {
+  // padding: 0 1rem;
+  // border: solid;
   padding-bottom: 10rem;
+
+  .page-title {
+    padding-left: 1rem;
+    // font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    text-transform: capitalize;
+  }
 }
 .animate__animated.animate__fadeInLeft {
   --animate-duration: 0.5s;

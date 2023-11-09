@@ -1,5 +1,5 @@
 <template>
-  <h1>orders</h1>
+  <h1 class="page-title">my orders</h1>
 </template>
 
 <script>
