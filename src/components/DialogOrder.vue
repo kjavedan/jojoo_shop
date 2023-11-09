@@ -150,6 +150,7 @@ watch(heldProduct, (newValue) => {
       top: 20px;
       right: 20px;
       cursor: pointer;
+      z-index: 200;
     }
 
     .images-wrapper {

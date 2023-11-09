@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-item" @click="router.push({ name: path, params: { id: '123' } })">
+  <div class="profile-item" @click="router.push({ name: path })">
     <div class="icon">
       <img :src="icon" alt="info" />
       <span>{{ title }}</span>

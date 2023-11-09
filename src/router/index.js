@@ -58,19 +58,19 @@ const router = createRouter({
       meta: { requiresAuth: true } 
     },
     {
-      path: '/orders/:id',
+      path: '/orders',
       name: 'orders',
       component: OrdersView,
       meta: { requiresAuth: true } 
     },
     {
-      path: '/confirmed-order/:id',
+      path: '/confirmed-order',
       name: 'confirmed-order',
       component: ConfirmedOrderView,
       meta: { requiresAuth: true } 
     },
     {
-      path: '/reviews/:id',
+      path: '/reviews',
       name: 'reviews',
       component: ReviewsView,
       meta: { requiresAuth: true } 

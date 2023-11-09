@@ -266,12 +266,12 @@ export const profileItemsData = [
   {
     icon: About,
     title: 'About Us',
-    path: 'about-us'
+    path: 'about'
   },
   {
     icon: Headset,
     title: 'Customer support',
-    path: ''
+    path: 'support'
   },
   {
     icon: Settings,
