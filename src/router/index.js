@@ -9,6 +9,10 @@ import ProductView from '@/views/ProductView.vue';
 import ProfileView from '@/views/ProfileView.vue'
 import OrdersView from '@/views/OrdersView.vue'
 import ReviewsView from '@/views/ReviewsView.vue'
+import AboutUsView from '@/views/AboutUsView.vue'
+import UserInfoView from '@/views/UserInfoView.vue'
+import CustomerSupportView from '@/views/CustomerSupportView.vue'
+import SettingsView from '@/views/SettingsView.vue'
 import { useTokenStore } from '../stores/token';
 
 
@@ -48,7 +52,7 @@ const router = createRouter({
       meta: { requiresAuth: true } 
     },
     {
-      path: '/profile/:id',
+      path: '/profile',
       name: 'profile',
       component: ProfileView,
       meta: { requiresAuth: true } 
@@ -60,17 +64,38 @@ const router = createRouter({
       meta: { requiresAuth: true } 
     },
     {
+      path: '/confirmed-order/:id',
+      name: 'confirmed-order',
+      component: ConfirmedOrderView,
+      meta: { requiresAuth: true } 
+    },
+    {
       path: '/reviews/:id',
       name: 'reviews',
       component: ReviewsView,
       meta: { requiresAuth: true } 
     },
     {
-      path: '/confirmed-order/:id',
-      name: 'confirmed-order',
-      component: ConfirmedOrderView,
+      path: '/user-info',
+      name: 'user-info',
+      component: UserInfoView,
       meta: { requiresAuth: true } 
-    }
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: AboutUsView,
+    },
+    {
+      path: '/support',
+      name: 'support',
+      component: CustomerSupportView,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsView,
+    },
   ]
 });
 

@@ -131,6 +131,9 @@ watch(heldProduct, (newValue) => {
 
 .order-dialog {
   .dialog-content {
+    @include mobile {
+      height: 85svh;
+    }
     height: 80svh;
     padding: 0.5rem 2rem;
     position: relative;

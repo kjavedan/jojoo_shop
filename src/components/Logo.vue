@@ -4,7 +4,7 @@
       <RouterLink :to="{ name: 'home' }">
         <h1>jojoo <span>shop.</span></h1>
       </RouterLink>
-      <div class="profile" @click="router.push({ name: 'profile', params: { id: '123' } })">
+      <div class="profile" @click="router.push({ name: 'profile' })">
         <img src="@/assets/images/Account-outline.png" alt="Account" />
       </div>
     </div>
@@ -12,7 +12,7 @@
       <div class="back-btn" @click="router.back(1)">
         <img src="@/assets/images/Back.png" alt="back" />
       </div>
-      <div class="profile" @click="router.push({ name: 'profile', params: { id: '123' } })">
+      <div class="profile" @click="router.push({ name: 'profile' })">
         <img src="@/assets/images/Account-outline.png" alt="Account" />
       </div>
     </div>
