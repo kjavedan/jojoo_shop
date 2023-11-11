@@ -23,6 +23,7 @@
           type="text"
           v-model="loginForm.username"
           placeholder="enter your username"
+          class="custom-input"
         ></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="password">
@@ -30,6 +31,7 @@
           type="password"
           v-model="loginForm.password"
           placeholder="enter your password"
+          class="custom-input"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -50,8 +52,8 @@ import { ref } from 'vue'
 const loginFormRef = ref(null)
 const loginForm = ref({ username: '', password: '' })
 const rules = ref({
-  username: [{ required: true, message: 'Please enter username', trigger: 'blur' }],
-  password: [{ required: true, message: 'plase enter your password', trigger: 'blur' }]
+  username: [{ required: true, message: 'Please enter username', trigger: 'change' }],
+  password: [{ required: true, message: 'plase enter your password', trigger: 'change' }]
 })
 </script>
 
@@ -102,6 +104,10 @@ const rules = ref({
 
   .no-account {
     text-align: center;
+  }
+  .custom-input {
+    width: 100%;
+    height: 48px;
   }
 }
 </style>

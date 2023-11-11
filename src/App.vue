@@ -1,21 +1,23 @@
 <template>
-  <div class="container">
-    <Logo></Logo>
-    <Sidebar></Sidebar>
-    <DialogSearch></DialogSearch>
-    <DialogOrder></DialogOrder>
-    <main class="main-wrapper">
-      <RouterView v-slot="{ Component }">
-        <Transition
-          name="custom-classes"
-          enter-active-class="animate__animated animate__fadeInLeft"
-        >
-          <component :is="Component" />
-        </Transition>
-      </RouterView>
-    </main>
-  </div>
-  <Footer></Footer>
+  <el-config-provider namespace="ep">
+    <div class="container">
+      <Logo></Logo>
+      <Sidebar></Sidebar>
+      <DialogSearch></DialogSearch>
+      <DialogOrder></DialogOrder>
+      <main class="main-wrapper">
+        <RouterView v-slot="{ Component }">
+          <Transition
+            name="custom-classes"
+            enter-active-class="animate__animated animate__fadeInLeft"
+          >
+            <component :is="Component" />
+          </Transition>
+        </RouterView>
+      </main>
+    </div>
+    <Footer></Footer>
+  </el-config-provider>
 </template>
 
 <script setup>

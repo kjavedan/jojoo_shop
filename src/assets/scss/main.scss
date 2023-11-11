@@ -2,6 +2,7 @@
 @import './_mixin';
 @import './_variables';
 @import './disign-system';
+@import "./element-plus";
 
 html {
   ::-webkit-scrollbar {
@@ -24,6 +25,7 @@ html {
   }
 }
 
+
 body {
   h1 {
     @include heading-style(32px, 1.2, $font-weight-bold);
@@ -40,4 +42,5 @@ body {
   p {
     @include paragraph-style;
   }
+
 }
