@@ -279,3 +279,32 @@ export const profileItemsData = [
     path: 'settings'
   }
 ]
+
+export const userInfoData = [
+  {
+    
+    title: 'Username',
+    value: 'khaled.j'
+  },
+  {
+    
+    title: 'Email',
+    value: 'Javedankhaled@gmail.com'
+  },
+  {
+    
+    title: 'Phone',
+    value: '+971502597949'
+  },
+  {
+    
+    title: 'Password',
+    value: '.........'
+  },
+  {
+    
+    title: 'Address',
+    value: 'United Arab Emirates, Dubai, Dubai investment park, Building 3, Apartment 203, room 1'
+  },
+
+]

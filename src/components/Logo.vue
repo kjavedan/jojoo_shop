@@ -22,6 +22,7 @@
 <script setup>
 import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { toggleDark } from '../composables'
 
 //routes
 const route = useRoute()

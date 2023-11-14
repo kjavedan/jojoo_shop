@@ -15,6 +15,7 @@ declare module 'vue' {
     DialogSuccess: typeof import('./components/DialogSuccess.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
@@ -32,5 +33,6 @@ declare module 'vue' {
     SearchResultItem: typeof import('./components/SearchResultItem.vue')['default']
     Sidebar: typeof import('./components/Sidebar.vue')['default']
     Stepper: typeof import('./components/Stepper.vue')['default']
+    UserInfoItem: typeof import('./components/UserInfoItem.vue')['default']
   }
 }

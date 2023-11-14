@@ -8,7 +8,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   @include flex-center;
   z-index: 999;
   opacity: 0;
@@ -33,4 +33,21 @@
 }
 .animate__animated.animate__pulse {
   --animate-duration: 0.8s;
+}
+
+.ep-input {
+  background-color: #f6f6f6;
+  --ep-input-bg-color: #F6F6F6 !important;
+  border-radius: 16px ;
+  
+}
+
+.ep-dialog{
+  --ep-dialog-margin-top: 40dvh !important;
+  --ep-dialog-width: 80% !important;
+  @media screen and (min-width: 600px) {
+    
+    --ep-dialog-width: 500px !important;
+  }
+  
 }
