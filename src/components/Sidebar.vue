@@ -1,5 +1,5 @@
 <template>
-  <nav :class="['side-bar', { expand: isSidebar }]">
+  <nav v-if="isHome" :class="['side-bar', { expand: isSidebar }]">
     <div v-if="isSidebar">
       <div class="item" @click="toggleSearch">
         <img src="@/assets/images/search.png" alt="search" />
@@ -57,6 +57,7 @@ defineProps(['expand'])
 
 //refs
 const isSidebar = ref(false)
+const isHome = ref(false)
 
 //fucs
 const toggleSearch = () => {
@@ -65,6 +66,8 @@ const toggleSearch = () => {
 
 //hooks
 watch(route, () => {
+  route.name === 'home' ? (isHome.value = true) : (isHome.value = false)
+
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 })
 </script>

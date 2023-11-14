@@ -37,22 +37,21 @@
 
 .ep-input {
   background-color: #f6f6f6;
-  --ep-input-bg-color: #F6F6F6 !important;
-  border-radius: 16px ;
+  --ep-input-bg-color: #f6f6f6 !important;
+  border-radius: 16px;
   height: 45px;
 }
 
-.ep-dialog{
+.ep-dialog {
   --ep-dialog-margin-top: 40dvh !important;
   --ep-dialog-width: 90% !important;
   @media screen and (min-width: 600px) {
-    
     --ep-dialog-width: 500px !important;
   }
 }
 
-.ep-button{
-  height: 45px ;
+.ep-button {
+  height: 45px;
   border-radius: 16px;
   font-family: 'arista 2.0';
   @include ease;
@@ -65,7 +64,14 @@
   text-align: center !important;
 }
 
-.ep-form-item__label{
+.ep-form-item__label {
   color: black !important;
   font-weight: bold;
+}
+.ep-radio-button__inner {
+  border: solid 0.5px black !important;
+}
+.ep-radio-button--large .ep-radio-button__inner {
+  padding: 12px 6px !important;
+  width: 100%;
 }
