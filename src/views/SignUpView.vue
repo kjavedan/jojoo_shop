@@ -45,7 +45,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item class="form-footer">
-        <el-button type="primary" @click="submitLoginForm(loginFormRef)"> Create </el-button>
+        <el-button type="primary" @click="submitLoginForm(loginFormRef)"> sign up </el-button>
       </el-form-item>
     </el-form>
     <div class="no-account">

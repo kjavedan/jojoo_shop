@@ -36,7 +36,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item class="form-footer">
-        <el-button type="primary" @click="submitLoginForm(loginFormRef)"> Create </el-button>
+        <el-button type="primary" @click="submitLoginForm(loginFormRef)"> login </el-button>
       </el-form-item>
     </el-form>
     <div class="no-account">
@@ -59,13 +59,20 @@ const rules = ref({
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/main.scss';
+@import '../assets/scss/main.scss';
 
 .login {
   // border: solid;
+  @include tablet {
+    width: 500px;
+    margin: 0 auto;
+  }
+
   padding: 0rem 1rem;
+
   .with-google {
     background: #f6f6f6;
+    cursor: pointer;
     width: 100%;
     height: 45px;
     @include round-m;

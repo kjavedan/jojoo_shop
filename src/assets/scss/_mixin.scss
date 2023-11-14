@@ -134,7 +134,7 @@
 }
 
 @mixin tablet {
-  @media (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-md - 1}) {
+  @media (min-width: #{$breakpoint-sm}) {
     @content;
   }
 }

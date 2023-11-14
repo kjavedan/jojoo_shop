@@ -55,6 +55,10 @@
   height: 45px ;
   border-radius: 16px;
   font-family: 'arista 2.0';
+  @include ease;
+  &:active {
+    scale: 0.9;
+  }
 }
 
 .ep-dialog__footer {
