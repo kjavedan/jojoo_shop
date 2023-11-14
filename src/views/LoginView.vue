@@ -26,6 +26,7 @@
           class="custom-input"
         ></el-input>
       </el-form-item>
+
       <el-form-item label="Password" prop="password">
         <el-input
           type="password"
@@ -34,7 +35,7 @@
           class="custom-input"
         ></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="form-footer">
         <el-button type="primary" @click="submitLoginForm(loginFormRef)"> Create </el-button>
       </el-form-item>
     </el-form>
@@ -57,12 +58,12 @@ const rules = ref({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/main.scss';
 
 .login {
-  border: solid;
-
+  // border: solid;
+  padding: 0rem 1rem;
   .with-google {
     background: #f6f6f6;
     width: 100%;
@@ -107,7 +108,15 @@ const rules = ref({
   }
   .custom-input {
     width: 100%;
-    height: 48px;
+    // height: 48px;
+    // margin-bottom: 1.5rem;
+  }
+  .form-footer {
+    margin: 3rem auto;
+
+    button {
+      width: 100%;
+    }
   }
 }
 </style>

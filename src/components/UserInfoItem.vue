@@ -1,9 +1,9 @@
 <template>
-  <div class="info-item" @click="handleClick">
+  <div class="info-item">
     <h4 class="item-title">{{ title }}</h4>
     <div class="item-body">
       <p>{{ value }}</p>
-      <img src="@/assets/images/pen.png" alt="pen" />
+      <img @click="handleClick" src="@/assets/images/pen.png" alt="pen" />
     </div>
   </div>
 </template>
