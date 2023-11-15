@@ -56,6 +56,7 @@ const handleClick = () => {
   cursor: pointer;
   text-align: center;
   min-width: 144px;
+  width: 100%;
   color: var(--text);
   background: var(--background);
   transform: scale(var(--scale, 1));

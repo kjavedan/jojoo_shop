@@ -165,3 +165,56 @@
     @content;
   }
 }
+@mixin action-btns{
+    .action-btns {
+      @include flex-row;
+      gap: 12px;
+      button {
+        @include ease;
+        width: 100%;
+        border: none;
+        outline: none;
+        &:active {
+          transform: scale(0.9);
+        }
+        img {
+          height: 80%;
+        }
+        
+        @include flex-center;
+      color: white;
+      height: 45px;
+      @include round-l;
+    }
+    .small {
+      min-height: 12%;
+      box-shadow: 2px 2px 7px 0px rgba(206, 206, 206, 0.43) inset;
+    }
+    .large {
+      min-width: 50%;
+      background: black;
+      font-family: $primary-font;
+      @include shadow-l;
+      gap: 10px;
+      .basket {
+        height: 50%;
+        position: relative;
+        .circle {
+          position: absolute;
+          top: -3px;
+          left: -5px;
+          font-size: 10px;
+          height: 15px;
+          width: 15px;
+          background: white;
+          color: #000;
+          
+          @include round-xl;
+        }
+        img {
+          height: 100%;
+        }
+      }
+    }
+  }
+}

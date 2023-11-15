@@ -1,12 +1,12 @@
 <template>
   <h1 class="page-title">my reviews</h1>
   <div class="reviews-wrapper">
-    <MyReviewItem v-for="(item, i) in [1, 1, 1, 1, 1]" :key="i"></MyReviewItem>
+    <ReviewItem v-for="(item, i) in [1, 1, 1, 1, 1]" :key="i"></ReviewItem>
   </div>
 </template>
 
 <script setup>
-import MyReviewItem from '@/components/MyReviewItem.vue'
+import ReviewItem from '@/components/ReviewItem.vue'
 //refs
 </script>
 

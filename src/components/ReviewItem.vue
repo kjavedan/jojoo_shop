@@ -6,17 +6,21 @@
     <div class="product-info">
       <div class="header">
         <h4 class="title">Pokemon</h4>
-        <span class="more">
+        <span v-if="!isProductPage" class="more">
           <img src="@/assets/images/MenuVertical.png" alt="menu" />
         </span>
       </div>
       <div class="rates">
         <el-rate v-model="rate" disabled></el-rate>
       </div>
-      <div class="description">
+      <sapn :class="['description', { expand: isExpandDescription }]">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa neque velit voluptatibus
         quisquam quo laboriosam nobis autem debitis, in ipsam tempora similique fuga porro ullam
         deserunt, distinctio ex error magni!
+      </sapn>
+      <!-- if description length is more than 1 line then show read more btn -->
+      <div class="read-more" @click="isExpandDescription = !isExpandDescription">
+        {{ isExpandDescription ? 'Read less' : 'Read More' }}
       </div>
     </div>
   </div>
@@ -25,28 +29,32 @@
 <script setup>
 import { ref } from 'vue'
 
+//props
+const props = defineProps(['isProductPage'])
+
 //refs
 const rate = ref(4)
+const isExpandDescription = ref(null)
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 .review-item {
   // border: solid;
-  height: 110px;
+  height: fit-content;
   width: 100%;
   display: flex;
   gap: 10px;
   margin-top: 1rem;
   .product-img {
-    height: 100%;
+    height: 70px;
     aspect-ratio: 1/1;
     @include flex-center;
-    @include round-l;
+    @include round-circle;
     background: #f6f6f6;
 
     img {
-      height: 90%;
+      height: 80%;
     }
   }
   .product-info {
@@ -58,7 +66,7 @@ const rate = ref(4)
 
       .title {
         @include text-shadow;
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-weight: bold;
       }
 
@@ -73,7 +81,7 @@ const rate = ref(4)
 
     .rates {
       // border: solid;
-      height: 24px;
+      height: 20px;
       .ep-rate {
         height: 20px;
       }
@@ -81,16 +89,33 @@ const rate = ref(4)
 
     .description {
       //   border: solid;
-      padding-bottom: 1.5px;
-      font-size: 0.8rem;
-      line-height: 0.8rem;
+      // padding-bottom: 1.5px;
+      // margin-top: 0.5rem;
+      font-size: 0.7rem;
+      // line-height: 0.8rem;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: normal;
       -webkit-box-orient: vertical;
       color: rgb(118, 118, 118);
+
+      &.expand {
+        -webkit-line-clamp: unset;
+      }
+    }
+    .read-more {
+      background: #f8f9fa;
+      color: rgb(86, 86, 86);
+      padding: 0.1rem 0.5rem;
+      font-size: 14px;
+      @include round-l;
+      // margin: 0.5rem auto;
+      margin-left: auto;
+      width: fit-content;
+      cursor: pointer;
+      font-family: $primary-font;
     }
   }
 }

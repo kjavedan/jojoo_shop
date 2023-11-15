@@ -62,4 +62,7 @@ export default defineConfig({
     //   ]
     // }),
   ],
+  optimizeDeps: {
+    exclude: ['vue3-touch-events'], // Exclude the problematic dependency
+  },
 })

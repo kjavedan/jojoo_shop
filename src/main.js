@@ -3,6 +3,10 @@ import 'element-plus/dist/index.css'
 
 import './assets/scss/main.scss'
 import './styles/index.scss'
+import Vue3TouchEvents from "vue3-touch-events";
+
+
+
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -12,6 +16,7 @@ import router from './router'
 
 const app = createApp(App)
 app.use(createPinia())
+app.use(Vue3TouchEvents)
 app.use(router)
 app.use(ElementPlus)
 app.mount('#app')
