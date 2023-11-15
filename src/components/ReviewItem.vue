@@ -54,7 +54,7 @@ const isExpandDescription = ref(null)
     background: #f6f6f6;
 
     img {
-      height: 80%;
+      height: 70%;
     }
   }
   .product-info {

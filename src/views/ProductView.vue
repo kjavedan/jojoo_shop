@@ -3,7 +3,6 @@
     <el-carousel
       class="carousel"
       ref="myCarousel"
-      arrow="never"
       :autoplay="false"
       v-touch:swipe.left="handleSwipeLeft"
       v-touch:swipe.right="handelSwipeRight"
@@ -23,7 +22,10 @@
         (4.5)
         <img src="@/assets/images/Star.png" height="16px" alt="star" />
       </span>
-      <span class="price">290.99AED</span>
+      <span class="price-label">
+        price:
+        <span class="price">290.99AED</span>
+      </span>
     </div>
     <div class="body">
       <h4 class="body-title">description</h4>
@@ -217,13 +219,20 @@ onBeforeUnmount(() => {
         margin-bottom: -2px;
       }
     }
-    .price {
+    .price-label {
       margin-left: auto;
-      font-size: 1.5rem;
-      font-weight: bold;
-
+      // font-size: 16px;
+      // font-weight: bold;
+      // color: gray;
+      .price {
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
       @include pc-s {
-        font-size: 2rem;
+        font-size: 1.2rem;
+        .price {
+          font-size: 2rem;
+        }
       }
     }
   }
@@ -279,11 +288,19 @@ onBeforeUnmount(() => {
 
   @include flex-center;
   @include action-btns;
+
+  @include pc-s {
+    height: 120px;
+  }
 }
 
 .btns-wrapper {
   // border: solid 1px white;
   width: 90%;
   margin: 0 auto;
+
+  @include pc-s {
+    width: 360px;
+  }
 }
 </style>

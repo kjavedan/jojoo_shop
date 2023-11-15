@@ -23,7 +23,7 @@
         >Total Price:
         <span class="total-price"> 100AED </span>
       </span>
-      <div class="details-btn">details</div>
+      <button class="details-btn">details</button>
     </div>
   </div>
 </template>
@@ -77,7 +77,7 @@ import { ref } from 'vue'
     }
 
     .details-btn {
-      padding: 0.25rem 0.5rem;
+      padding: 0.5rem 0.9rem;
       @include round-l;
       border: solid #000;
       @include shadow-m;

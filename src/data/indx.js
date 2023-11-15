@@ -275,8 +275,8 @@ export const profileItemsData = [
   },
   {
     icon: Settings,
-    title: 'Settings',
-    path: 'settings'
+    title: 'FAQ',
+    path: 'FAQ'
   }
 ]
 

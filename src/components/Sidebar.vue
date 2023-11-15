@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="isHome" :class="['side-bar', { expand: isSidebar }]">
+  <nav :class="['side-bar', { expand: isSidebar }]">
     <div v-if="isSidebar">
       <div class="item" @click="toggleSearch">
         <img src="@/assets/images/search.png" alt="search" />
@@ -14,12 +14,6 @@
           <img src="@/assets/images/whatsapp.png" alt="home" />
         </a>
       </div>
-      <RouterLink :to="{ name: 'home' }">
-        <div class="item">
-          <img v-if="route.name === 'home'" src="@/assets/images/home.png" alt="home" />
-          <img v-else src="@/assets/images/home-outline.png" alt="home" />
-        </div>
-      </RouterLink>
       <RouterLink :to="{ name: 'favorite' }">
         <div class="item">
           <img v-if="route.name === 'favorite'" src="@/assets/images/bookmark.png" alt="saved" />
@@ -30,6 +24,28 @@
         <div class="item">
           <img v-if="route.name === 'cart'" src="@/assets/images/cart.png" alt="saved" />
           <img v-else src="@/assets/images/cart-outline.png" alt="saved" />
+        </div>
+      </RouterLink>
+      <RouterLink :to="{ name: 'profile' }">
+        <div class="item">
+          <img
+            v-if="route.name === 'profile'"
+            style="height: 34px"
+            src="@/assets/images/Account-fill.png"
+            alt="account"
+          />
+          <img
+            v-else
+            style="height: 34px"
+            src="@/assets/images/Account-outline.png"
+            alt="account"
+          />
+        </div>
+      </RouterLink>
+      <RouterLink :to="{ name: 'home' }">
+        <div class="item">
+          <img v-if="route.name === 'home'" src="@/assets/images/home.png" alt="home" />
+          <img v-else src="@/assets/images/home-outline.png" alt="home" />
         </div>
       </RouterLink>
     </div>
@@ -67,7 +83,9 @@ const toggleSearch = () => {
 //hooks
 watch(route, () => {
   route.name === 'home' ? (isHome.value = true) : (isHome.value = false)
-
+  if (window.innerWidth < 800) {
+    isSidebar.value = false
+  }
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 })
 </script>
@@ -82,8 +100,8 @@ watch(route, () => {
   background: transparent;
   position: fixed;
   transition: all 0.3s ease-in-out;
-  bottom: 30px;
-  right: 10px;
+  bottom: 100px;
+  right: 20px;
 
   z-index: 999;
   width: 50px;
@@ -92,11 +110,11 @@ watch(route, () => {
 
   @include pc-m {
     right: 50px;
-    transform: translateY(-50%);
-    top: 50%;
+    transform: translateY(50%);
+    // top: 50%;
+    bottom: 50%;
     background: transparent;
     box-shadow: none;
-    height: 380px;
   }
 
   .item {
@@ -121,7 +139,10 @@ watch(route, () => {
   }
 
   &.expand {
-    bottom: 10%;
+    bottom: 50%;
+    transform: translateY(50%);
+    height: 420px;
+    // top: 50%;
     background: white;
     @include shadow-s;
 

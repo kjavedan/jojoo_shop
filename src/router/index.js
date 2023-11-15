@@ -12,7 +12,7 @@ import ReviewsView from '@/views/ReviewsView.vue'
 import AboutUsView from '@/views/AboutUsView.vue'
 import UserInfoView from '@/views/UserInfoView.vue'
 import CustomerSupportView from '@/views/CustomerSupportView.vue'
-import SettingsView from '@/views/SettingsView.vue'
+import FAQView from '@/views/FAQView.vue'
 import { useTokenStore } from '../stores/token';
 
 
@@ -92,9 +92,9 @@ const router = createRouter({
       component: CustomerSupportView,
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: SettingsView,
+      path: '/FAQ',
+      name: 'FAQ',
+      component: FAQView,
     },
   ]
 });

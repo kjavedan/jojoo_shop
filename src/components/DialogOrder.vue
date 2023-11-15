@@ -145,6 +145,10 @@ watch(heldProduct, (newValue) => {
     @include pc-m {
       margin-top: unset;
     }
+
+    @include pc-s {
+      width: 450px;
+    }
     .save-icon {
       position: absolute;
       top: 20px;
