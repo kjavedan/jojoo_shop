@@ -6,7 +6,6 @@
 
 <script setup>
 import Products from '@/components/Products.vue'
-import { onMounted } from 'vue'
 </script>
 
 <style lang="scss" scoped>

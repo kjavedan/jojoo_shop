@@ -21,10 +21,12 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { onMounted, ref, watch } from 'vue'
+import { onBeforeMount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProductStore } from '../stores/product'
 import Card from './Card.vue'
+import { getAllProducts } from '@/api/product'
+import { getAllFavoriteData } from '@/api/favorite'
 
 //routes
 const route = useRoute()
@@ -46,9 +48,32 @@ const handlePageData = () => {
   }
 }
 
+const fetchProductData = async () => {
+  try {
+    const res = await getAllProducts()
+    console.log(res)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const fetchFavoriteData = async () => {
+  try {
+    const res = await getAllFavoriteData()
+    console.log(res)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 //hooks
 onMounted(() => {
   handlePageData()
+})
+
+onBeforeMount(() => {
+  fetchProductData()
+  fetchFavoriteData()
 })
 
 watch(route, () => {

@@ -11,9 +11,9 @@ const api = axios.create({
   },
 });
 
-const store = useTokenStore()
-const {accessToken} = storeToRefs(store)
+// const store = useTokenStore()
+// const {accessToken} = storeToRefs(store)
 
-api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+// api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
 export default api;

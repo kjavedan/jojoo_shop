@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <h2>login to your account</h2>
-    <div class="with-google">
+    <div class="with-google" @click="ElMessage.success('hi')">
       <img src="@/assets/images/google.png" alt="google" />
       <span>Google</span>
     </div>
@@ -17,6 +17,7 @@
       class="login-form"
       label-position="top"
       status-icon
+      @keydown.enter.prevent="submitLoginForm"
     >
       <el-form-item label="Username" prop="username">
         <el-input
@@ -36,7 +37,9 @@
         ></el-input>
       </el-form-item>
       <el-form-item class="form-footer">
-        <el-button type="primary" @click="submitLoginForm(loginFormRef)"> login </el-button>
+        <el-button :loading="loading" type="primary" @click="submitLoginForm(loginFormRef)">
+          login
+        </el-button>
       </el-form-item>
     </el-form>
     <div class="no-account">
@@ -48,14 +51,80 @@
 
 <script setup>
 import { ref } from 'vue'
+import { loginUser } from '@/api/user'
+import { useTokenStore } from '@/stores/token'
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
+
+//routes
+const router = useRouter()
+
+//stores
+const store = useTokenStore()
 
 //refs
+const loading = ref(false)
 const loginFormRef = ref(null)
 const loginForm = ref({ username: '', password: '' })
 const rules = ref({
-  username: [{ required: true, message: 'Please enter username', trigger: 'change' }],
-  password: [{ required: true, message: 'plase enter your password', trigger: 'change' }]
+  username: [
+    { required: true, message: 'Please enter username', trigger: 'change' },
+    { min: 4, message: 'Length should be at least 4', trigger: 'blur' },
+    { validator: validateUsername, trigger: 'blur' } // Custom validation for special characters
+  ],
+  password: [
+    { required: true, message: 'Please enter your password', trigger: 'change' },
+    { min: 6, message: 'Length should be at least 6', trigger: 'blur' }
+  ]
 })
+//funcs
+function validateUsername(rule, value, callback) {
+  // Regular expression to check for special characters
+  const specialCharRegex = /[!@#$%^&*(),.?":{}|<> ]/
+
+  if (specialCharRegex.test(value)) {
+    callback(new Error('Username cannot contain special characters'))
+  } else {
+    callback()
+  }
+}
+
+const submitLoginForm = async () => {
+  loading.value = true
+  await loginFormRef.value.validate((valid, fields) => {
+    if (valid) {
+      console.log('valid')
+      handleLogin()
+    } else {
+      console.log('not valid', fields)
+      loading.value = false
+    }
+  })
+}
+
+const handleLogin = async () => {
+  try {
+    const res = await loginUser(loginForm.value)
+    if (res.status === 200) {
+      if (res.data.accessToken) {
+        store.setAccessToken(res.data.accessToken)
+        router.push({ name: 'home' })
+      } else {
+        ElMessage.error(res.data.msg)
+      }
+    }
+    loading.value = false
+  } catch (error) {
+    loading.value = false
+    if (error.message === 'Network Error') {
+      ElMessage.error('There was a server issue')
+    } else if (error.response.status === 401) {
+      ElMessage.error('You entered worng password, try again')
+    }
+  }
+}
+
+//hooks
 </script>
 
 <style lang="scss">
