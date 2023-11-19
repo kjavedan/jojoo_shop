@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <h2>login to your account</h2>
-    <div class="with-google" @click="handleGoogleSignIn">
+    <div class="with-google" @click="handleGoogleLogin">
       <img src="@/assets/images/google.png" alt="google" />
       <span>Google</span>
     </div>
@@ -51,10 +51,11 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { loginUser } from '@/api/user'
+import { loginUser, retriveGoogleToken } from '@/api/user'
 import { useTokenStore } from '@/stores/token'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { googleSdkLoaded } from 'vue3-google-login'
 
 //routes
 const router = useRouter()
@@ -124,39 +125,37 @@ const handleLogin = async () => {
   }
 }
 
-const initGoogleSignIn = () => {
-  gapi.load('auth2', () => {
-    gapi.auth2.init({
-      client_id: '1011441513222-4dstl5cuc3bbg9b0fh84634mdh7b3km2.apps.googleusercontent.com',
-      scope: 'email'
+const handleGoogleLogin = async () => {
+  try {
+    googleSdkLoaded((google) => {
+      google.accounts.oauth2
+        .initCodeClient({
+          client_id: '1011441513222-4dstl5cuc3bbg9b0fh84634mdh7b3km2.apps.googleusercontent.com',
+          scope: 'email profile openid',
+          redirect_uri: 'http://localhost:5173',
+          callback: (response) => {
+            if (response.code) {
+              setndGoogleResponseToBackend(response.code)
+            }
+          }
+        })
+        .requestCode()
     })
-  })
-}
-
-// Function to handle Google Sign-In button click
-const handleGoogleSignIn = () => {
-  const auth2 = gapi.auth2.getAuthInstance()
-  auth2.signIn().then((googleUser) => {
-    const profile = googleUser.getBasicProfile()
-    const googleAccessToken = googleUser.getAuthResponse().id_token
-
-    // Now you can use `profile` and `googleAccessToken` in your application
-    // For example, you can send `googleAccessToken` to your server for authentication
-
-    // Log the user in or perform other actions as needed
-    console.log('Google User Profile:', profile)
-    console.log('Google Access Token:', googleAccessToken)
-  })
-}
-
-// Hook to initialize Google Sign-In when the component is mounted
-onMounted(() => {
-  if (typeof gapi !== 'undefined') {
-    initGoogleSignIn()
-  } else {
-    console.error('Google Sign-In API not loaded.')
+  } catch (error) {
+    console.log(error)
   }
-})
+}
+
+const setndGoogleResponseToBackend = async (code) => {
+  try {
+    console.log(code)
+    const response = await retriveGoogleToken({ Authorization: code })
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 //hooks
 </script>
 

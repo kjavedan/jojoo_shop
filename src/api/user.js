@@ -13,3 +13,7 @@ export const loginUser = async (data) => {
 export const getRefreshToken = async (data) => {
     return await api.post("/user/refresh-token", data).then(res => res)
 }
+
+export const retriveGoogleToken = async (data) => {
+    return await api.post('/user/google-login', data).then(res => res)
+} 
