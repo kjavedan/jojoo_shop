@@ -13,7 +13,7 @@ import AboutUsView from '@/views/AboutUsView.vue'
 import UserInfoView from '@/views/UserInfoView.vue'
 import CustomerSupportView from '@/views/CustomerSupportView.vue'
 import FAQView from '@/views/FAQView.vue'
-import { useTokenStore } from '../stores/token';
+import { useUserStore } from '../stores/user';
 
 
 const router = createRouter({
@@ -101,7 +101,7 @@ const router = createRouter({
 
 
 // router.beforeEach((to) => {
-//   const store = useTokenStore()
+//   const store = useUserTore()
 
 //   if (to.meta.requiresAuth && !store.isLoggedIn) return '/login'
 // })

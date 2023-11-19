@@ -1,6 +1,5 @@
 import axios from "axios";
 import { storeToRefs } from "pinia";
-import { useTokenStore } from "../stores/token";
 
 const api = axios.create({
   baseURL: "http://localhost:3000",

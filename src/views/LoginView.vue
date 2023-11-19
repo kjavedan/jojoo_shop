@@ -51,8 +51,8 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { loginUser, retriveGoogleToken } from '@/api/user'
-import { useTokenStore } from '@/stores/token'
+import { loginUser, retriveTokenWithGoogleCode } from '@/api/user'
+import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { googleSdkLoaded } from 'vue3-google-login'
@@ -61,7 +61,7 @@ import { googleSdkLoaded } from 'vue3-google-login'
 const router = useRouter()
 
 //stores
-const store = useTokenStore()
+const store = useUserStore()
 
 //refs
 const loading = ref(false)
@@ -108,7 +108,7 @@ const handleLogin = async () => {
     const res = await loginUser(loginForm.value)
     if (res.status === 200) {
       if (res.data.accessToken) {
-        store.setAccessToken(res.data.accessToken)
+        store.handleUserLogin(res.data)
         router.push({ name: 'home' })
       } else {
         ElMessage.error(res.data.msg)
@@ -130,12 +130,12 @@ const handleGoogleLogin = async () => {
     googleSdkLoaded((google) => {
       google.accounts.oauth2
         .initCodeClient({
-          client_id: '1011441513222-4dstl5cuc3bbg9b0fh84634mdh7b3km2.apps.googleusercontent.com',
+          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID_DEV,
           scope: 'email profile openid',
           redirect_uri: 'http://localhost:5173',
           callback: (response) => {
             if (response.code) {
-              setndGoogleResponseToBackend(response.code)
+              sendGoogleResponseToBackend(response.code)
             }
           }
         })
@@ -146,11 +146,12 @@ const handleGoogleLogin = async () => {
   }
 }
 
-const setndGoogleResponseToBackend = async (code) => {
+const sendGoogleResponseToBackend = async (code) => {
   try {
     console.log(code)
-    const response = await retriveGoogleToken({ Authorization: code })
-    console.log(response)
+    const res = await retriveTokenWithGoogleCode({ Authorization: code })
+    console.log(res)
+    store.handleUserLogin(res.data)
   } catch (error) {
     console.log(error)
   }
