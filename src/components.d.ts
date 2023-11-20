@@ -27,6 +27,7 @@ declare module 'vue' {
     FaqItem: typeof import('./components/FaqItem.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     Input: typeof import('./components/Input.vue')['default']
+    LoadingScreen: typeof import('./components/LoadingScreen.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']
     Menu: typeof import('./components/Menu.vue')['default']
     Notification: typeof import('./components/Notification.vue')['default']

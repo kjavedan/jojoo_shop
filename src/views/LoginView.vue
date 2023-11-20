@@ -108,7 +108,7 @@ const handleLogin = async () => {
     const res = await loginUser(loginForm.value)
     if (res.status === 200) {
       if (res.data.accessToken) {
-        store.handleUserLogin(res.data)
+        store.handleUserInfo(res.data)
         router.push({ name: 'home' })
       } else {
         ElMessage.error(res.data.msg)
@@ -148,10 +148,9 @@ const handleGoogleLogin = async () => {
 
 const sendGoogleResponseToBackend = async (code) => {
   try {
-    console.log(code)
     const res = await retriveTokenWithGoogleCode({ Authorization: code })
     console.log(res)
-    store.handleUserLogin(res.data)
+    store.handleUserInfo(res.data)
   } catch (error) {
     console.log(error)
   }

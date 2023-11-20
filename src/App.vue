@@ -5,7 +5,7 @@
       <Sidebar></Sidebar>
       <DialogSearch></DialogSearch>
       <DialogOrder></DialogOrder>
-      <main class="main-wrapper">
+      <main class="main-wrapper" v-if="!refreshTokenLoading">
         <RouterView v-slot="{ Component }">
           <Transition
             name="custom-classes"
@@ -15,6 +15,7 @@
           </Transition>
         </RouterView>
       </main>
+      <LoadingScreen v-else></LoadingScreen>
     </div>
     <Footer></Footer>
   </el-config-provider>
@@ -26,6 +27,18 @@ import Sidebar from '@/components/Sidebar.vue'
 import DialogOrder from '@/components/DialogOrder.vue'
 import DialogSearch from '@/components/DialogSearch.vue'
 import Footer from '@/components/Footer.vue'
+import { useUserStore } from './stores/user'
+import api from '@/api/baseUrl'
+import { storeToRefs } from 'pinia'
+import { watch } from 'vue'
+import LoadingScreen from './components/LoadingScreen.vue'
+
+const store = useUserStore()
+const { accessToken, refreshTokenLoading } = storeToRefs(store)
+
+watch(accessToken, (newToken) => {
+  api.defaults.headers.common['Authorization'] = newToken
+})
 </script>
 
 <style lang="scss" scoped>
