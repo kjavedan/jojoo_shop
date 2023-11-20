@@ -3,6 +3,9 @@ import api from "./baseUrl";
 export const getUserById = async (id) => {
     return await api.get(`/user/${id}`).then(res => res)
 }
+export const updateUserById = async (id, data) => {
+    return await api.post(`/user/update/${id}`, data).then(res => res)
+}
 export const registerUser = async (data) => {
     return await api.post("/user/add", data, { withCredentials: true }).then(res => res)
 }

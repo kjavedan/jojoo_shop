@@ -1,9 +1,10 @@
 <template>
-  <div v-if="currentData.length" class="products">
+  <LoadingScreen v-if="loading"></LoadingScreen>
+  <div v-else-if="currentData.length" class="products">
     <Card
       v-for="product in currentData"
-      :key="product.id"
-      :id="product.id"
+      :key="product._id"
+      :id="product._id"
       :name="product.name"
       :imgUrls="product.imgUrls"
       :price="product.price"
@@ -27,6 +28,7 @@ import { useProductStore } from '../stores/product'
 import Card from './Card.vue'
 import { getAllProducts } from '@/api/product'
 import { getAllFavoriteData } from '@/api/favorite'
+import LoadingScreen from './LoadingScreen.vue'
 
 //routes
 const route = useRoute()
@@ -38,52 +40,43 @@ const currentData = ref([])
 
 //refs
 const routeName = ref(route.name)
+const loading = ref(false)
 
 //funcs
 const handlePageData = () => {
   if (route.name === 'favorite') {
-    currentData.value = favoriteData.value
+    fetchFavoriteData()
   } else {
-    currentData.value = productsData.value
+    fetchProductData()
   }
 }
 
 const fetchProductData = async () => {
   try {
+    loading.value = true
     const res = await getAllProducts()
-    console.log(res)
+    currentData.value = res.data
+    loading.value = false
   } catch (error) {
+    loading.value = false
     console.log(error)
   }
 }
 
 const fetchFavoriteData = async () => {
   try {
+    loading.value = true
     const res = await getAllFavoriteData()
-    console.log(res)
+    currentData.value = res.data
+    loading.value = false
   } catch (error) {
+    loading.value = false
     console.log(error)
   }
 }
 
-//hooks
-onMounted(() => {
-  handlePageData()
-})
-
 onBeforeMount(() => {
-  fetchProductData()
-  fetchFavoriteData()
-})
-
-watch(route, () => {
-  routeName.value = route.name
   handlePageData()
-})
-watch(favoriteData, () => {
-  if (routeName.value === 'favorite') {
-    currentData.value = favoriteData.value
-  }
 })
 </script>
 

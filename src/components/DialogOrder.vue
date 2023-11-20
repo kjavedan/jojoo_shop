@@ -56,7 +56,9 @@
       </div>
       <ButtonAddToCart v-else @click="handleClick"></ButtonAddToCart>
       <div class="more-btn" @click="unHeldProduct">
-        <RouterLink :to="{ name: 'product', params: { id: '123' } }">see more details</RouterLink>
+        <RouterLink :to="{ name: 'product', params: { id: heldProduct.id } }"
+          >see more details</RouterLink
+        >
       </div>
     </div>
   </div>

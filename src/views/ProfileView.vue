@@ -1,18 +1,13 @@
 <template>
   <div class="profile-wrapper">
     <h1 class="page-title">my profile</h1>
-    <div class="avatar-wrapper">
+    <div class="avatar-wrapper" @click="router.push({ name: 'user-info' })">
       <div class="avatar">
         <img src="@/assets/images/Account-fill.png" alt="avatar" />
       </div>
       <div class="info">
-        <h3 class="title">Khaled Javedan</h3>
-        <div class="subtitle-wrapper">
-          <h5 class="subtitle">@Khaled</h5>
-          <div class="edit">
-            <img src="@/assets/images/Pen.png" alt="pen" />
-          </div>
-        </div>
+        <h3 class="title">{{ fullName }}</h3>
+        <h5 class="subtitle">@Khaled</h5>
       </div>
     </div>
     <div class="profile-body">
@@ -32,9 +27,22 @@ import { profileItemsData } from '@/data/indx'
 import ProfileItem from '@/components/ProfileItem.vue'
 import { useUserStore } from '../stores/user'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
+//router
+const router = useRouter()
+
+//store
 const store = useUserStore()
-const { isLoggedIn } = storeToRefs(store)
+
+//refs
+const { userDetails } = storeToRefs(store)
+
+//computed
+const fullName = computed(() => {
+  return !userDetails.value.fullName ? userDetails.value.fullName : 'What should we call you?'
+})
 </script>
 
 <style lang="scss" scoped>
@@ -56,24 +64,15 @@ const { isLoggedIn } = storeToRefs(store)
       @include flex-center;
     }
     .info {
-      // border: solid;
+      .title {
+        font-size: 1.1rem;
+      }
 
-      .subtitle-wrapper {
-        // border: solid;
-        @include row-between;
-        .subtitle {
-          font-size: 0.9rem;
-          font-weight: bold;
-          color: gray;
-        }
-
-        .edit {
-          height: 30px;
-          cursor: pointer;
-          img {
-            height: 100%;
-          }
-        }
+      .subtitle {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: gray;
+        margin-top: 5px;
       }
     }
   }

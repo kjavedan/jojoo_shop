@@ -281,8 +281,11 @@ export const profileItemsData = [
 ]
 
 export const userInfoData = [
-  {
-    
+  { 
+    title: 'Full Name',
+    value: 'khaled javedan'
+  },
+  { 
     title: 'Username',
     value: 'khaled.j'
   },
@@ -306,5 +309,4 @@ export const userInfoData = [
     title: 'Address',
     value: 'United Arab Emirates, Dubai, Dubai investment park, Building 3, Apartment 203, room 1'
   },
-
 ]

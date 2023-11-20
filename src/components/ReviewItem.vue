@@ -5,7 +5,7 @@
     </div>
     <div class="product-info">
       <div class="header">
-        <h4 class="title">Pokemon</h4>
+        <h4 class="title">{{ reviewerName }}</h4>
         <span v-if="!isProductPage" class="more">
           <img src="@/assets/images/MenuVertical.png" alt="menu" />
         </span>
@@ -13,11 +13,7 @@
       <div class="rates">
         <el-rate v-model="rate" disabled></el-rate>
       </div>
-      <sapn :class="['description', { expand: isExpandDescription }]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa neque velit voluptatibus
-        quisquam quo laboriosam nobis autem debitis, in ipsam tempora similique fuga porro ullam
-        deserunt, distinctio ex error magni!
-      </sapn>
+      <sapn :class="['description', { expand: isExpandDescription }]"> {{ comment }} </sapn>
       <!-- if description length is more than 1 line then show read more btn -->
       <div class="read-more" @click="isExpandDescription = !isExpandDescription">
         {{ isExpandDescription ? 'Read less' : 'Read More' }}
@@ -27,13 +23,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onBeforeMount, ref, toRefs } from 'vue'
 
 //props
-const props = defineProps(['isProductPage'])
+const props = defineProps(['reviewerName', 'rate', 'comment', 'reviewDate', 'isProductPage'])
 
 //refs
-const rate = ref(4)
+const { rate } = toRefs(props)
 const isExpandDescription = ref(null)
 </script>
 

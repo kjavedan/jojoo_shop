@@ -31,12 +31,17 @@
 
 <style scoped>
 .wrapper {
-  min-height: 100vh;
+  min-height: 100svh;
   color: #adafb6;
   display: flex;
   justify-content: center;
   align-items: center;
   background: rgba(249, 251, 255, 0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
 }
 
 .boxes {
@@ -47,7 +52,7 @@
   transform-style: preserve-3d;
   -webkit-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
-  margin-top: 32px;
+  margin-top: -100px;
   -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
   transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
 }

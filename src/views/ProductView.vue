@@ -1,5 +1,5 @@
 <template>
-  <div :class="['slides-wrapper', { shrink: isShrink }]">
+  <div :class="['slides-wrapper', { shrink: isShrink }]" v-show="!loading">
     <el-carousel
       class="carousel"
       ref="myCarousel"
@@ -15,47 +15,43 @@
     </el-carousel>
   </div>
 
-  <div class="product-info" ref="containerRef">
+  <div class="product-info" ref="containerRef" v-show="!loading">
     <div class="header">
-      <h2 class="header-title">Pokemon</h2>
+      <h2 class="header-title">{{ productDetails?.name }}</h2>
       <span class="rate">
-        (4.5)
-        <img src="@/assets/images/Star.png" height="16px" alt="star" />
+        ({{ productDetails?.rate }})
+        <img src="@/assets/images/Star.png" alt="star" />
       </span>
       <span class="price-label">
         price:
-        <span class="price">290.99AED</span>
+        <span class="price">{{ productDetails?.price }}AED</span>
       </span>
     </div>
     <div class="body">
       <h4 class="body-title">description</h4>
       <span :class="['description', { expand: isExpandDescription }]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, amet adipisci dicta,
-        laudantium iure provident dignissimos maiores delectus eos tempora libero et similique
-        voluptates odit laborum eaque optio vitae incidunt! Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Quo autem quam id quaerat alias nesciunt magni veniam voluptatem eius,
-        neque libero necessitatibus? Culpa magni consequatur debitis sit id assumenda quasi
-        excepturi adipisci est provident doloremque necessitatibus voluptatum tenetur possimus optio
-        reiciendis, nulla nobis ad? Suscipit temporibus, mollitia recusandae repudiandae, fugiat,
-        harum aliquam vel ut sequi eos magni iure beatae esse veritatis! Quaerat iste odio tempore
-        totam beatae consequuntur impedit, modi perspiciatis nulla ducimus harum inventore quos vero
-        optio ab sequi voluptatum dignissimos, dolor mollitia odit itaque, ad eligendi voluptatem.
-        Inventore voluptatum doloribus molestiae, dicta nostrum animi mollitia similique non
-        blanditiis?
+        {{ productDetails?.description }}
       </span>
       <div class="read-more" @click="isExpandDescription = !isExpandDescription">
         {{ isExpandDescription ? 'Read less' : 'Read More' }}
       </div>
     </div>
-    <div class="footer">
-      <h4 class="footer-title">Reviews:</h4>
-      <div class="review-item">
-        <ReviewItem :isProductPage="true"></ReviewItem>
-        <ReviewItem :isProductPage="true"></ReviewItem>
+    <div class="footer" v-if="!loading">
+      <h4 class="footer-title">Reviews: ({{ productReviews.length }})</h4>
+      <div class="review-items" v-if="productReviews.length">
+        <ReviewItem
+          v-for="review in productReviews"
+          :key="review._id"
+          :reviewerName="review.reviewerName"
+          :rate="review.rate"
+          :comment="review.comment"
+          :reviewDate="review.reviewDate"
+          :isProductPage="true"
+        ></ReviewItem>
       </div>
     </div>
   </div>
-  <div class="operation">
+  <div class="operation" v-if="!loading">
     <div class="btns-wrapper">
       <div v-if="isCheckoutBtn" class="action-btns">
         <button class="samll" @click="handleDecrease">
@@ -75,12 +71,21 @@
       <ButtonAddToCart v-else @click="handleClick"></ButtonAddToCart>
     </div>
   </div>
+  <LoadingScreen v-if="loading"></LoadingScreen>
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import ButtonAddToCart from '../components/ButtonAddToCart.vue'
 import { useProductStore } from '@/stores/product'
+import { useRoute, useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { getProductById } from '@/api/product'
+import { getProductReview } from '@/api/review'
+import LoadingScreen from '@/components/LoadingScreen.vue'
+//route
+const route = useRoute()
+const router = useRouter()
 
 //store
 const store = useProductStore()
@@ -92,6 +97,9 @@ const myCarousel = ref(null)
 const isExpandDescription = ref(false)
 const isCheckoutBtn = ref(false)
 const counter = ref(0)
+const loading = ref(false)
+const productDetails = ref(null)
+const productReviews = ref(null)
 
 //funcs
 const handleScroll = () => {
@@ -139,7 +147,27 @@ const handleCheckout = () => {
   router.push({ name: 'cart' })
 }
 
+const fetchProductDetails = async () => {
+  const productId = route.params.id
+  loading.value = true
+  try {
+    const productDetailsRes = await getProductById(productId)
+    const productReviewsRes = await getProductReview(productId)
+    productDetails.value = productDetailsRes.data
+    productReviews.value = productReviewsRes.data
+    loading.value = false
+    console.log('ran')
+  } catch (error) {
+    console.log(error)
+    ElMessage.error(error)
+    loading.value = false
+  }
+}
 //hooks
+onBeforeMount(() => {
+  fetchProductDetails()
+})
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
 })
@@ -217,6 +245,7 @@ onBeforeUnmount(() => {
       margin-left: 10px;
       img {
         margin-bottom: -2px;
+        height: 16px;
       }
     }
     .price-label {
@@ -285,7 +314,7 @@ onBeforeUnmount(() => {
   bottom: 0;
   height: 80px;
   background: #f8f9fa;
-
+  z-index: 50;
   @include flex-center;
   @include action-btns;
 

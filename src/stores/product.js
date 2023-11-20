@@ -19,6 +19,7 @@ export const useProductStore = defineStore('product', () => {
   }
 
   function holdProductInfo(info) {
+    console.log(info)
     heldProduct.value = info
   }
 

@@ -40,5 +40,6 @@ export const useUserStore = defineStore("user", () => {
         handleUserInfo,
         refreshTokenLoading,
         checkRefreshToken,
+        userDetails
     };
 });
