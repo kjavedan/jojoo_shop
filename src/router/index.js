@@ -107,10 +107,16 @@ const router = createRouter({
 });
 
 
-router.beforeEach((to) => {
-  const store = useUserStore()
+router.beforeEach(async (to, from, next) => {
+  const store = useUserStore();
+  
+  await store.checkRefreshToken();
 
-  if (to.meta.requiresAuth && !store.isLoggedIn) return '/login-to-proceed'
-})
+  if (to.meta.requiresAuth && !store.isLoggedIn) {
+    next('/login-to-proceed');
+  } else {
+    next();
+  }
+});
 
 export default router;
