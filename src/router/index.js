@@ -13,6 +13,8 @@ import AboutUsView from '@/views/AboutUsView.vue'
 import UserInfoView from '@/views/UserInfoView.vue'
 import CustomerSupportView from '@/views/CustomerSupportView.vue'
 import FAQView from '@/views/FAQView.vue'
+import LoginToProceed from '@/views/LoginToProceed.vue'
+
 import { useUserStore } from '../stores/user';
 
 
@@ -44,12 +46,12 @@ const router = createRouter({
       path: '/favorite',
       name: 'favorite',
       component: FavoriteView,
+      meta: { requiresAuth: true } 
     },
     {
       path: '/product/:id',
       name: 'product',
       component: ProductView,
-      meta: { requiresAuth: true } 
     },
     {
       path: '/profile',
@@ -96,14 +98,19 @@ const router = createRouter({
       name: 'FAQ',
       component: FAQView,
     },
+    {
+      path: '/login-to-proceed',
+      name: 'proceed',
+      component: LoginToProceed,
+    },
   ]
 });
 
 
-// router.beforeEach((to) => {
-//   const store = useUserTore()
+router.beforeEach((to) => {
+  const store = useUserStore()
 
-//   if (to.meta.requiresAuth && !store.isLoggedIn) return '/login'
-// })
+  if (to.meta.requiresAuth && !store.isLoggedIn) return '/login-to-proceed'
+})
 
 export default router;

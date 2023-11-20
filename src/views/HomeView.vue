@@ -15,7 +15,6 @@ import Products from '@/components/Products.vue'
   position: relative;
   width: 100%;
   height: 100%;
-  // border: solid red;
   overflow-y: scroll;
 }
 </style>

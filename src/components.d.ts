@@ -28,6 +28,8 @@ declare module 'vue' {
     Footer: typeof import('./components/Footer.vue')['default']
     Input: typeof import('./components/Input.vue')['default']
     LoadingScreen: typeof import('./components/LoadingScreen.vue')['default']
+    LoginToPerceed: typeof import('./components/LoginToPerceed.vue')['default']
+    LoginToProceed: typeof import('./components/LoginToProceed.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']
     Menu: typeof import('./components/Menu.vue')['default']
     Notification: typeof import('./components/Notification.vue')['default']

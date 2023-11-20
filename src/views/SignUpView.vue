@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <h2>Create your account</h2>
-    <div class="with-google">
+    <div class="with-google" @click="handleGoogleSignup(router)">
       <img src="@/assets/images/google.png" alt="google" />
       <span>Google</span>
     </div>
@@ -60,7 +60,7 @@
         <el-button type="primary" @click="submitSignupForm(signUpFormRef)">Sign Up</el-button>
       </el-form-item>
     </el-form>
-    <div class="have-account">
+    <div class="no-account">
       Already have an account?
       <RouterLink :to="{ name: 'login' }">Login</RouterLink>
     </div>
@@ -71,6 +71,11 @@
 import { ref } from 'vue'
 import { registerUser } from '@/api/user'
 import { ElMessage } from 'element-plus'
+import { handleGoogleSignup } from '@/helpers/googleAuth'
+import { useRouter } from 'vue-router'
+
+//router
+const router = useRouter()
 
 // refs
 const loading = ref(false)

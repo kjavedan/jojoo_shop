@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <h2>login to your account</h2>
-    <div class="with-google" @click="handleGoogleLogin">
+    <div class="with-google" @click="handleGoogleLogin(router)">
       <img src="@/assets/images/google.png" alt="google" />
       <span>Google</span>
     </div>
@@ -51,11 +51,11 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { loginUser, retriveTokenWithGoogleCode } from '@/api/user'
+import { loginUser } from '@/api/user'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
-import { googleSdkLoaded } from 'vue3-google-login'
+import { handleGoogleLogin } from '@/helpers/googleAuth'
 
 //routes
 const router = useRouter()
@@ -109,7 +109,14 @@ const handleLogin = async () => {
     if (res.status === 200) {
       if (res.data.accessToken) {
         store.handleUserInfo(res.data)
-        router.push({ name: 'home' })
+        const prevUrl = router.options.history.state.back
+        if (prevUrl === '/login-to-proceed') {
+          router.go(-2)
+          const name = res?.data?.user?.fullName?.split(' ')
+          ElMessage.success(`Welcome to jojooshop ${name[0]}`)
+        } else {
+          router.push({ name: 'home' })
+        }
       } else {
         ElMessage.error(res.data.msg)
       }
@@ -117,42 +124,12 @@ const handleLogin = async () => {
     loading.value = false
   } catch (error) {
     loading.value = false
+    console.log(error)
     if (error.message === 'Network Error') {
       ElMessage.error('There was a server issue')
     } else if (error.response.status === 401) {
       ElMessage.error('You entered worng password, try again')
     }
-  }
-}
-
-const handleGoogleLogin = async () => {
-  try {
-    googleSdkLoaded((google) => {
-      google.accounts.oauth2
-        .initCodeClient({
-          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID_DEV,
-          scope: 'email profile openid',
-          redirect_uri: 'http://localhost:5173',
-          callback: (response) => {
-            if (response.code) {
-              sendGoogleResponseToBackend(response.code)
-            }
-          }
-        })
-        .requestCode()
-    })
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const sendGoogleResponseToBackend = async (code) => {
-  try {
-    const res = await retriveTokenWithGoogleCode({ Authorization: code })
-    console.log(res)
-    store.handleUserInfo(res.data)
-  } catch (error) {
-    console.log(error)
   }
 }
 
@@ -165,7 +142,7 @@ const sendGoogleResponseToBackend = async (code) => {
 .login {
   // border: solid;
   @include tablet {
-    width: 500px;
+    width: 400px;
     margin: 0 auto;
   }
 

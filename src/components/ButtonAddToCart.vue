@@ -10,7 +10,17 @@
   </button>
 </template>
 <script setup>
+import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user'
+
+//router
+const router = useRouter()
+
+//store
+const store = useUserStore()
+const { isLoggedIn } = storeToRefs(store)
 
 //emits
 const emits = defineEmits(['click'])
@@ -23,12 +33,16 @@ const loading = ref(false) // Initialize loading state to false
 
 //funcs
 const handleClick = () => {
-  if (!loading.value) {
-    loading.value = true
-    setTimeout(() => {
-      loading.value = false
-      emits('click')
-    }, 2500)
+  if (isLoggedIn.value) {
+    if (!loading.value) {
+      loading.value = true
+      setTimeout(() => {
+        loading.value = false
+        emits('click')
+      }, 2500)
+    }
+  } else {
+    router.push({ name: 'proceed' })
   }
 }
 </script>

@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .wrapper {
   min-height: 100vh;
   color: #adafb6;

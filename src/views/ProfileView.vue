@@ -30,47 +30,55 @@
 <script setup>
 import { profileItemsData } from '@/data/indx'
 import ProfileItem from '@/components/ProfileItem.vue'
+import { useUserStore } from '../stores/user'
+import { storeToRefs } from 'pinia'
+
+const store = useUserStore()
+const { isLoggedIn } = storeToRefs(store)
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
-.avatar-wrapper {
-  margin-top: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.profile-wrapper {
+  position: relative;
+  .avatar-wrapper {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 
-  .avatar {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    background: #f6f6f6;
-    @include flex-center;
-  }
-  .info {
-    // border: solid;
-
-    .subtitle-wrapper {
+    .avatar {
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      background: #f6f6f6;
+      @include flex-center;
+    }
+    .info {
       // border: solid;
-      @include row-between;
-      .subtitle {
-        font-size: 0.9rem;
-        font-weight: bold;
-        color: gray;
-      }
 
-      .edit {
-        height: 30px;
-        cursor: pointer;
-        img {
-          height: 100%;
+      .subtitle-wrapper {
+        // border: solid;
+        @include row-between;
+        .subtitle {
+          font-size: 0.9rem;
+          font-weight: bold;
+          color: gray;
+        }
+
+        .edit {
+          height: 30px;
+          cursor: pointer;
+          img {
+            height: 100%;
+          }
         }
       }
     }
   }
-}
-.profile-body {
-  margin-top: 1rem;
+  .profile-body {
+    margin-top: 1rem;
+  }
 }
 </style>
