@@ -26,6 +26,7 @@ declare module 'vue' {
     ElRate: typeof import('element-plus/es')['ElRate']
     FaqItem: typeof import('./components/FaqItem.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    GoogleMap: typeof import('./components/GoogleMap.vue')['default']
     Input: typeof import('./components/Input.vue')['default']
     LoadingScreen: typeof import('./components/LoadingScreen.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']

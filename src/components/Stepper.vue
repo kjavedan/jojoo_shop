@@ -30,12 +30,12 @@ const props = defineProps(['status'])
 // refs
 const steps = ref([
   {
-    title: 'Process',
+    title: 'process',
     info: 'This step represents the initial processing of your order.',
     icon: inProcessIcon
   },
   {
-    title: 'Packed',
+    title: 'packed',
     info: 'Your items are packed and ready for shipment',
     icon: packedIcon
   },
@@ -61,6 +61,7 @@ const selectStep = (index) => {
 
 // hooks
 onBeforeMount(() => {
+  console.log(props.status)
   selectStep(props.status)
 })
 </script>

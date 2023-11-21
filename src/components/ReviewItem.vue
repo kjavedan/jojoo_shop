@@ -5,7 +5,7 @@
     </div>
     <div class="product-info">
       <div class="header">
-        <h4 class="title">{{ reviewerName }}</h4>
+        <h4 class="title">{{ isProductPage ? reviewerName : productName }}</h4>
         <span v-if="!isProductPage" class="more">
           <img src="@/assets/images/MenuVertical.png" alt="menu" />
         </span>
@@ -26,7 +26,14 @@
 import { onBeforeMount, ref, toRefs } from 'vue'
 
 //props
-const props = defineProps(['reviewerName', 'rate', 'comment', 'reviewDate', 'isProductPage'])
+const props = defineProps([
+  'reviewerName',
+  'productName',
+  'rate',
+  'comment',
+  'reviewDate',
+  'isProductPage'
+])
 
 //refs
 const { rate } = toRefs(props)

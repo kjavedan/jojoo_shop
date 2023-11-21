@@ -21,10 +21,7 @@
       ref="formRef"
       @keydown.enter.prevent="confirmEdit(formRef)"
     >
-      <el-form-item :prop="propValue" v-if="propValue != 'phoneNumber'">
-        <el-input :placeholder="heldInfo?.title" v-model="form[propValue]"></el-input>
-      </el-form-item>
-      <el-form-item v-else prop="phoneNumber" :error="phoneNumberError">
+      <el-form-item v-if="propValue == 'phoneNumber'" prop="phoneNumber" :error="phoneNumberError">
         <MazPhoneNumberInput
           v-model="form.phoneNumber"
           show-code-on-list
@@ -35,6 +32,12 @@
           class="phone-input"
           :default-country="selectedCountry"
         />
+      </el-form-item>
+      <!-- <el-form-item v-else-if="propValue == 'address'">
+        <GoogleMap></GoogleMap>
+      </el-form-item> -->
+      <el-form-item :prop="propValue" v-else>
+        <el-input :placeholder="heldInfo?.title" v-model="form[propValue]"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -54,6 +57,7 @@ import { updateUserById } from '@/api/user'
 import { ElMessage } from 'element-plus'
 import { validateUsername } from '@/utils'
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
+import GoogleMap from '../components/GoogleMap.vue'
 
 //store
 const store = useUserStore()

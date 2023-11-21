@@ -66,9 +66,9 @@ const router = createRouter({
       meta: { requiresAuth: true } 
     },
     {
-      path: '/confirmed-order',
+      path: '/confirmed-order/:id',
       name: 'confirmed-order',
-      component: ConfirmedOrderView,
+      component: ConfirmedOrderView,   
       meta: { requiresAuth: true } 
     },
     {

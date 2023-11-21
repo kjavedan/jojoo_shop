@@ -1,7 +1,10 @@
 import api from "./baseUrl";
 
-export const getProductReview = async (id) => {
-    return await api.get(`/review/${id}`).then(res => res)
+export const getProductReviews = async (id) => {
+    return await api.get(`/review/product/${id}`).then(res => res)
+}
+export const getUserReviews = async (id) => {
+    return await api.get(`/review/user/${id}`).then(res => res)
 }
 export const addReview = async (data) => {
     return await api.post("/review/add", data).then(res => res)

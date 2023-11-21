@@ -81,7 +81,7 @@ import { useProductStore } from '@/stores/product'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { getProductById } from '@/api/product'
-import { getProductReview } from '@/api/review'
+import { getProductReviews } from '@/api/review'
 import LoadingScreen from '@/components/LoadingScreen.vue'
 //route
 const route = useRoute()
@@ -152,7 +152,7 @@ const fetchProductDetails = async () => {
   loading.value = true
   try {
     const productDetailsRes = await getProductById(productId)
-    const productReviewsRes = await getProductReview(productId)
+    const productReviewsRes = await getProductReviews(productId)
     productDetails.value = productDetailsRes.data
     productReviews.value = productReviewsRes.data
     loading.value = false

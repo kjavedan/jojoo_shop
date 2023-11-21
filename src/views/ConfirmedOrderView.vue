@@ -1,15 +1,18 @@
 <template>
-  <div class="confirmed-orders-wrapper">
+  <h2>Order Details</h2>
+  <div class="confirmed-orders-wrapper" v-if="!loading">
     <Stepper :status="orderData.status"></Stepper>
     <div class="cart">
       <CartItem
-        v-for="item in orderData.items"
-        :key="item.id"
-        :id="item.id"
+        v-for="item in orderData.products"
+        :key="item._id"
+        :id="item._id"
         :name="item.name"
         :price="item.price"
         :description="item.description"
         :count="item.count"
+        :discount="item.discount"
+        :discountedPrice="item.discountedPrice"
         :imgUrl="item.imgUrls"
         :history="true"
       ></CartItem>
@@ -18,6 +21,7 @@
       </div>
     </div>
   </div>
+  <LoadingScreen v-else></LoadingScreen>
 </template>
 <script setup>
 import CartItem from '@/components/CartItem.vue'
@@ -26,7 +30,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import Stepper from '../components/Stepper.vue'
-
+import LoadingScreen from '../components/LoadingScreen.vue'
+import { getOrderDetailsById } from '@/api/order'
 //routes
 const router = useRouter()
 const routes = useRoute()
@@ -36,16 +41,31 @@ const store = useProductStore()
 
 //refs
 const { orderHistoryData } = storeToRefs(store)
+const loading = ref(false)
+const orderData = ref(null)
 
-//computed
-const orderData = computed(() => {
-  return orderHistoryData.value.find((item) => item.orderId == routes.params.id)
-})
+//funcs
+const fetchOrderData = async () => {
+  loading.value = true
+  try {
+    const res = await getOrderDetailsById(routes.params.id)
+    if (res.status === 200) {
+      orderData.value = res.data
+      console.log(orderData.value)
+    }
+    loading.value = false
+  } catch (error) {
+    loading.value = false
+    console.log(error)
+  }
+}
+
 //funcs
 
 //hooks
 onBeforeMount(() => {
   console.log(routes.params)
+  fetchOrderData()
 })
 </script>
 
