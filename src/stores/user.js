@@ -9,11 +9,16 @@ export const useUserStore = defineStore("user", () => {
     const refreshTokenLoading = ref(false);
     const refreshTokenChecked = ref(false);
 
-    async function handleUserInfo(data) {
+    async function handleUserAuth(data) {
         const { user, accessToken: newAccessToken } = data;
         userDetails.value = user;
         accessToken.value = newAccessToken;
         isLoggedIn.value = true;
+    }
+
+    function setUserInfo(data){
+        console.log(data)
+        userDetails.value = data
     }
 
     async function checkRefreshToken() {
@@ -22,13 +27,14 @@ export const useUserStore = defineStore("user", () => {
                 refreshTokenLoading.value = true;
                 const res = await getUserInfoByRefreshToken();
                 if (res.status === 200) {
-                    handleUserInfo(res.data);
+                    handleUserAuth(res.data);
                 }
                 refreshTokenLoading.value = false;
                 refreshTokenChecked.value = true;
             }
         } catch (error) {
             refreshTokenLoading.value = false;
+            refreshTokenChecked.value = true;
             console.log(error);
         }
     }
@@ -37,9 +43,10 @@ export const useUserStore = defineStore("user", () => {
     return {
         accessToken,
         isLoggedIn,
-        handleUserInfo,
+        handleUserAuth,
         refreshTokenLoading,
         checkRefreshToken,
-        userDetails
+        userDetails,
+        setUserInfo
     };
 });

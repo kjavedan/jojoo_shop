@@ -27,6 +27,7 @@ html {
 
 
 body {
+  width: 100% !important;
   h1 {
     @include heading-style(32px, 1.2, $font-weight-bold);
   }

@@ -73,7 +73,7 @@ watch(route, () => {
   left: 0;
   width: 100%;
   // border: solid;
-  z-index: 100;
+  z-index: 120;
   height: 50px;
   padding: 0.2rem 0;
   .logo {

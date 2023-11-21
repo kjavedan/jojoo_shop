@@ -56,7 +56,7 @@ import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { handleGoogleLogin } from '@/helpers/googleAuth'
-
+import { validateUsername } from '@/utils'
 //routes
 const router = useRouter()
 
@@ -79,16 +79,16 @@ const rules = ref({
   ]
 })
 //funcs
-function validateUsername(rule, value, callback) {
-  // Regular expression to check for special characters
-  const specialCharRegex = /[!@#$%^&*(),.?":{}|<> ]/
+// function validateUsername(rule, value, callback) {
+//   // Regular expression to check for special characters
+//   const specialCharRegex = /[!@#$%^&*(),.?":{}|<> ]/
 
-  if (specialCharRegex.test(value)) {
-    callback(new Error('Username cannot contain special characters'))
-  } else {
-    callback()
-  }
-}
+//   if (specialCharRegex.test(value)) {
+//     callback(new Error('Username cannot contain special characters'))
+//   } else {
+//     callback()
+//   }
+// }
 
 const submitLoginForm = async () => {
   loading.value = true
@@ -108,7 +108,7 @@ const handleLogin = async () => {
     const res = await loginUser(loginForm.value)
     if (res.status === 200) {
       if (res.data.accessToken) {
-        store.handleUserInfo(res.data)
+        store.handleUserAuth(res.data)
         const prevUrl = router.options.history.state.back
         if (prevUrl === '/login-to-proceed') {
           router.go(-2)

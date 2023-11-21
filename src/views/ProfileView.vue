@@ -3,7 +3,7 @@
     <h1 class="page-title">my profile</h1>
     <div class="avatar-wrapper" @click="router.push({ name: 'user-info' })">
       <div class="avatar">
-        <img src="@/assets/images/Account-fill.png" alt="avatar" />
+        <img :src="userAvatar" alt="avatar" />
       </div>
       <div class="info">
         <h3 class="title">{{ fullName }}</h3>
@@ -41,7 +41,10 @@ const { userDetails } = storeToRefs(store)
 
 //computed
 const fullName = computed(() => {
-  return !userDetails.value.fullName ? userDetails.value.fullName : 'What should we call you?'
+  return userDetails.value.fullName ? userDetails.value.fullName : 'What should we call you?'
+})
+const userAvatar = computed(() => {
+  return userDetails.value.picture ? userDetails.value.picture : defaultAvatar
 })
 </script>
 
@@ -59,6 +62,7 @@ const fullName = computed(() => {
     .avatar {
       height: 80px;
       width: 80px;
+      overflow: hidden;
       border-radius: 50%;
       background: #f6f6f6;
       @include flex-center;

@@ -30,7 +30,7 @@ const handleGoogleAuth = async (callback, router) => {
     try {
       const res = await retriveTokenWithGoogleCode({ Authorization: code });
       console.log(res);
-      store.handleUserInfo(res.data);
+      store.handleUserAuth(res.data);
       if (router.options.history.state.back === '/login-to-proceed') {
         router.go(-2)
         const name = res?.data?.user?.fullName?.split(' ')

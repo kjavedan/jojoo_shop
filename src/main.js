@@ -4,7 +4,7 @@ import "element-plus/theme-chalk/src/message.scss";
 import './assets/scss/main.scss'
 import './styles/index.scss'
 import Vue3TouchEvents from "vue3-touch-events";
-
+import 'maz-ui/css/main.css'
 
 
 

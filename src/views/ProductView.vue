@@ -37,8 +37,8 @@
       </div>
     </div>
     <div class="footer" v-if="!loading">
-      <h4 class="footer-title">Reviews: ({{ productReviews.length }})</h4>
-      <div class="review-items" v-if="productReviews.length">
+      <h4 class="footer-title">Reviews: ({{ productReviews?.length }})</h4>
+      <div class="review-items" v-if="productReviews?.length">
         <ReviewItem
           v-for="review in productReviews"
           :key="review._id"

@@ -20,7 +20,7 @@ const router = useRouter()
 @import '../assets/scss/main.scss';
 .wrapper {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -39,8 +39,8 @@ const router = useRouter()
   img {
     // height: 400px;
     width: 100%;
-    margin: 2rem auto;
-    max-width: 500px;
+    margin: 1rem auto;
+    max-width: 400px;
   }
   .login-btn {
     width: 100%;

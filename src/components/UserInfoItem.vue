@@ -13,11 +13,11 @@
 const emit = defineEmits(['edit'])
 
 //props
-const props = defineProps(['title', 'value'])
+const props = defineProps(['title', 'value', 'prop'])
 
 //func
 const handleClick = () => {
-  emit('edit', props.title, props.value)
+  emit('edit', props.title, props.value, props.prop)
 }
 </script>
 

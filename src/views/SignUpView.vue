@@ -143,6 +143,8 @@ const handleSingUp = async () => {
     if (res.status === 200) {
       if (res.data.accessToken) {
         store.setAccessToken(res.data.accessToken)
+        //send user to home directly
+        //handleUserAuth
         router.push({ name: 'login' })
       } else {
         ElMessage.error(res.data.msg)
