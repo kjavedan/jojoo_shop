@@ -32,34 +32,57 @@ import { storeToRefs } from 'pinia'
 import OrderHistory from '@/components/OrderHistory.vue'
 import { useProductStore } from '@/stores/product'
 import { useRouter } from 'vue-router'
+import { getUserCart } from '@/api/cart'
+import { useUserStore } from '@/stores/user'
+import { onBeforeMount, ref } from 'vue'
 
 //routes
 const router = useRouter()
 
-//store
-const store = useProductStore()
+//stores
+const productStore = useProductStore()
+const userStore = useUserStore()
+const { userDetails } = storeToRefs(userStore)
 
 //refs
-const { cartData, totalPrice } = storeToRefs(store)
+const cartData = ref([])
+// const { cartData, totalPrice } = storeToRefs(productStore)
 
 //funcs
 // methods
-const handlePayment = () => {
-  const message = `Hello. Here is my order:\n\n`
-  const items = cartData.value
-    .map((item) => {
-      return `${item.name} - ${item.count} x ${item.price} AED\n`
-    })
-    .join('')
-  const totalPriceMessage = `\nTotal Price: ${totalPrice.value} AED`
+// const handlePayment = () => {
+//   const message = `Hello. Here is my order:\n\n`
+//   const items = cartData.value
+//     .map((item) => {
+//       return `${item.name} - ${item.count} x ${item.price} AED\n`
+//     })
+//     .join('')
+//   const totalPriceMessage = `\nTotal Price: ${totalPrice.value} AED`
 
-  const whatsappLink = `https://wa.me/+971502597949?text=${encodeURIComponent(
-    message + items + totalPriceMessage
-  )}`
-  window.open(whatsappLink, '_blank')
+//   const whatsappLink = `https://wa.me/+971502597949?text=${encodeURIComponent(
+//     message + items + totalPriceMessage
+//   )}`
+//   window.open(whatsappLink, '_blank')
 
-  store.addToOrderHistory()
+//   productStore.addToOrderHistory()
+// }
+
+const fetchUserCartData = async () => {
+  try {
+    const res = await getUserCart(userDetails.value?._id)
+    if (res.status === 200) {
+      console.log(res.data)
+      cartData.value = res.data
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
+
+//hooks
+onBeforeMount(() => {
+  fetchUserCartData()
+})
 </script>
 
 <style lang="scss" scoped>

@@ -70,14 +70,17 @@ import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import ButtonAddToCart from './ButtonAddToCart.vue'
+import { addToCart } from '@/api/cart'
+import { useUserStore } from '@/stores/user'
 
 //routes
 const router = useRouter()
 
 //store
-const store = useProductStore()
-const { heldProduct } = storeToRefs(store)
-
+const productStore = useProductStore()
+const userStore = useUserStore()
+const { heldProduct } = storeToRefs(productStore)
+const { userDetails } = storeToRefs(userStore)
 //refs
 const heldImg = ref(heldProduct.value?.imgUrls[0])
 const isCheckoutBtn = ref(false)
@@ -85,7 +88,7 @@ const counter = ref(0)
 
 //funcs
 const unHeldProduct = () => {
-  store.holdProductInfo(null)
+  productStore.holdProductInfo(null)
   isCheckoutBtn.value = false
   counter.value = 0
 }
@@ -95,18 +98,22 @@ const handleImageChange = (index) => {
 }
 
 const handleClick = () => {
-  store.addProductToCart(heldProduct.value)
+  // store.addProductToCart(heldProduct.value)
+  handleAddToCart()
   isCheckoutBtn.value = true
   counter.value++
 }
 
 const handleIncrease = () => {
-  store.addProductToCart(heldProduct.value)
+  // store.addProductToCart(heldProduct.value)
+  handleUpdateCart(counter.value + 1)
+  handleAddToCart()
   counter.value++
 }
 
 const handleDecrease = () => {
-  store.decreaseProductQty(heldProduct.value)
+  // store.decreaseProductQty(heldProduct.value)
+  handleUpdateCart(counter.value - 1)
   counter.value--
 
   if (counter.value <= 0) {
@@ -120,9 +127,36 @@ const handleCheckout = () => {
   counter.value = 0
   router.push({ name: 'cart' })
 }
+
+const handleAddToCart = async () => {
+  const productId = heldProduct.value.id
+  const userId = userDetails.value._id
+  console.log(userId)
+  try {
+    const res = await addToCart({ userId, productId, qty: 1 })
+    if (res.status === 200) {
+      console.log(res)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+const handleUpdateCart = async (qty) => {
+  const { productId } = heldProduct.value.id
+  try {
+    const res = await addToCart(productId, { qty })
+    if (res.status === 200) {
+      console.log(res)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 //hooks
 watch(heldProduct, (newValue) => {
   if (heldProduct.value) {
+    console.log(heldProduct.value)
     handleImageChange(0)
   }
 })
