@@ -1,5 +1,6 @@
 <template>
   <h2>Order Details</h2>
+  <h3 v-if="!loading">{{ formatDate(orderData.orderDate) }}</h3>
   <div class="confirmed-orders-wrapper" v-if="!loading">
     <Stepper :status="orderData.status"></Stepper>
     <div class="cart">
@@ -10,14 +11,14 @@
         :name="item.name"
         :price="item.price"
         :description="item.description"
-        :count="item.count"
         :discount="item.discount"
         :discountedPrice="item.discountedPrice"
         :imgUrl="item.imgUrls"
+        :qty="item.qty"
         :history="true"
       ></CartItem>
       <div class="checkout">
-        <h2 class="total-price">Total Price: {{ orderData.totalPrice }}AED</h2>
+        <h2 class="total-price">Total Price: {{ orderData.discountedTotalPrice }}AED</h2>
       </div>
     </div>
   </div>
@@ -32,6 +33,8 @@ import { storeToRefs } from 'pinia'
 import Stepper from '../components/Stepper.vue'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import { getOrderDetailsById } from '@/api/order'
+import { formatDate } from '@/utils'
+
 //routes
 const router = useRouter()
 const routes = useRoute()

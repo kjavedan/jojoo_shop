@@ -1,9 +1,12 @@
 <template>
   <div class="stepper">
     <div class="steps" v-for="(step, index) in steps" :key="index">
-      <div :class="['line', { active: index < status }]" v-if="index != 0"></div>
+      <div :class="['line', { active: index < statusIndex[status] + 1 }]" v-if="index != 0"></div>
       <div class="step-wrapper">
-        <div @click="selectStep(index)" :class="['step', { active: index < status }]">
+        <div
+          @click="selectStep(index)"
+          :class="['step', { active: index < statusIndex[status] + 1 }]"
+        >
           <div class="step-circle">
             <img :src="step.icon" class="icon" />
           </div>
@@ -54,15 +57,22 @@ const steps = ref([
 // ref
 const currentStep = ref(null)
 
+const statusIndex = {
+  process: 0,
+  packed: 1,
+  sent: 2,
+  delivered: 3
+}
+
 // funcs
 const selectStep = (index) => {
-  currentStep.value = index - 1
+  currentStep.value = index
 }
 
 // hooks
 onBeforeMount(() => {
   console.log(props.status)
-  selectStep(props.status)
+  selectStep(statusIndex[props.status])
 })
 </script>
 

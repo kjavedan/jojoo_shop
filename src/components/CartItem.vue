@@ -12,12 +12,16 @@
       </div>
       <p class="txt-small">{{ description }}</p>
       <div class="row">
-        <h5>count:</h5>
-        <span class="txt-small black">{{ count }}</span>
+        <h5>qty:</h5>
+        <span class="txt-small black">{{ qty }}</span>
       </div>
       <div class="row">
         <h6>Total price:</h6>
-        <span class="txt-small">{{ count * price }}AED</span>
+        <span class="txt-small">{{ qty * price }}AED</span>
+      </div>
+      <div class="row">
+        <h6>Discounted price:</h6>
+        <span class="txt-small">{{ (qty * discountedPrice).toFixed(2) }}AED</span>
       </div>
     </div>
     <div v-if="!history" class="delete" @click="store.removeProductFromCart(id)">
@@ -29,7 +33,17 @@
 <script setup>
 import { useProductStore } from '@/stores/product'
 
-defineProps(['id', 'imgUrl', 'name', 'price', 'description', 'count', 'history'])
+defineProps([
+  'id',
+  'imgUrl',
+  'name',
+  'price',
+  'discountedPrice',
+  'discount',
+  'description',
+  'qty',
+  'history'
+])
 
 //store
 const store = useProductStore()
@@ -39,7 +53,7 @@ const store = useProductStore()
 @import '@/assets/scss/main.scss';
 
 .cart-item {
-  height: 80px;
+  height: 85px;
   @include row-between;
   gap: 10px;
   .left {
@@ -56,7 +70,7 @@ const store = useProductStore()
       @include flex-center;
 
       img {
-        height: 70%;
+        height: 80%;
       }
     }
   }
