@@ -1,6 +1,8 @@
 <template>
+  <!-- v-if user has orders -->
+  <OrderHistory></OrderHistory>
   <div class="wrapper">
-    <OrderHistory></OrderHistory>
+    <h3>My Cart</h3>
     <div class="cart" v-if="cartData.length">
       <CartItem
         v-for="item in cartData"
@@ -66,7 +68,7 @@ const handlePayment = () => {
 .wrapper {
   max-width: 500px;
   margin: 1rem auto;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   .cart {
     @include flex-col;
     padding: 1rem 0.5rem;

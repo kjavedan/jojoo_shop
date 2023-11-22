@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-if="orderHistoryData.length">
+  <div class="order-history-wrapper" v-if="orderHistoryData.length">
     <h3>Order history</h3>
     <div class="order-history">
       <OrderHistoryItem
@@ -29,21 +29,22 @@ const { orderHistoryData } = storeToRefs(store)
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
-.wrapper {
-  padding-left: 0.5rem;
+.order-history-wrapper {
+  // padding-left: 0.5rem;
+
   .order-history {
     width: calc(100% + 6px);
     overflow-x: scroll;
-    height: 100px;
+    height: 80px;
     display: flex;
     align-items: center;
     gap: 10px;
     padding-right: 2rem;
 
     .order {
-      height: 80px;
+      height: 65px;
       cursor: pointer;
-      min-width: 110px;
+      min-width: 100px;
       padding: 10px;
       @include round-l;
       @include shadow-m;
