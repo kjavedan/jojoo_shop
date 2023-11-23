@@ -54,21 +54,21 @@
   <div class="operation" v-if="!loading">
     <div class="btns-wrapper">
       <div v-if="isCheckoutBtn" class="action-btns">
-        <button class="samll" @click="handleDecrease">
+        <button class="small" @click="handleDecrease(route.params.id)">
           <img src="@/assets/images/Minus.png" alt="remove" />
         </button>
-        <button class="small" @click="handleIncrease">
+        <button class="small" @click="handleIncrease(route.params.id)">
           <img src="@/assets/images/Add.png" alt="remove" />
         </button>
         <button class="large" @click="handleCheckout">
           <div class="basket">
-            <div class="circle">{{ counter }}</div>
+            <div class="circle">{{ cartItemQty }}</div>
             <img src="@/assets/images/Basket.png" alt="remove" />
           </div>
           checkout
         </button>
       </div>
-      <ButtonAddToCart v-else @click="handleClick"></ButtonAddToCart>
+      <ButtonAddToCart v-else @click="handleClick(route.params.id)"></ButtonAddToCart>
     </div>
   </div>
   <LoadingScreen v-if="loading"></LoadingScreen>
@@ -83,6 +83,20 @@ import { ElMessage } from 'element-plus'
 import { getProductById } from '@/api/product'
 import { getProductReviews } from '@/api/review'
 import LoadingScreen from '@/components/LoadingScreen.vue'
+import { useCartLogic } from '@/composables/cartLogic'
+
+//composibles
+const {
+  cartItemQty,
+  isCheckoutBtn,
+  handleClick,
+  handleIncrease,
+  handleDecrease,
+  handleCheckout,
+  fetchUserCartData
+  // setProductId
+} = useCartLogic()
+
 //route
 const route = useRoute()
 const router = useRouter()
@@ -95,8 +109,6 @@ const isShrink = ref(false)
 const containerRef = ref(null)
 const myCarousel = ref(null)
 const isExpandDescription = ref(false)
-const isCheckoutBtn = ref(false)
-const counter = ref(0)
 const loading = ref(false)
 const productDetails = ref(null)
 const productReviews = ref(null)
@@ -120,33 +132,6 @@ const handleSwipeLeft = () => {
   myCarousel.value.next()
 }
 
-const handleClick = () => {
-  // store.addProductToCart(heldProduct.value)
-  isCheckoutBtn.value = true
-  counter.value++
-}
-
-const handleIncrease = () => {
-  // store.addProductToCart(heldProduct.value)
-  counter.value++
-}
-
-const handleDecrease = () => {
-  // store.decreaseProductQty(heldProduct.value)
-  counter.value--
-
-  if (counter.value <= 0) {
-    isCheckoutBtn.value = false
-  }
-}
-
-const handleCheckout = () => {
-  // heldProduct.value = null
-  isCheckoutBtn.value = false
-  counter.value = 0
-  router.push({ name: 'cart' })
-}
-
 const fetchProductDetails = async () => {
   const productId = route.params.id
   loading.value = true
@@ -156,7 +141,6 @@ const fetchProductDetails = async () => {
     productDetails.value = productDetailsRes.data
     productReviews.value = productReviewsRes.data
     loading.value = false
-    console.log('ran')
   } catch (error) {
     console.log(error)
     ElMessage.error(error)
@@ -166,6 +150,8 @@ const fetchProductDetails = async () => {
 //hooks
 onBeforeMount(() => {
   fetchProductDetails()
+  // setProductId(route.params.id) bn
+  fetchUserCartData()
 })
 
 onMounted(() => {

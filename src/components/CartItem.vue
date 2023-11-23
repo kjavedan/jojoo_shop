@@ -1,39 +1,55 @@
 <template>
-  <div :class="['cart-item']">
-    <div class="left">
-      <div class="product-img">
-        <img :src="imgUrl" :alt="name" />
+  <div v-if="!loading">
+    <div :class="['cart-item']">
+      <div class="left">
+        <div class="product-img">
+          <img :src="imgUrl" :alt="name" />
+        </div>
       </div>
-    </div>
-    <div class="product-info">
-      <div class="row">
-        <h4>{{ name }}</h4>
-        <h5>{{ price }}AED</h5>
+      <div class="product-info">
+        <div class="row">
+          <h4>{{ name }}</h4>
+          <h5>{{ price }}AED</h5>
+        </div>
+        <p class="txt-small">{{ description }}</p>
+        <div class="row">
+          <h5>qty:</h5>
+          <span class="txt-small black">{{ qty }}</span>
+        </div>
+        <div class="row">
+          <h6>Total price:</h6>
+          <span class="txt-small">{{ qty * price }}AED</span>
+        </div>
+        <div class="row">
+          <h6>Discounted price:</h6>
+          <span class="txt-small">{{ (qty * discountedPrice).toFixed(2) }}AED</span>
+        </div>
       </div>
-      <p class="txt-small">{{ description }}</p>
-      <div class="row">
-        <h5>qty:</h5>
-        <span class="txt-small black">{{ qty }}</span>
+      <div class="operate-wrapper" v-if="!history">
+        <div class="operate" @click="handleDeleteCartItem">
+          <img height="24" src="@/assets/images/Trash.png" alt="trash" />
+        </div>
+        <div v-if="qty > 1" class="operate" @click="handleDecreaseCartItem">
+          <img height="24" src="@/assets/images/Minus.png" alt="trash" />
+        </div>
+        <div class="operate" @click="handleIncreaseCartItem">
+          <img height="24" src="@/assets/images/Add.png" alt="trash" />
+        </div>
       </div>
-      <div class="row">
-        <h6>Total price:</h6>
-        <span class="txt-small">{{ qty * price }}AED</span>
-      </div>
-      <div class="row">
-        <h6>Discounted price:</h6>
-        <span class="txt-small">{{ (qty * discountedPrice).toFixed(2) }}AED</span>
-      </div>
-    </div>
-    <div v-if="!history" class="delete" @click="store.removeProductFromCart(id)">
-      <img height="24" src="@/assets/images/Trash.png" alt="trash" />
     </div>
   </div>
+  <LoadingScreen v-else></LoadingScreen>
 </template>
 
 <script setup>
 import { useProductStore } from '@/stores/product'
+import { deleteFromCart } from '@/api/cart'
+import { onBeforeMount, ref, toRefs } from 'vue'
+import LoadingScreen from '@/components/LoadingScreen.vue'
+import { ElMessage } from 'element-plus'
+import { useCartLogic } from '../composables/cartLogic'
 
-defineProps([
+const props = defineProps([
   'id',
   'imgUrl',
   'name',
@@ -45,15 +61,50 @@ defineProps([
   'history'
 ])
 
+//composibles
+const { handleIncrease, handleDecrease, setProductId } = useCartLogic()
+
 //store
 const store = useProductStore()
+
+//emits
+const emit = defineEmits(['refreshCartData'])
+
+//refs
+const loading = ref(false)
+
+//funcs
+const handleIncreaseCartItem = async () => {
+  setProductId(props.id)
+  handleIncrease(props.id)
+}
+const handleDecreaseCartItem = () => {
+  setProductId(props.id)
+  handleDecrease(props.id)
+}
+const handleDeleteCartItem = async () => {
+  try {
+    loading.value = true
+    const res = await deleteFromCart(props.id)
+    if (res.status === 200) {
+      loading.value = false
+      console.log(res.data)
+      ElMessage.success(`${props.name} deleted successfully`)
+      emit('refreshCartData')
+    }
+  } catch (error) {
+    loading.value = false
+    ElMessage.error('There was a problem removing the item please try again later')
+    console.log(error)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
 .cart-item {
-  height: 85px;
+  height: 95px;
   @include row-between;
   gap: 10px;
   .left {
@@ -63,7 +114,7 @@ const store = useProductStore()
     align-items: center;
 
     .product-img {
-      min-width: 80px;
+      min-width: 90px;
       background: #f6f6f6;
       height: 100%;
       @include round-m;
@@ -108,11 +159,23 @@ const store = useProductStore()
       font-weight: bold;
     }
   }
-  .delete {
-    cursor: pointer;
-    width: 20px;
+  .operate-wrapper {
     @include flex-center;
     margin-left: 10px;
+    width: 25px;
+    // border: solid;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-around;
+    align-items: center;
+    .operate {
+      cursor: pointer;
+      // border: solid;
+      img {
+        // height: 22px;
+      }
+    }
   }
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div class="order-history-wrapper" v-if="orderHistoryData.length">
+  <div class="order-history-wrapper" v-if="ordersData.length">
     <h3>Order history</h3>
     <div class="order-history">
       <OrderHistoryItem
-        v-for="order in orderHistoryData"
+        v-for="order in ordersData"
         :key="order.orderId"
         :orderId="order.orderId"
         :totalPrice="order.totalPrice"
@@ -16,14 +16,14 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useProductStore } from '../stores/product'
+import { useOrderStore } from '../stores/order'
 import OrderHistoryItem from './OrderHistoryItem.vue'
 
 //store
-const store = useProductStore()
+const store = useOrderStore()
 
 //refs
-const { orderHistoryData } = storeToRefs(store)
+const { ordersData } = storeToRefs(store)
 </script>
 
 <style lang="scss" scoped>

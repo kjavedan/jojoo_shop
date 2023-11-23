@@ -1,52 +1,60 @@
 <template>
-  <!-- v-if user has orders -->
-  <OrderHistory></OrderHistory>
-  <div class="wrapper">
-    <h3>My Cart</h3>
-    <div class="cart" v-if="cartData.length">
-      <CartItem
-        v-for="item in cartData"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :price="item.price"
-        :description="item.description"
-        :count="item.count"
-        :imgUrl="item.imgUrls[0]"
-      ></CartItem>
-      <div class="checkout" v-if="cartData.length">
-        <h2 class="total-price">Total Price: {{ totalPrice }}AED</h2>
-        <button @click="handlePayment" class="payment">Make Payment</button>
+  <div v-if="!loading">
+    <OrderHistory></OrderHistory>
+    <div class="wrapper">
+      <h3>My Cart</h3>
+      <div class="cart" v-if="cartData?.length">
+        <CartItem
+          v-for="item in cartData"
+          :key="item.product._id"
+          :id="item._id"
+          :name="item.product.name"
+          :price="item.product.price"
+          :discountedPrice="item.product.discountedPrice"
+          :discount="item.product.discount"
+          :description="item.product.description"
+          :qty="item.qty"
+          :imgUrl="item.product.imgUrls[0]"
+          @refreshCartData="fetchUserCartData"
+        ></CartItem>
+        <div class="checkout" v-if="cartData?.length">
+          <h2 class="total-price">Total Price: {{ totalPrice.toFixed(2) }}AED</h2>
+          <h2 class="total-price">
+            Discounted Total Price: {{ discountedTotalPrice.toFixed(2) }}AED
+          </h2>
+          <button @click="handlePayment" class="payment">Make Payment</button>
+        </div>
+      </div>
+      <div v-else class="empty-cart">
+        <img src="@/assets/images/empty-cart.png" alt="basket" />
+        <p>Your cart is empty what you are wating for?</p>
+        <button class="payment" @click="router.push({ name: 'home' })">start shopping</button>
       </div>
     </div>
-    <div v-else class="empty-cart">
-      <img src="@/assets/images/empty-cart.png" alt="basket" />
-      <p>Your cart is empty what you are wating for?</p>
-      <button class="payment" @click="router.push({ name: 'home' })">start shopping</button>
-    </div>
   </div>
+  <LoadingScreen v-else></LoadingScreen>
 </template>
 <script setup>
 import CartItem from '@/components/CartItem.vue'
-import { storeToRefs } from 'pinia'
 import OrderHistory from '@/components/OrderHistory.vue'
-import { useProductStore } from '@/stores/product'
 import { useRouter } from 'vue-router'
-import { getUserCart } from '@/api/cart'
-import { useUserStore } from '@/stores/user'
 import { onBeforeMount, ref } from 'vue'
+import LoadingScreen from '@/components/LoadingScreen.vue'
+import { useCartLogic } from '@/composables/cartLogic'
+import { storeToRefs } from 'pinia'
+import { useCartStore } from '@/stores/cart'
 
 //routes
 const router = useRouter()
 
-//stores
-const productStore = useProductStore()
-const userStore = useUserStore()
-const { userDetails } = storeToRefs(userStore)
+//store
+const cartStore = useCartStore()
+const { cartData, totalPrice, discountedTotalPrice } = storeToRefs(cartStore)
 
 //refs
-const cartData = ref([])
-// const { cartData, totalPrice } = storeToRefs(productStore)
+const loading = ref(false)
+
+console.log(cartData.value)
 
 //funcs
 // methods
@@ -66,23 +74,6 @@ const cartData = ref([])
 
 //   productStore.addToOrderHistory()
 // }
-
-const fetchUserCartData = async () => {
-  try {
-    const res = await getUserCart(userDetails.value?._id)
-    if (res.status === 200) {
-      console.log(res.data)
-      cartData.value = res.data
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-//hooks
-onBeforeMount(() => {
-  fetchUserCartData()
-})
 </script>
 
 <style lang="scss" scoped>
@@ -95,7 +86,7 @@ onBeforeMount(() => {
   .cart {
     @include flex-col;
     padding: 1rem 0.5rem;
-    gap: 15px;
+    gap: 20px;
 
     .checkout {
       border-top: solid 1px lightgray;
@@ -104,7 +95,7 @@ onBeforeMount(() => {
         text-align: right;
         font-family: $secondary-font;
         font-weight: 300;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
     }
   }

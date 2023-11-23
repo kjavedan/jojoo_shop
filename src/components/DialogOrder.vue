@@ -40,21 +40,21 @@
         </p>
       </div>
       <div v-if="isCheckoutBtn" class="action-btns">
-        <button class="samll" @click="handleDecrease">
+        <button class="small" @click="handleDecrease(heldProduct.value.id)">
           <img src="@/assets/images/Minus.png" alt="remove" />
         </button>
-        <button class="small" @click="handleIncrease">
-          <img src="@/assets/images/Add.png" alt="remove" />
+        <button class="small" @click="handleIncrease(heldProduct.value.id)">
+          <img src="@/assets/images/Add.png" alt="add" />
         </button>
-        <button class="large" @click="handleCheckout">
+        <button class="large" @click="handleCheckoutClick">
           <div class="basket">
-            <div class="circle">{{ counter }}</div>
-            <img src="@/assets/images/Basket.png" alt="remove" />
+            <div class="circle">{{ cartItemQty }}</div>
+            <img src="@/assets/images/Basket.png" alt="basket" />
           </div>
           checkout
         </button>
       </div>
-      <ButtonAddToCart v-else @click="handleClick"></ButtonAddToCart>
+      <ButtonAddToCart v-else @click="handleClick(heldProduct.value.id)"></ButtonAddToCart>
       <div class="more-btn" @click="unHeldProduct">
         <RouterLink :to="{ name: 'product', params: { id: heldProduct.id } }"
           >see more details</RouterLink
@@ -68,95 +68,49 @@
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import ButtonAddToCart from './ButtonAddToCart.vue'
-import { addToCart } from '@/api/cart'
-import { useUserStore } from '@/stores/user'
+import { useCartLogic } from '@/composables/cartLogic'
 
-//routes
-const router = useRouter()
+//composibles
+const {
+  cartItemQty,
+  isCheckoutBtn,
+  handleClick,
+  handleIncrease,
+  handleDecrease,
+  handleCheckout,
+  fetchUserCartData
+  // setProductId
+} = useCartLogic()
 
 //store
 const productStore = useProductStore()
-const userStore = useUserStore()
 const { heldProduct } = storeToRefs(productStore)
-const { userDetails } = storeToRefs(userStore)
+
 //refs
 const heldImg = ref(heldProduct.value?.imgUrls[0])
-const isCheckoutBtn = ref(false)
-const counter = ref(0)
 
 //funcs
 const unHeldProduct = () => {
   productStore.holdProductInfo(null)
   isCheckoutBtn.value = false
-  counter.value = 0
+  cartItemQty.value = 0
 }
 
 const handleImageChange = (index) => {
   heldImg.value = heldProduct.value.imgUrls[index]
 }
 
-const handleClick = () => {
-  // store.addProductToCart(heldProduct.value)
-  handleAddToCart()
-  isCheckoutBtn.value = true
-  counter.value++
-}
-
-const handleIncrease = () => {
-  // store.addProductToCart(heldProduct.value)
-  handleUpdateCart(counter.value + 1)
-  handleAddToCart()
-  counter.value++
-}
-
-const handleDecrease = () => {
-  // store.decreaseProductQty(heldProduct.value)
-  handleUpdateCart(counter.value - 1)
-  counter.value--
-
-  if (counter.value <= 0) {
-    isCheckoutBtn.value = false
-  }
-}
-
-const handleCheckout = () => {
-  heldProduct.value = null
-  isCheckoutBtn.value = false
-  counter.value = 0
-  router.push({ name: 'cart' })
-}
-
-const handleAddToCart = async () => {
-  const productId = heldProduct.value.id
-  const userId = userDetails.value._id
-  console.log(userId)
-  try {
-    const res = await addToCart({ userId, productId, qty: 1 })
-    if (res.status === 200) {
-      console.log(res)
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-const handleUpdateCart = async (qty) => {
-  const { productId } = heldProduct.value.id
-  try {
-    const res = await addToCart(productId, { qty })
-    if (res.status === 200) {
-      console.log(res)
-    }
-  } catch (error) {
-    console.log(error)
-  }
+const handleCheckoutClick = () => {
+  handleCheckout()
+  productStore.holdProductInfo(null)
 }
 
 //hooks
 watch(heldProduct, (newValue) => {
   if (heldProduct.value) {
-    console.log(heldProduct.value)
+    // setProductId(heldProduct.value.id)
+    fetchUserCartData()
     handleImageChange(0)
   }
 })
