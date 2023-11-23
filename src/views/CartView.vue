@@ -6,8 +6,9 @@
       <div class="cart" v-if="cartData?.length">
         <CartItem
           v-for="item in cartData"
-          :key="item.product._id"
-          :id="item._id"
+          :key="item._id"
+          :productId="item.product._id"
+          :cartId="item._id"
           :name="item.product.name"
           :price="item.product.price"
           :discountedPrice="item.product.discountedPrice"
@@ -15,7 +16,6 @@
           :description="item.product.description"
           :qty="item.qty"
           :imgUrl="item.product.imgUrls[0]"
-          @refreshCartData="fetchUserCartData"
         ></CartItem>
         <div class="checkout" v-if="cartData?.length">
           <h2 class="total-price">Total Price: {{ totalPrice.toFixed(2) }}AED</h2>
@@ -38,11 +38,14 @@
 import CartItem from '@/components/CartItem.vue'
 import OrderHistory from '@/components/OrderHistory.vue'
 import { useRouter } from 'vue-router'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
 import { useCartLogic } from '@/composables/cartLogic'
 import { storeToRefs } from 'pinia'
 import { useCartStore } from '@/stores/cart'
+
+//composibles
+const { fetchUserCartData } = useCartLogic()
 
 //routes
 const router = useRouter()
@@ -53,8 +56,6 @@ const { cartData, totalPrice, discountedTotalPrice } = storeToRefs(cartStore)
 
 //refs
 const loading = ref(false)
-
-console.log(cartData.value)
 
 //funcs
 // methods
@@ -74,6 +75,14 @@ console.log(cartData.value)
 
 //   productStore.addToOrderHistory()
 // }
+
+//hooks
+onBeforeMount(() => {
+  fetchUserCartData()
+})
+watch(cartData, () => {
+  console.log(cartData.value)
+})
 </script>
 
 <style lang="scss" scoped>

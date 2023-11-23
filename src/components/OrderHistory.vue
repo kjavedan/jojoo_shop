@@ -3,12 +3,13 @@
     <h3>Order history</h3>
     <div class="order-history">
       <OrderHistoryItem
-        v-for="order in ordersData"
-        :key="order.orderId"
-        :orderId="order.orderId"
+        v-for="order in ordersData.reverse()"
+        :key="order._id"
+        :orderId="order._id"
         :totalPrice="order.totalPrice"
         :status="order.status"
         :items="order.items"
+        :orderDate="order.orderDate"
       ></OrderHistoryItem>
     </div>
   </div>
@@ -24,6 +25,7 @@ const store = useOrderStore()
 
 //refs
 const { ordersData } = storeToRefs(store)
+console.log(ordersData.value)
 </script>
 
 <style lang="scss" scoped>

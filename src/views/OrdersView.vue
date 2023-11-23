@@ -29,50 +29,32 @@
 <script setup>
 import OrderStatuCard from '@/components/OrderStatusCard.vue'
 import { computed, onBeforeMount, ref, watch } from 'vue'
-import { useUserStore } from '../stores/user'
-import { getUserOrders } from '@/api/order'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import { useOrderStore } from '@/stores/order'
 
 //router
 const router = useRouter()
 
 //store
-const store = useUserStore()
+const orderStore = useOrderStore()
 
 //refs
-const { userDetails } = storeToRefs(store)
-const ordersData = ref([])
+const { ordersData, loading } = storeToRefs(orderStore)
 const filteredOrdersData = computed(() => {
   return ordersData.value.filter((order) => order.status === status.value)
 })
-const loading = ref(false)
-const status = ref('process')
 
+const status = ref('process')
 //funcs
-const fetchUserOrdersData = async () => {
-  loading.value = true
-  try {
-    const res = await getUserOrders(userDetails.value._id)
-    if (res.status === 200) {
-      ordersData.value = res.data
-      console.log(res.data)
-      console.log(ordersData.value)
-    }
-    loading.value = false
-  } catch (error) {
-    loading.value = false
-    console.log(error)
-  }
-}
 
 //hooks
 watch(filteredOrdersData, () => {
   console.log(filteredOrdersData.value)
 })
 onBeforeMount(() => {
-  fetchUserOrdersData()
+  orderStore.fetchUserOrdersData()
 })
 </script>
 

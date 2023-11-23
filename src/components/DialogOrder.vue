@@ -40,10 +40,10 @@
         </p>
       </div>
       <div v-if="isCheckoutBtn" class="action-btns">
-        <button class="small" @click="handleDecrease(heldProduct.value.id)">
+        <button class="small" @click="handleDecrease(heldProduct.id)">
           <img src="@/assets/images/Minus.png" alt="remove" />
         </button>
-        <button class="small" @click="handleIncrease(heldProduct.value.id)">
+        <button class="small" @click="handleIncrease(heldProduct.id)">
           <img src="@/assets/images/Add.png" alt="add" />
         </button>
         <button class="large" @click="handleCheckoutClick">
@@ -54,7 +54,7 @@
           checkout
         </button>
       </div>
-      <ButtonAddToCart v-else @click="handleClick(heldProduct.value.id)"></ButtonAddToCart>
+      <ButtonAddToCart v-else @click="handleClick(heldProduct.id)"></ButtonAddToCart>
       <div class="more-btn" @click="unHeldProduct">
         <RouterLink :to="{ name: 'product', params: { id: heldProduct.id } }"
           >see more details</RouterLink
@@ -80,7 +80,6 @@ const {
   handleDecrease,
   handleCheckout,
   fetchUserCartData
-  // setProductId
 } = useCartLogic()
 
 //store
@@ -109,8 +108,7 @@ const handleCheckoutClick = () => {
 //hooks
 watch(heldProduct, (newValue) => {
   if (heldProduct.value) {
-    // setProductId(heldProduct.value.id)
-    fetchUserCartData()
+    fetchUserCartData(heldProduct.value.id)
     handleImageChange(0)
   }
 })

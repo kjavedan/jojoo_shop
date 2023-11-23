@@ -1,35 +1,19 @@
 <template>
   <div class="order" @click="handleClick">
-    <h4 class="order__status">{{ getStatus }}</h4>
-    <h5 class="order__id">#{{ orderId }}</h5>
+    <h4 class="order__status">{{ status }}</h4>
+    <h5 class="order__id">#{{ formatDate(orderDate) }}</h5>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { formatDate } from '@/utils/index'
 import { useRouter } from 'vue-router'
 
 //router
 const router = useRouter()
 
 //props
-const props = defineProps(['orderId', 'status', 'totalPrice', 'items'])
-
-//computed
-const getStatus = computed(() => {
-  switch (props.status) {
-    case '1':
-      return 'in process'
-    case '2':
-      return 'ready to ship'
-    case '3':
-      return 'shiped'
-    case '4':
-      return 'delivered'
-    default:
-      return undefined
-  }
-})
+const props = defineProps(['orderDate', 'status', 'totalPrice', 'items'])
 
 //funcs
 const handleClick = () => {

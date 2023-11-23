@@ -51,6 +51,8 @@ import { useCartLogic } from '../composables/cartLogic'
 
 const props = defineProps([
   'id',
+  'productId',
+  'cartId',
   'imgUrl',
   'name',
   'price',
@@ -62,30 +64,23 @@ const props = defineProps([
 ])
 
 //composibles
-const { handleIncrease, handleDecrease, setProductId } = useCartLogic()
-
-//store
-const store = useProductStore()
-
-//emits
-const emit = defineEmits(['refreshCartData'])
+const { handleIncrease, handleDecrease } = useCartLogic()
 
 //refs
 const loading = ref(false)
 
 //funcs
 const handleIncreaseCartItem = async () => {
-  setProductId(props.id)
-  handleIncrease(props.id)
+  console.log(props.id)
+  handleIncrease(props.productId, props.cartId)
 }
 const handleDecreaseCartItem = () => {
-  setProductId(props.id)
-  handleDecrease(props.id)
+  handleDecrease(props.productId, props.cartId)
 }
 const handleDeleteCartItem = async () => {
   try {
     loading.value = true
-    const res = await deleteFromCart(props.id)
+    const res = await deleteFromCart(props.cartId)
     if (res.status === 200) {
       loading.value = false
       console.log(res.data)

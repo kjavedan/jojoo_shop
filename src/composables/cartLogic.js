@@ -1,30 +1,29 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useProductStore } from '../stores/product';
 import { useUserStore } from '../stores/user';
 import { storeToRefs } from 'pinia';
 import { getUserCart, addToCart, updateCart, deleteFromCart } from '@/api/cart'
+import { useCartStore } from '@/stores/cart';
 
 
 export const useCartLogic = () => {
 
-    
   //routers
   const router = useRouter()
 
   //store
   const userStore = useUserStore()
+  const cartStore = useCartStore()
+
   const { userDetails } = storeToRefs(userStore)
-  // const productId = ref(null)
 
   //refs
   const cartItemQty = ref(0);
   const isCheckoutBtn = ref(false);
   const cartId = ref(null);
   const loading = ref(false)
-  const cartData = ref([])
-  const totalPrice = ref(null)
-  const discountedTotalPrice = ref(null)
+
+
   //funcs
   const handleClick = (id) => {
     handleAddToCart(id);
@@ -68,7 +67,7 @@ export const useCartLogic = () => {
 
   const handleDeleteFromCart = async (id) => {
     try {
-      const res = await deleteFromCart(id);
+      const res = await deleteFromCart(cartId.value);
       if (res.status === 200) {
         cartItemQty.value = 0;
         isCheckoutBtn.value = false;
@@ -79,9 +78,9 @@ export const useCartLogic = () => {
     }
   };
 
-  const handleUpdateCart = async (id,qty) => {
+  const handleUpdateCart = async (id, qty) => {
     try {
-      const res = await updateCart(id, { qty });
+      const res = await updateCart(cartId.value, { qty });
       if (res.status === 200) {
         fetchUserCartData(id);
       }
@@ -96,9 +95,7 @@ export const useCartLogic = () => {
       const res = await getUserCart(userDetails.value?._id);
       loading.value = true
       if (res.status === 200) {
-        cartData.value = res.data.cartData
-        totalPrice.value = res.data.totalPrice
-        discountedTotalPrice.value = res.data.discountedTotalPrice
+        cartStore.updateStoreCart(res.data)
         const isHeldItemExistInCart = res.data.cartData.find(
           (item) => item.productId === id
         );
@@ -115,9 +112,6 @@ export const useCartLogic = () => {
     }
   };
 
-  // const setProductId = (id) => {
-  //  productId.value = id
-  // }
 
   return {
     cartItemQty,
@@ -130,10 +124,6 @@ export const useCartLogic = () => {
     handleDeleteFromCart,
     handleUpdateCart,
     fetchUserCartData,
-    // setProductId,
     loading,
-    cartData,
-    totalPrice,
-    discountedTotalPrice
   };
 };

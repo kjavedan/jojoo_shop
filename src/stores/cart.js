@@ -7,13 +7,15 @@ export const useCartStore = defineStore('cart', ()=> {
     const totalPrice = ref(null)
     const discountedTotalPrice = ref(null)
     
-    function updateCartData(data){
-        cartData.value = data
+    function updateStoreCart(data){
+        cartData.value = data.cartData
+        totalPrice.value = data.totalPrice
+        discountedTotalPrice.value = data.discountedTotalPrice
     }
 
     return {
         cartData,
-        updateCartData,
+        updateStoreCart,
         totalPrice,
         discountedTotalPrice
     }
