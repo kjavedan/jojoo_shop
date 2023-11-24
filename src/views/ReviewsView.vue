@@ -10,6 +10,7 @@
         :rate="review.rate"
         :comment="review.comment"
         :reviewDate="review.reviewDate"
+        :productId="review.productId"
         @refreshReviewData="fetchUserReviewsData"
       ></ReviewItem>
     </div>

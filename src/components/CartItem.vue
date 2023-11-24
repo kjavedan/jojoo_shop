@@ -1,7 +1,7 @@
 <template>
   <div v-if="!loading">
     <div :class="['cart-item']">
-      <div class="left">
+      <div class="left" @click="router.push({ name: 'product', params: { id: productId } })">
         <div class="product-img">
           <img :src="imgUrl" :alt="name" />
         </div>
@@ -42,15 +42,16 @@
 </template>
 
 <script setup>
-import { useProductStore } from '@/stores/product'
-import { deleteFromCart } from '@/api/cart'
-import { onBeforeMount, ref, toRefs } from 'vue'
+import { ref } from 'vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
 import { ElMessage } from 'element-plus'
 import { useCartLogic } from '../composables/cartLogic'
+import { useRouter } from 'vue-router'
+
+//router
+const router = useRouter()
 
 const props = defineProps([
-  'id',
   'productId',
   'cartId',
   'imgUrl',

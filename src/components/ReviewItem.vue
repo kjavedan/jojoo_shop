@@ -1,6 +1,6 @@
 <template>
   <div class="review-item">
-    <div class="product-img">
+    <div class="product-img" @click="handleReviewItemClick">
       <img src="https://i.postimg.cc/C5rKCL9g/ppk-1.png" alt="s" />
     </div>
     <div class="product-info">
@@ -36,8 +36,12 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { nextTick, onMounted, ref, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 import ReviewMenuPopover from './ReviewMenuPopover.vue'
+
+//router
+const router = useRouter()
 
 //emit
 const emit = defineEmits(['refreshReviewData'])
@@ -55,19 +59,25 @@ const props = defineProps([
   'comment',
   'reviewDate',
   'isProductPage',
-  'reviewerId'
+  'reviewerId',
+  'productId'
 ])
 
 //refs
 const { rate } = toRefs(props)
 const isExpandDescription = ref(false)
 const descriptionRef = ref(null)
-
 const isDescriptionOverflowed = ref(false)
 
 //func
 const refreshReviewData = () => {
   emit('refreshReviewData')
+}
+
+const handleReviewItemClick = () => {
+  if (!props.isProductPage) {
+    router.push({ name: 'product', params: { id: props.productId } })
+  }
 }
 
 onMounted(async () => {

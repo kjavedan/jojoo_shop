@@ -7,7 +7,7 @@
       <CartItem
         v-for="item in orderData.products"
         :key="item._id"
-        :id="item._id"
+        :productId="item._id"
         :name="item.name"
         :price="item.price"
         :description="item.description"
@@ -43,7 +43,6 @@ const routes = useRoute()
 const store = useProductStore()
 
 //refs
-const { orderHistoryData } = storeToRefs(store)
 const loading = ref(false)
 const orderData = ref(null)
 
@@ -54,7 +53,6 @@ const fetchOrderData = async () => {
     const res = await getOrderDetailsById(routes.params.id)
     if (res.status === 200) {
       orderData.value = res.data
-      console.log(orderData.value)
     }
     loading.value = false
   } catch (error) {
@@ -67,7 +65,6 @@ const fetchOrderData = async () => {
 
 //hooks
 onBeforeMount(() => {
-  console.log(routes.params)
   fetchOrderData()
 })
 </script>

@@ -79,7 +79,8 @@ const handleAddReview = async () => {
     border-radius: 16px;
     position: relative;
     height: 150px;
-    max-width: 450px;
+    max-width: 500px;
+    margin-top: 0.5rem;
     textarea {
       border: none;
       outline: none;
