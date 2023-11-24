@@ -1,7 +1,7 @@
 <template>
-  <h2>Order Details</h2>
-  <h3 v-if="!loading">{{ formatDate(orderData.orderDate) }}</h3>
   <div class="confirmed-orders-wrapper" v-if="!loading">
+    <h2>Order Details</h2>
+    <h3 v-if="!loading">{{ formatDate(orderData.orderDate) }}</h3>
     <Stepper :status="orderData.status"></Stepper>
     <div class="cart">
       <CartItem

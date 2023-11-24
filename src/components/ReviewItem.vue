@@ -6,38 +6,77 @@
     <div class="product-info">
       <div class="header">
         <h4 class="title">{{ isProductPage ? reviewerName : productName }}</h4>
-        <span v-if="!isProductPage" class="more">
-          <img src="@/assets/images/MenuVertical.png" alt="menu" />
+        <span v-if="!isProductPage || userDetails._id === reviewerId" class="more">
+          <ReviewMenuPopover
+            :reviewId="reviewId"
+            @refreshReviewData="refreshReviewData"
+          ></ReviewMenuPopover>
         </span>
       </div>
       <div class="rates">
         <el-rate v-model="rate" disabled></el-rate>
       </div>
-      <sapn :class="['description', { expand: isExpandDescription }]"> {{ comment }} </sapn>
-      <!-- if description length is more than 1 line then show read more btn -->
-      <div class="read-more" @click="isExpandDescription = !isExpandDescription">
-        {{ isExpandDescription ? 'Read less' : 'Read More' }}
+      <div class="description-container">
+        <span :class="['description', { expand: isExpandDescription }]" ref="descriptionRef">
+          {{ comment }}
+        </span>
+        <!-- if description length is more than 1 line then show read more btn -->
+        <div
+          v-if="isDescriptionOverflowed"
+          class="read-more"
+          @click="isExpandDescription = !isExpandDescription"
+        >
+          {{ isExpandDescription ? 'Read less' : 'Read More' }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onBeforeMount, ref, toRefs } from 'vue'
+import { storeToRefs } from 'pinia'
+import { nextTick, onMounted, ref, toRefs } from 'vue'
+import { useUserStore } from '../stores/user'
+import ReviewMenuPopover from './ReviewMenuPopover.vue'
+
+//emit
+const emit = defineEmits(['refreshReviewData'])
+
+//store
+const store = useUserStore()
+const { userDetails } = storeToRefs(store)
 
 //props
 const props = defineProps([
+  'reviewId',
   'reviewerName',
   'productName',
   'rate',
   'comment',
   'reviewDate',
-  'isProductPage'
+  'isProductPage',
+  'reviewerId'
 ])
 
 //refs
 const { rate } = toRefs(props)
-const isExpandDescription = ref(null)
+const isExpandDescription = ref(false)
+const descriptionRef = ref(null)
+
+const isDescriptionOverflowed = ref(false)
+
+//func
+const refreshReviewData = () => {
+  emit('refreshReviewData')
+}
+
+onMounted(async () => {
+  await nextTick() // Wait for the next render cycle
+
+  // Check if the description is more than one line
+  isDescriptionOverflowed.value =
+    descriptionRef.value.scrollHeight > descriptionRef.value.clientHeight
+})
 </script>
 
 <style lang="scss" scoped>

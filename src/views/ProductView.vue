@@ -29,10 +29,14 @@
     </div>
     <div class="body">
       <h4 class="body-title">description</h4>
-      <span :class="['description', { expand: isExpandDescription }]">
+      <span :class="['description', { expand: isExpandDescription }]" ref="descriptionRef">
         {{ productDetails?.description }}
       </span>
-      <div class="read-more" @click="isExpandDescription = !isExpandDescription">
+      <div
+        class="read-more"
+        @click="isExpandDescription = !isExpandDescription"
+        v-if="isDescriptionOverflowed"
+      >
         {{ isExpandDescription ? 'Read less' : 'Read More' }}
       </div>
     </div>
@@ -42,13 +46,21 @@
         <ReviewItem
           v-for="review in productReviews"
           :key="review._id"
+          :reviewId="review._id"
           :reviewerName="review.reviewerName"
           :rate="review.rate"
           :comment="review.comment"
           :reviewDate="review.reviewDate"
           :isProductPage="true"
+          :reviewerId="review.userId"
+          @refreshReviewData="fetchProductDetails"
         ></ReviewItem>
       </div>
+      <leaveReview
+        :productId="route.params.id"
+        :productName="productDetails.name"
+        @refreshProductReview="fetchProductDetails"
+      ></leaveReview>
     </div>
   </div>
   <div class="operation" v-if="!loading">
@@ -75,7 +87,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { nextTick, onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import ButtonAddToCart from '../components/ButtonAddToCart.vue'
 import { useProductStore } from '@/stores/product'
 import { useRoute, useRouter } from 'vue-router'
@@ -83,6 +95,7 @@ import { ElMessage } from 'element-plus'
 import { getProductById } from '@/api/product'
 import { getProductReviews } from '@/api/review'
 import LoadingScreen from '@/components/LoadingScreen.vue'
+import LeaveReview from '@/components/LeaveReview.vue'
 import { useCartLogic } from '@/composables/cartLogic'
 
 //composibles
@@ -111,6 +124,8 @@ const isExpandDescription = ref(false)
 const loading = ref(false)
 const productDetails = ref(null)
 const productReviews = ref(null)
+const descriptionRef = ref(null)
+const isDescriptionOverflowed = ref(false)
 
 //funcs
 const handleScroll = () => {
@@ -146,6 +161,7 @@ const fetchProductDetails = async () => {
     loading.value = false
   }
 }
+
 //hooks
 onBeforeMount(() => {
   fetchProductDetails()
@@ -154,6 +170,12 @@ onBeforeMount(() => {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+})
+
+onMounted(async () => {
+  await nextTick()
+  isDescriptionOverflowed.value =
+    descriptionRef.value.scrollHeight > descriptionRef.value.clientHeight
 })
 
 onBeforeUnmount(() => {

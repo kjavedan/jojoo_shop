@@ -5,10 +5,12 @@
       <ReviewItem
         v-for="review in reviewsData"
         :key="review._id"
+        :reviewId="review._id"
         :productName="review.productName"
         :rate="review.rate"
         :comment="review.comment"
         :reviewDate="review.reviewDate"
+        @refreshReviewData="fetchUserReviewsData"
       ></ReviewItem>
     </div>
     <div v-else class="no-reviews">

@@ -33,6 +33,8 @@ console.log(ordersData.value)
 
 .order-history-wrapper {
   // padding-left: 0.5rem;
+  max-width: 500px;
+  margin: 0 auto;
 
   .order-history {
     width: calc(100% + 6px);

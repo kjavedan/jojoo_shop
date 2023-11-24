@@ -76,15 +76,17 @@
   width: 100%;
 }
 
-.ep-carousel__container{
+.ep-carousel__container {
   height: 98% !important;
 }
-.ep-carousel__indicators .ep-carousel__indicator button{
+.ep-carousel__indicators .ep-carousel__indicator button {
   background: rgb(0, 0, 0) !important;
   width: 25px;
   height: 5px;
   border-radius: 4px;
 }
-  .ep-message__content {
-  }
-  
+.ep-message__content {
+}
+.ep-popover.ep-popper {
+  border-radius: 12px;
+}

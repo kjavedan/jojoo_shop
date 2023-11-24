@@ -13,7 +13,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 //props
-const props = defineProps(['orderDate', 'status', 'totalPrice', 'items'])
+const props = defineProps(['orderId', 'orderDate', 'status', 'totalPrice', 'items'])
 
 //funcs
 const handleClick = () => {

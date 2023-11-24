@@ -66,6 +66,9 @@ const userAvatar = computed(() => {
       border-radius: 50%;
       background: #f6f6f6;
       @include flex-center;
+      img {
+        height: 100%;
+      }
     }
     .info {
       .title {
