@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="operate-wrapper" v-if="!history">
-        <div class="operate" @click="handleDeleteCartItem">
+        <div class="operate" @click="handleDeleteFromCart(productId, cartId)">
           <img height="24" src="@/assets/images/Trash.png" alt="trash" />
         </div>
         <div v-if="qty > 1" class="operate" @click="handleDecreaseCartItem">
@@ -64,34 +64,17 @@ const props = defineProps([
 ])
 
 //composibles
-const { handleIncrease, handleDecrease } = useCartLogic()
+const { handleIncrease, handleDecrease, handleDeleteFromCart } = useCartLogic()
 
 //refs
 const loading = ref(false)
 
 //funcs
 const handleIncreaseCartItem = async () => {
-  console.log(props.id)
-  handleIncrease(props.productId, props.cartId)
+  handleIncrease(props.productId, props.cartId, props.qty + 1)
 }
 const handleDecreaseCartItem = () => {
-  handleDecrease(props.productId, props.cartId)
-}
-const handleDeleteCartItem = async () => {
-  try {
-    loading.value = true
-    const res = await deleteFromCart(props.cartId)
-    if (res.status === 200) {
-      loading.value = false
-      console.log(res.data)
-      ElMessage.success(`${props.name} deleted successfully`)
-      emit('refreshCartData')
-    }
-  } catch (error) {
-    loading.value = false
-    ElMessage.error('There was a problem removing the item please try again later')
-    console.log(error)
-  }
+  handleDecrease(props.productId, props.cartId, props.qty - 1)
 }
 </script>
 

@@ -94,7 +94,6 @@ const {
   handleDecrease,
   handleCheckout,
   fetchUserCartData
-  // setProductId
 } = useCartLogic()
 
 //route
@@ -150,8 +149,7 @@ const fetchProductDetails = async () => {
 //hooks
 onBeforeMount(() => {
   fetchProductDetails()
-  // setProductId(route.params.id) bn
-  fetchUserCartData()
+  fetchUserCartData(route.params.id)
 })
 
 onMounted(() => {
