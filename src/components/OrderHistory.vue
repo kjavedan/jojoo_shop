@@ -43,7 +43,8 @@ console.log(ordersData.value)
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-right: 2rem;
+    margin-top: 5px;
+    padding-right: 7px;
 
     .order {
       height: 65px;

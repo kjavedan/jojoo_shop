@@ -57,6 +57,7 @@ import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { handleGoogleLogin } from '@/helpers/googleAuth'
 import { validateUsername } from '@/utils'
+import { useI18n } from 'vue-i18n'
 //routes
 const router = useRouter()
 
@@ -64,32 +65,23 @@ const router = useRouter()
 const store = useUserStore()
 
 //refs
+const { t } = useI18n()
 const loading = ref(false)
 const loginFormRef = ref(null)
 const loginForm = ref({ username: '', password: '' })
 const rules = ref({
   username: [
-    { required: true, message: 'Please enter username', trigger: 'change' },
-    { min: 4, message: 'Length should be at least 4', trigger: 'blur' },
+    { required: true, message: t('usernameRequired'), trigger: 'change' },
+    { min: 4, message: t('usernameMinLength', { length: 4 }), trigger: 'blur' },
     { validator: validateUsername, trigger: 'blur' } // Custom validation for special characters
   ],
   password: [
-    { required: true, message: 'Please enter your password', trigger: 'change' },
-    { min: 6, message: 'Length should be at least 6', trigger: 'blur' }
+    { required: true, message: t('passwordRequired'), trigger: 'change' },
+    { min: 6, message: t('passwordMinLength', { length: 6 }), trigger: 'blur' }
   ]
 })
+
 //funcs
-// function validateUsername(rule, value, callback) {
-//   // Regular expression to check for special characters
-//   const specialCharRegex = /[!@#$%^&*(),.?":{}|<> ]/
-
-//   if (specialCharRegex.test(value)) {
-//     callback(new Error('Username cannot contain special characters'))
-//   } else {
-//     callback()
-//   }
-// }
-
 const submitLoginForm = async () => {
   loading.value = true
   await loginFormRef.value.validate((valid, fields) => {
@@ -109,12 +101,13 @@ const handleLogin = async () => {
     if (res.status === 200) {
       if (res.data.accessToken) {
         store.handleUserAuth(res.data)
+        const name = res?.data?.user?.fullName?.split(' ')
         const prevUrl = router.options.history.state.back
         if (prevUrl === '/login-to-proceed') {
           router.go(-2)
-          const name = res?.data?.user?.fullName?.split(' ')
-          ElMessage.success(`Welcome to jojooshop ${name[0]}`)
+          ElMessage.success(t('welcomeTo', { name: name ? name[0] : '' }))
         } else {
+          ElMessage.success(t('welcomeTo', { name: name ? name[0] : '' }))
           router.push({ name: 'home' })
         }
       } else {
@@ -126,9 +119,9 @@ const handleLogin = async () => {
     loading.value = false
     console.log(error)
     if (error.message === 'Network Error') {
-      ElMessage.error('There was a server issue')
+      ElMessage.error($t('serverIssue'))
     } else if (error.response.status === 401) {
-      ElMessage.error('You entered worng password, try again')
+      ElMessage.error($t('wrongPassword'))
     }
   }
 }

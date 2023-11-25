@@ -70,7 +70,7 @@ const handleAddReview = async () => {
     loading.value = true
     const res = await addReview(review.value)
     if (res.status === 201) {
-      ElMessage.success('Your review added successfully')
+      ElMessage.success($t('reviewAddedSuccess'))
       emit('refreshProductReview')
       review.value.comment = ''
       loading.value = false
@@ -93,20 +93,21 @@ const handleUpdateReview = async () => {
       rate: review.value.rate
     })
     if (res.status === 200) {
-      ElMessage.success('Your review updated successfully')
+      ElMessage.success($t('reviewUpdatedSuccess'))
       emit('refreshReviewsData')
       emit('refreshProductReview')
       loading.value = false
     }
   } catch (error) {
     console.log(error)
+    ElMessage.error($t('updateReviewError'))
     loading.value = false
   }
 }
 
 const isCommentValid = () => {
   if (review.value.comment.length > 250) {
-    ElMessage.error('Comment cannot exceed 250 characters')
+    ElMessage.error($t('commentMaxLengthError'))
     return false
   }
   return true

@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', () => {
   const refreshTokenChecked = ref(false)
 
   async function handleUserAuth(data) {
+    console.log('ran')
     const { user, accessToken: newAccessToken } = data
     userDetails.value = user
     accessToken.value = newAccessToken

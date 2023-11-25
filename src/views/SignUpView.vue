@@ -75,32 +75,36 @@ import { registerUser } from '@/api/user'
 import { ElMessage } from 'element-plus'
 import { handleGoogleSignup } from '@/helpers/googleAuth'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { useUserStore } from '../stores/user'
 
 //router
 const router = useRouter()
 
+//stores
+const store = useUserStore()
+
 // refs
+const { t } = useI18n()
 const loading = ref(false)
 const signUpFormRef = ref(null)
 const signUpForm = ref({ username: '', email: '', password: '', confirmPassword: '' })
 const rules = ref({
   username: [
-    { required: true, message: 'Please enter a username', trigger: 'change' },
-    { min: 4, message: 'Length should be at least 4', trigger: 'blur' },
+    { required: true, message: t('usernameRequired'), trigger: 'change' },
+    { min: 4, message: t('usernameMinLength', { length: 4 }), trigger: 'blur' },
     {
       validator: validateUsername,
       trigger: 'blur'
     }
   ],
-  email: [
-    { required: true, type: 'email', message: 'Please enter a valid email', trigger: 'blur' }
-  ],
+  email: [{ required: true, type: 'email', message: t('validEmailRequired'), trigger: 'blur' }],
   password: [
-    { required: true, message: 'Please enter your password', trigger: 'change' },
-    { min: 6, message: 'Length should be at least 6', trigger: 'blur' }
+    { required: true, message: t('passwordRequired'), trigger: 'change' },
+    { min: 6, message: t('passwordMinLength', { length: 6 }), trigger: 'blur' }
   ],
   confirmPassword: [
-    { required: true, message: 'Please enter your password to confirm', trigger: 'change' },
+    { required: true, message: t('confirmPasswordRequired'), trigger: 'change' },
     { validator: validatePasswordMatch, trigger: 'change' } // Custom validation for password match
   ]
 })
@@ -142,22 +146,24 @@ const submitSignupForm = async () => {
 const handleSingUp = async () => {
   try {
     const res = await registerUser(signUpForm.value)
-    if (res.status === 200) {
+    if (res.status === 201) {
+      const name = res?.data?.user?.fullName?.split(' ')
       if (res.data.accessToken) {
-        store.setAccessToken(res.data.accessToken)
-        //send user to home directly
-        //handleUserAuth
-        router.push({ name: 'login' })
+        store.handleUserAuth(res.data)
+        router.push({ name: 'home' })
+        ElMessage.success(t('welcomeTo', { name: name ? name[0] : '' }))
+        console.log('rannn')
       } else {
-        ElMessage.error(res.data.msg)
+        ElMessage.success(t('welcomeTo', { name: name ? name[0] : '' }))
+        router.push({ name: 'login' })
       }
     }
     loading.value = false
   } catch (error) {
     loading.value = false
     if (error.message === 'Network Error') {
-      ElMessage.error('There was a server issue')
-    } else if (error.response.status === 400) {
+      ElMessage.error($t('serverIssue'))
+    } else if (error?.response?.status === 400) {
       console.log(error.response.data)
       ElMessage.error(error.response?.data?.errors[0]?.msg)
     }

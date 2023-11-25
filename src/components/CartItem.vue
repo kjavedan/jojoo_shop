@@ -44,7 +44,6 @@
 <script setup>
 import { ref } from 'vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
-import { ElMessage } from 'element-plus'
 import { useCartLogic } from '../composables/cartLogic'
 import { useRouter } from 'vue-router'
 

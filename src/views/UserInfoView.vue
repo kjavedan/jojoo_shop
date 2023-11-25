@@ -170,6 +170,7 @@ const confirmEdit = async (formRef) => {
     })
   } catch (error) {
     console.log(error)
+    ElMessage.error($t('serverIssue'))
     loading.value = false
   }
 }
@@ -177,7 +178,7 @@ const confirmEdit = async (formRef) => {
 const handleSuccess = (res) => {
   if (res.status === 200) {
     store.setUserInfo(res.data.user)
-    ElMessage.success(`Your new ${heldInfo.value.title} updated successfully!`)
+    ElMessage.success(t(heldInfo.value.title) + ' ' + t('updateSuccess'))
     dialogVisible.value = false
   }
 }

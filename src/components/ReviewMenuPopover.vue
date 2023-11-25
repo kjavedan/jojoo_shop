@@ -53,12 +53,12 @@ const handleDeleteReview = async () => {
   try {
     const res = await deleteReview(props.reviewId)
     if (res.status === 200) {
-      ElMessage.success('Review deleted successfully')
+      ElMessage.success($t('reviewDeletedSuccess'))
       emit('refreshReviewData')
     }
   } catch (error) {
     console.log(error)
-    ElMessage.error('There was an error deleting your review')
+    ElMessage.error($t('deleteReviewError'))
   }
 }
 </script>
