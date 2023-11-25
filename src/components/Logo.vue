@@ -5,6 +5,7 @@
         <h1>jojoo <span>shop.</span></h1>
       </RouterLink>
       <div class="profile" @click="router.push({ name: 'profile' })">
+        <LanguageSwitcher></LanguageSwitcher>
         <img src="@/assets/images/Account-outline.png" alt="Account" />
       </div>
     </div>
@@ -12,11 +13,11 @@
       <div class="back-btn" @click="router.back(1)">
         <img src="@/assets/images/Back.png" alt="back" />
       </div>
+      <LanguageSwitcher></LanguageSwitcher>
       <div class="profile" @click="router.push({ name: 'profile' })">
         <img src="@/assets/images/Account-outline.png" alt="Account" />
       </div>
     </div>
-    <!-- <LanguageSwitcher></LanguageSwitcher> -->
   </header>
 </template>
 
@@ -46,6 +47,7 @@ watch(route, () => {
 
 .header {
   position: sticky;
+  direction: ltr !important;
   background: linear-gradient(
     90deg,
     #fff 0.98%,
@@ -82,7 +84,8 @@ watch(route, () => {
     // border: solid saddlebrown;
     width: 100%;
     height: 100%;
-    @include row-between;
+    display: flex;
+    align-items: center;
     a {
       text-decoration: none;
       color: unset;
@@ -101,6 +104,7 @@ watch(route, () => {
     .profile {
       cursor: pointer;
       height: 100%;
+      margin-left: auto;
       @include flex-center;
       img {
         height: 80%;

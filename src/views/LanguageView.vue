@@ -11,7 +11,7 @@
       ></LanguageItem>
       <LanguageItem
         title="Chinese"
-        subtitle="中文（简体）"
+        subtitle="中文（简体"
         locale="zh"
         :isActive="selectedLocale === 'zh'"
         @click="handleLangaugeChange('zh')"

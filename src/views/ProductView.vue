@@ -17,11 +17,13 @@
 
   <div class="product-info" ref="containerRef" v-show="!loading">
     <div class="header">
-      <h2 class="header-title">{{ $t('productName', { name: productDetails?.name }) }}</h2>
-      <span class="rate">
-        ({{ productDetails?.rate }})
-        <img src="@/assets/images/Star.png" alt="star" />
-      </span>
+      <div class="product-title">
+        <h2>{{ productDetails?.name }}</h2>
+        <span class="rate">
+          ({{ productDetails?.rate }})
+          <img src="@/assets/images/Star.png" alt="star" />
+        </span>
+      </div>
       <span class="price-label">
         {{ $t('priceLabel') }}:
         <span class="price">{{ productDetails?.price }}AED</span>
@@ -56,8 +58,8 @@
           @refreshReviewData="fetchProductDetails"
         ></ReviewItem>
       </div>
+      <br />
       <h4 class="body-title">{{ $t('leaveReviewTitle') }}</h4>
-
       <LeaveReview
         :productId="route.params.id"
         :productName="productDetails.name"
@@ -247,17 +249,25 @@ onBeforeUnmount(() => {
     }
   }
   .header {
-    display: flex;
-    align-items: center;
+    @include row-between;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+    // border: solid;
+
+    .product-title {
+      @include flex-center;
+      gap: 10px;
+    }
     .rate {
-      margin-left: 10px;
+      margin: 10px;
       img {
         margin-bottom: -2px;
         height: 16px;
       }
     }
     .price-label {
-      margin-left: auto;
+      // margin-left: auto;
       // font-size: 16px;
       // font-weight: bold;
       // color: gray;

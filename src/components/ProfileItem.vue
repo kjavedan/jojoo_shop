@@ -4,17 +4,29 @@
       <img :src="icon" alt="info" />
       <span>{{ title }}</span>
     </div>
-    <div><img src="@/assets/images/chevron-Right.png" alt="chevron-right" /></div>
+    <div :class="['arrow', { rtl: isRtl }]">
+      <img src="@/assets/images/chevron-Right.png" alt="chevron-right" />
+    </div>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 //routes
 const router = useRouter()
 //props
 defineProps(['icon', 'title', 'path'])
+
+//refs
+const { locale } = useI18n()
+
+//computed
+const isRtl = computed(() => {
+  return locale.value === 'fa' || locale.value === 'ar'
+})
 </script>
 
 <style lang="scss" scoped>
@@ -37,6 +49,11 @@ defineProps(['icon', 'title', 'path'])
       font-size: 0.9rem;
       font-weight: bold;
       color: rgb(52, 52, 52);
+    }
+  }
+  .arrow {
+    &.rtl {
+      transform: rotate(180deg);
     }
   }
   img {

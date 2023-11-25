@@ -116,7 +116,7 @@ const isCommentValid = () => {
 <style scoped lang="scss">
 .leave-review {
   //   border: solid;
-  margin-top: 0.5rem;
+  // margin-top: 0.5rem;
   width: 100%;
 
   .review-form {
@@ -133,7 +133,7 @@ const isCommentValid = () => {
       outline: none;
       background: transparent;
       padding: 1rem;
-      padding-right: 0;
+      // padding-right: 0;
       color: gray;
       font-size: 11px;
       width: 100%;

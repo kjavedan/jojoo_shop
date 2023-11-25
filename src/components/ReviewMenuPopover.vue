@@ -14,7 +14,12 @@
       </div>
     </template>
   </el-popover>
-  <el-dialog v-model="isEditReview" title="{{ $t('editReview') }}" @close="isEditReview = false">
+  <el-dialog
+    v-model="isEditReview"
+    class="leave-review-dialog"
+    :title="$t('editReview')"
+    @close="isEditReview = false"
+  >
     <LeaveReview
       :reviewId="reviewId"
       :productId="productId"
@@ -57,3 +62,11 @@ const handleDeleteReview = async () => {
   }
 }
 </script>
+
+<style lang="scss">
+.leave-review-dialog {
+  .ep-dialog__body {
+    padding-top: 0.5rem;
+  }
+}
+</style>

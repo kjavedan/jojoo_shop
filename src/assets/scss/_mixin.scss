@@ -167,6 +167,7 @@
 }
 @mixin action-btns{
     .action-btns {
+      direction: ltr !important;
       @include flex-row;
       gap: 12px;
       button {

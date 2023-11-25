@@ -96,7 +96,7 @@ onBeforeMount(() => {
   .line {
     width: 100%;
     border: solid 1px rgb(208, 208, 208);
-    margin-top: -15px;
+    margin-top: -30px;
 
     &.active {
       border: solid 1px #000000;
@@ -139,8 +139,8 @@ onBeforeMount(() => {
 }
 
 .step-circle {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   background: #ededed;
   border-radius: 50%;
   display: flex;
@@ -158,7 +158,8 @@ onBeforeMount(() => {
 .step-label {
   font-size: 11px;
   text-align: center;
-  text-wrap: nowrap;
+  height: 2rem;
+  // text-wrap: nowrap;
 }
 
 .steps div.active .step-circle {
