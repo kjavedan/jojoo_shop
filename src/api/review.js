@@ -9,6 +9,9 @@ export const getUserReviews = async (id) => {
 export const addReview = async (data) => {
   return await api.post('/review/add', data).then((res) => res)
 }
+export const updateReview = async (id, data) => {
+  return await api.put(`/review/update/${id}`, data).then((res) => res)
+}
 export const deleteReview = async (id) => {
   return await api.delete(`/review/delete/${id}`).then((res) => res)
 }

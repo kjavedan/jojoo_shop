@@ -9,6 +9,10 @@
         <span v-if="!isProductPage || userDetails._id === reviewerId" class="more">
           <ReviewMenuPopover
             :reviewId="reviewId"
+            :productId="productId"
+            :productName="productName"
+            :comment="comment"
+            :rate="rate"
             @refreshReviewData="refreshReviewData"
           ></ReviewMenuPopover>
         </span>

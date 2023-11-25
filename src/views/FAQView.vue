@@ -1,7 +1,7 @@
 <template>
   <div class="faq">
     <h1>Frequently Asked Questions (FAQ)</h1>
-    <Br />
+    <br />
     <section>
       <h2>General Questions</h2>
       <faq-item

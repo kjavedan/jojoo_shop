@@ -37,7 +37,6 @@ const store = useUserStore()
 const { accessToken, refreshTokenLoading } = storeToRefs(store)
 
 watch(accessToken, (newToken) => {
-  console.log('ran')
   api.defaults.headers.common['Authorization'] = newToken
 })
 </script>

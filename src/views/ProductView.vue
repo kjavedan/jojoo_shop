@@ -56,6 +56,8 @@
           @refreshReviewData="fetchProductDetails"
         ></ReviewItem>
       </div>
+      <h4 class="body-title">Leave a review</h4>
+
       <leaveReview
         :productId="route.params.id"
         :productName="productDetails.name"
@@ -277,6 +279,7 @@ onBeforeUnmount(() => {
 
     .body-title {
       // font-weight: bold;
+      margin-top: 1.5rem;
     }
     .description {
       margin-top: 0.5rem;
