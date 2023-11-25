@@ -38,13 +38,14 @@ import { ElMessage } from 'element-plus'
 import { deleteReview } from '@/api/review'
 import { ref } from 'vue'
 import LeaveReview from './LeaveReview.vue'
+import { useI18n } from 'vue-i18n'
 
 //emit
 const emit = defineEmits(['refreshReviewData'])
 
 //refs
 const isEditReview = ref(false)
-
+const { t } = useI18n()
 //props
 const props = defineProps(['reviewId', 'productId', 'productName', 'rate', 'comment'])
 
@@ -53,12 +54,12 @@ const handleDeleteReview = async () => {
   try {
     const res = await deleteReview(props.reviewId)
     if (res.status === 200) {
-      ElMessage.success($t('reviewDeletedSuccess'))
+      ElMessage.success(t('reviewDeletedSuccess'))
       emit('refreshReviewData')
     }
   } catch (error) {
     console.log(error)
-    ElMessage.error($t('deleteReviewError'))
+    ElMessage.error(t('deleteReviewError'))
   }
 }
 </script>

@@ -28,6 +28,7 @@ import { addReview, updateReview } from '@/api/review'
 import { useUserStore } from '../stores/user'
 import { storeToRefs } from 'pinia'
 import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 
 //store
 const store = useUserStore()
@@ -47,6 +48,7 @@ const props = defineProps([
 const emit = defineEmits(['refreshProductReview', 'refreshReviewsData'])
 
 //refs
+const { t } = useI18n()
 const loading = ref(false)
 const { isEditReview } = toRefs(props)
 const review = ref({
@@ -70,7 +72,7 @@ const handleAddReview = async () => {
     loading.value = true
     const res = await addReview(review.value)
     if (res.status === 201) {
-      ElMessage.success($t('reviewAddedSuccess'))
+      ElMessage.success(t('reviewAddedSuccess'))
       emit('refreshProductReview')
       review.value.comment = ''
       loading.value = false
@@ -93,21 +95,21 @@ const handleUpdateReview = async () => {
       rate: review.value.rate
     })
     if (res.status === 200) {
-      ElMessage.success($t('reviewUpdatedSuccess'))
+      ElMessage.success(t('reviewUpdatedSuccess'))
       emit('refreshReviewsData')
       emit('refreshProductReview')
       loading.value = false
     }
   } catch (error) {
     console.log(error)
-    ElMessage.error($t('updateReviewError'))
+    ElMessage.error(t('updateReviewError'))
     loading.value = false
   }
 }
 
 const isCommentValid = () => {
   if (review.value.comment.length > 250) {
-    ElMessage.error($t('commentMaxLengthError'))
+    ElMessage.error(t('commentMaxLengthError'))
     return false
   }
   return true

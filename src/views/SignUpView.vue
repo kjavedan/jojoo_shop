@@ -162,7 +162,7 @@ const handleSingUp = async () => {
   } catch (error) {
     loading.value = false
     if (error.message === 'Network Error') {
-      ElMessage.error($t('serverIssue'))
+      ElMessage.error(t('serverIssue'))
     } else if (error?.response?.status === 400) {
       console.log(error.response.data)
       ElMessage.error(error.response?.data?.errors[0]?.msg)

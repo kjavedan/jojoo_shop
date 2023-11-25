@@ -170,7 +170,7 @@ const confirmEdit = async (formRef) => {
     })
   } catch (error) {
     console.log(error)
-    ElMessage.error($t('serverIssue'))
+    ElMessage.error(t('serverIssue'))
     loading.value = false
   }
 }

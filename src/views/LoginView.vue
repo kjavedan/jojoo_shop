@@ -119,9 +119,9 @@ const handleLogin = async () => {
     loading.value = false
     console.log(error)
     if (error.message === 'Network Error') {
-      ElMessage.error($t('serverIssue'))
+      ElMessage.error(t('serverIssue'))
     } else if (error.response.status === 401) {
-      ElMessage.error($t('wrongPassword'))
+      ElMessage.error(t('wrongPassword'))
     }
   }
 }
