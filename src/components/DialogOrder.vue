@@ -125,16 +125,13 @@ watch(heldProduct, (newValue) => {
     position: relative;
     @include flex-col;
     margin-top: -3rem;
-
+    max-width: 450px;
     max-height: 700px;
 
     @include pc-m {
       margin-top: unset;
     }
 
-    @include pc-s {
-      width: 450px;
-    }
     .save-icon {
       position: absolute;
       top: 20px;

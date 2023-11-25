@@ -67,6 +67,7 @@ onBeforeMount(() => {
 .group-btn {
   margin-top: 1rem;
   width: 100%;
+  // direction: ltr;
   &.ep-radio-group {
     display: flex;
     .ep-radio-button {

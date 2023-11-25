@@ -152,7 +152,8 @@ const handleLogin = async () => {
     gap: 10px;
     margin-top: 2rem;
     span {
-      font-weight: 800;
+      font-family: $primary-font;
+      font-weight: 500;
     }
     @include ease;
     &:active {

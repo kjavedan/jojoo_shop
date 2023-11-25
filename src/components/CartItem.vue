@@ -13,16 +13,16 @@
         </div>
         <p class="txt-small">{{ description }}</p>
         <div class="row">
-          <h5>{{ $t('quantity') }}:</h5>
-          <span class="txt-small black">{{ qty }}</span>
+          <span class="txt-small">{{ $t('quantity') }}:</span>
+          <h6>{{ qty }}</h6>
         </div>
         <div class="row">
-          <h6>{{ $t('totalPrice') }}:</h6>
-          <span class="txt-small">{{ qty * price }}AED</span>
+          <span class="txt-small">{{ $t('totalPrice') }}:</span>
+          <h6>{{ qty * price }}AED</h6>
         </div>
         <div class="row">
-          <h6>{{ $t('discountedPrice') }}:</h6>
-          <span class="txt-small">{{ (qty * discountedPrice).toFixed(2) }}AED</span>
+          <span class="txt-small">{{ $t('discountedPrice') }}:</span>
+          <h6>{{ (qty * discountedPrice).toFixed(2) }}AED</h6>
         </div>
       </div>
       <div class="operate-wrapper" v-if="!history">
@@ -85,12 +85,13 @@ const handleDecreaseCartItem = () => {
   height: 95px;
   @include row-between;
   gap: 10px;
+
   .left {
     // width: 130px;
     height: 100%;
     display: flex;
     align-items: center;
-
+    cursor: pointer;
     .product-img {
       min-width: 90px;
       background: #f6f6f6;

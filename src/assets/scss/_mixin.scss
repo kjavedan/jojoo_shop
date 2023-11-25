@@ -172,6 +172,7 @@
       gap: 12px;
       button {
         @include ease;
+        cursor: pointer;
         width: 100%;
         border: none;
         outline: none;

@@ -3,7 +3,7 @@
     <h2>{{ $t('createAccountTitle') }}</h2>
     <div class="with-google" @click="handleGoogleSignup(router)">
       <img src="@/assets/images/google.png" alt="google" />
-      <span>Google</span>
+      <span>{{ $t('loginWithGoogle') }}</span>
     </div>
     <div class="or-with-line">
       <div class="line"></div>

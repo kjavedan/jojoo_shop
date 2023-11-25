@@ -11,9 +11,9 @@
         @blur="onBlur"
         @input="handleChange"
       />
-      <i class="icon">
+      <!-- <i class="icon">
         <img height="16" src="@/assets/images/search.png" alt="" />
-      </i>
+      </i> -->
     </div>
   </div>
 </template>
@@ -81,7 +81,7 @@ onMounted(() => {
   @include round-l;
   transition: border-color 0.3s ease-out;
   font-size: 13px;
-
+  // border: solid;
   @include ease;
   &.active {
     padding-left: 15px;
@@ -94,6 +94,7 @@ onMounted(() => {
 
 .icon {
   position: absolute;
+  display: none;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
