@@ -246,6 +246,7 @@ import Review from '@/assets/images/Review.png'
 import About from '@/assets/images/About.png'
 import Headset from '@/assets/images/Headset.png'
 import Settings from '@/assets/images/Settings.png'
+import FAQ from '@/assets/images/FAQ.png'
 
 export const profileItemsData = [
   {
@@ -274,10 +275,15 @@ export const profileItemsData = [
     path: 'support'
   },
   {
-    icon: Settings,
+    icon: FAQ,
     title: 'FAQ',
     path: 'FAQ'
-  }
+  },
+  {
+    icon: Settings,
+    title: 'Settings',
+    path: 'settings'
+  },
 ]
 
 export const userInfoData = [

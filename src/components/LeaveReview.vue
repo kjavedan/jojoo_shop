@@ -3,6 +3,12 @@
     <el-form v-model="review" class="review-form">
       <div class="left">
         <textarea v-model="review.comment" placeholder="leave your comment here"></textarea>
+        <div class="character-counter">
+          <span :class="{ overflow: review.comment?.length > 250 }">
+            {{ review.comment?.length ? review.comment.length : 0 }}
+          </span>
+          /250
+        </div>
       </div>
       <div class="right">
         <div class="rates">
@@ -37,14 +43,12 @@ const props = defineProps([
   'isEditReview'
 ])
 
-//ref
-const { isEditReview } = toRefs(props)
-
 //emit
 const emit = defineEmits(['refreshProductReview', 'refreshReviewsData'])
 
 //refs
 const loading = ref(false)
+const { isEditReview } = toRefs(props)
 const review = ref({
   userId: userDetails.value._id,
   reviewerName: userDetails.value.fullName,
@@ -59,6 +63,9 @@ const handleClick = () => {
   isEditReview.value ? handleUpdateReview() : handleAddReview()
 }
 const handleAddReview = async () => {
+  if (!isCommentValid()) {
+    return
+  }
   try {
     loading.value = true
     const res = await addReview(review.value)
@@ -75,6 +82,10 @@ const handleAddReview = async () => {
 }
 
 const handleUpdateReview = async () => {
+  if (!isCommentValid()) {
+    return
+  }
+
   try {
     loading.value = true
     const res = await updateReview(props.reviewId, {
@@ -91,6 +102,14 @@ const handleUpdateReview = async () => {
     console.log(error)
     loading.value = false
   }
+}
+
+const isCommentValid = () => {
+  if (review.value.comment.length > 250) {
+    ElMessage.error('Comment cannot exceed 250 characters')
+    return false
+  }
+  return true
 }
 </script>
 
@@ -125,6 +144,14 @@ const handleUpdateReview = async () => {
     .left {
       height: 100%;
       width: 100%;
+      .character-counter {
+        margin: 5px;
+        color: #888;
+        font-size: 12px;
+        .overflow {
+          color: red;
+        }
+      }
     }
     .right {
       height: 100%;

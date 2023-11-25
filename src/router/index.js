@@ -13,6 +13,8 @@ import AboutUsView from '@/views/AboutUsView.vue'
 import UserInfoView from '@/views/UserInfoView.vue'
 import CustomerSupportView from '@/views/CustomerSupportView.vue'
 import FAQView from '@/views/FAQView.vue'
+import SettingsView from '@/views/SettingsView.vue'
+import LanguageView from '@/views/LanguageView.vue'
 import LoginToProceed from '@/views/LoginToProceed.vue'
 
 import { useUserStore } from '../stores/user';
@@ -97,6 +99,16 @@ const router = createRouter({
       path: '/FAQ',
       name: 'FAQ',
       component: FAQView,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsView,
+    },
+    {
+      path: '/settings/language',
+      name: 'language',
+      component: LanguageView,
     },
     {
       path: '/login-to-proceed',

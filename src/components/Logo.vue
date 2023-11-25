@@ -16,6 +16,7 @@
         <img src="@/assets/images/Account-outline.png" alt="Account" />
       </div>
     </div>
+    <!-- <LanguageSwitcher></LanguageSwitcher> -->
   </header>
 </template>
 
@@ -23,6 +24,7 @@
 import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { toggleDark } from '../composables'
+import LanguageSwitcher from './LanguageSwitcher.vue'
 
 //routes
 const route = useRoute()
