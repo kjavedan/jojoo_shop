@@ -1,13 +1,13 @@
 <template>
   <div class="login">
-    <h2>Create your account</h2>
+    <h2>{{ $t('createAccountTitle') }}</h2>
     <div class="with-google" @click="handleGoogleSignup(router)">
       <img src="@/assets/images/google.png" alt="google" />
       <span>Google</span>
     </div>
     <div class="or-with-line">
       <div class="line"></div>
-      <span class="or-text">Or</span>
+      <span class="or-text">{{ $t('or') }}</span>
       <div class="line"></div>
     </div>
     <el-form
@@ -19,50 +19,52 @@
       label-position="top"
       status-icon
     >
-      <el-form-item label="Username" prop="username">
+      <el-form-item :label="$t('username')" prop="username">
         <el-input
           type="text"
           v-model="signUpForm.username"
-          placeholder="Enter your username"
+          :placeholder="$t('enterUsername')"
           class="custom-input"
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="Email" prop="email">
+      <el-form-item :label="$t('email')" prop="email">
         <el-input
           type="text"
           v-model="signUpForm.email"
-          placeholder="Enter your email"
+          :placeholder="$t('enterEmail')"
           class="custom-input"
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="Password" prop="password">
+      <el-form-item :label="$t('password')" prop="password">
         <el-input
           type="password"
           v-model="signUpForm.password"
-          placeholder="Enter your password"
+          :placeholder="$t('enterPassword')"
           class="custom-input"
           show-password
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="Confirm Password" prop="confirmPassword">
+      <el-form-item :label="$t('confirmPassword')" prop="confirmPassword">
         <el-input
           type="password"
           v-model="signUpForm.confirmPassword"
-          placeholder="Confirm your password"
+          :placeholder="$t('confirmPassword')"
           class="custom-input"
           show-password
         ></el-input>
       </el-form-item>
       <el-form-item class="form-footer">
-        <el-button type="primary" @click="submitSignupForm(signUpFormRef)">Sign Up</el-button>
+        <el-button type="primary" @click="submitSignupForm(signUpFormRef)">{{
+          $t('signUp')
+        }}</el-button>
       </el-form-item>
     </el-form>
     <div class="no-account">
-      Already have an account?
-      <RouterLink :to="{ name: 'login' }">Login</RouterLink>
+      {{ $t('alreadyHaveAccount') }}
+      <RouterLink :to="{ name: 'login' }">{{ $t('login') }}</RouterLink>
     </div>
   </div>
 </template>

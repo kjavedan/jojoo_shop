@@ -1,26 +1,30 @@
 <template>
-  <h1 class="page-title">my reviews</h1>
-  <div v-if="!loading">
-    <div class="reviews-wrapper" v-if="reviewsData.length">
-      <ReviewItem
-        v-for="review in reviewsData"
-        :key="review._id"
-        :reviewId="review._id"
-        :productName="review.productName"
-        :rate="review.rate"
-        :comment="review.comment"
-        :reviewDate="review.reviewDate"
-        :productId="review.productId"
-        @refreshReviewData="fetchUserReviewsData"
-      ></ReviewItem>
+  <div>
+    <h1 class="page-title">{{ $t('myReviews') }}</h1>
+    <div v-if="!loading">
+      <div class="reviews-wrapper" v-if="reviewsData.length">
+        <ReviewItem
+          v-for="review in reviewsData"
+          :key="review._id"
+          :reviewId="review._id"
+          :productName="review.productName"
+          :rate="review.rate"
+          :comment="review.comment"
+          :reviewDate="review.reviewDate"
+          :productId="review.productId"
+          @refreshReviewData="fetchUserReviewsData"
+        ></ReviewItem>
+      </div>
+      <div v-else class="no-reviews">
+        <img src="@/assets/images/no-reviews.png" alt="no-reviews" />
+        <p>{{ $t('noReviews') }}</p>
+        <el-button type="primary" @click="router.push({ name: 'home' })">{{
+          $t('commentNow')
+        }}</el-button>
+      </div>
     </div>
-    <div v-else class="no-reviews">
-      <img src="@/assets/images/no-reviews.png" alt="no-reviews" />
-      <p>You havent commented on any product yet</p>
-      <el-button type="primary" @click="router.push({ name: 'home' })">Comment Now</el-button>
-    </div>
+    <LoadingScreen v-else></LoadingScreen>
   </div>
-  <LoadingScreen v-else></LoadingScreen>
 </template>
 
 <script setup>

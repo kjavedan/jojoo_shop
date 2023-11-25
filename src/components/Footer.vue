@@ -3,22 +3,26 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <h3>Quick Links</h3>
+          <h3>{{ $t('quickLinks') }}</h3>
           <ul>
-            <li><RouterLink :to="{ name: 'home' }">Home</RouterLink></li>
-            <li><RouterLink :to="{ name: 'favorite' }">Saved</RouterLink></li>
-            <!-- <li><RouterLink :to="{ name: 'about' }">About Us</RouterLink></li>
-            <li><RouterLink :to="{ name: 'contact' }">Contact Us</RouterLink></li> -->
+            <li>
+              <RouterLink :to="{ name: 'home' }">{{ $t('home') }}</RouterLink>
+            </li>
+            <li>
+              <RouterLink :to="{ name: 'favorite' }">{{ $t('saved') }}</RouterLink>
+            </li>
+            <!-- <li><RouterLink :to="{ name: 'about' }">{{ $t('aboutUs') }}</RouterLink></li>
+            <li><RouterLink :to="{ name: 'contact' }">{{ $t('contactUs') }}</RouterLink></li> -->
           </ul>
         </div>
         <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p>Email: admin@jojooshop.com</p>
-          <p>Phone: 050-259-7949</p>
+          <h3>{{ $t('contactUs') }}</h3>
+          <p>{{ $t('email') }}: admin@jojooshop.com</p>
+          <p>{{ $t('phone') }}: 050-259-7949</p>
         </div>
       </div>
       <div class="copyright">
-        <p>&copy; 2023 Jojooshop. All rights reserved.</p>
+        <p>&copy; 2023 Jojooshop. {{ $t('allRightsReserved') }}</p>
       </div>
     </div>
   </footer>

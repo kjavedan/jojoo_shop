@@ -9,7 +9,7 @@
     >
       <el-carousel-item v-for="item in 4" :key="item" autoplay="false">
         <div class="carousel-img">
-          <img src="@/assets/images/dog.png" alt="preson" />
+          <img src="@/assets/images/dog.png" alt="person" />
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -17,18 +17,18 @@
 
   <div class="product-info" ref="containerRef" v-show="!loading">
     <div class="header">
-      <h2 class="header-title">{{ productDetails?.name }}</h2>
+      <h2 class="header-title">{{ $t('productName', { name: productDetails?.name }) }}</h2>
       <span class="rate">
         ({{ productDetails?.rate }})
         <img src="@/assets/images/Star.png" alt="star" />
       </span>
       <span class="price-label">
-        price:
+        {{ $t('priceLabel') }}:
         <span class="price">{{ productDetails?.price }}AED</span>
       </span>
     </div>
     <div class="body">
-      <h4 class="body-title">description</h4>
+      <h4 class="body-title">{{ $t('descriptionTitle') }}</h4>
       <span :class="['description', { expand: isExpandDescription }]" ref="descriptionRef">
         {{ productDetails?.description }}
       </span>
@@ -37,11 +37,11 @@
         @click="isExpandDescription = !isExpandDescription"
         v-if="isDescriptionOverflowed"
       >
-        {{ isExpandDescription ? 'Read less' : 'Read More' }}
+        {{ isExpandDescription ? $t('readLess') : $t('readMore') }}
       </div>
     </div>
     <div class="footer" v-if="!loading">
-      <h4 class="footer-title">Reviews: ({{ productReviews?.length }})</h4>
+      <h4 class="footer-title">{{ $t('reviewsTitle', { count: productReviews?.length }) }}</h4>
       <div class="review-items" v-if="productReviews?.length">
         <ReviewItem
           v-for="review in productReviews"
@@ -56,13 +56,13 @@
           @refreshReviewData="fetchProductDetails"
         ></ReviewItem>
       </div>
-      <h4 class="body-title">Leave a review</h4>
+      <h4 class="body-title">{{ $t('leaveReviewTitle') }}</h4>
 
-      <leaveReview
+      <LeaveReview
         :productId="route.params.id"
         :productName="productDetails.name"
         @refreshProductReview="fetchProductDetails"
-      ></leaveReview>
+      ></LeaveReview>
     </div>
   </div>
   <div class="operation" v-if="!loading">
@@ -79,7 +79,7 @@
             <div class="circle">{{ cartItemQty }}</div>
             <img src="@/assets/images/Basket.png" alt="remove" />
           </div>
-          checkout
+          {{ $t('checkout') }}
         </button>
       </div>
       <ButtonAddToCart v-else @click="handleClick(route.params.id)"></ButtonAddToCart>

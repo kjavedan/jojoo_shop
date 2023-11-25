@@ -1,9 +1,9 @@
 <template>
   <div class="settings-wrapper">
-    <h1 class="page-title">Settings</h1>
+    <h1 class="page-title">{{ $t('settings') }}</h1>
     <div class="settings-body">
       <ProfileItem
-        v-for="(item, i) in [{ title: 'Language', path: 'language', icon: Language }]"
+        v-for="(item, i) in [{ title: $t('language'), path: 'language', icon: Language }]"
         :key="i"
         :icon="item.icon"
         :title="item.title"

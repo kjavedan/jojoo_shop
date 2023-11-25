@@ -1,41 +1,41 @@
 <template>
   <div class="order-card">
     <div class="card-header">
-      <h4 class="title">Title</h4>
+      <h4 class="title">{{ $t('orderCardTitle') }}</h4>
       <span>{{ formatDate(orderData.orderDate) }}</span>
     </div>
     <div class="card-body">
       <div class="row">
-        <span class="label">Tracking ID:</span>
+        <span class="label">{{ $t('trackingIDLabel') }}:</span>
         <span class="value">{{ orderData._id }}</span>
       </div>
       <div class="row">
-        <span class="label">Total Items: </span>
+        <span class="label">{{ $t('totalItemsLabel') }}:</span>
         <span class="value">{{ orderData.qty }}</span>
       </div>
       <div class="row">
-        <span class="label">Status:</span>
+        <span class="label">{{ $t('statusLabel') }}:</span>
         <span class="value">{{ orderData.status }}</span>
       </div>
       <div class="row">
-        <span class="label">Real Price:</span>
+        <span class="label">{{ $t('realPriceLabel') }}:</span>
         <span class="value">{{ orderData.totalPrice }}AED</span>
       </div>
       <div class="row">
-        <span class="label">discounted Price:</span>
+        <span class="label">{{ $t('discountedPrice') }}:</span>
         <span class="value">{{ orderData.discountedTotalPrice }}AED</span>
       </div>
     </div>
     <div class="card-footer">
       <span class="label"
-        >Total Price:
+        >{{ $t('totalPriceLabel') }}:
         <span class="total-price"> {{ orderData.discountedTotalPrice }}AED </span>
       </span>
       <button
         class="details-btn"
         @click="router.push({ name: 'confirmed-order', params: { id: orderData._id } })"
       >
-        details
+        {{ $t('detailsButton') }}
       </button>
     </div>
   </div>

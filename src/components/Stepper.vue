@@ -10,7 +10,7 @@
           <div class="step-circle">
             <img :src="step.icon" class="icon" />
           </div>
-          <div class="step-label">{{ step.title }}</div>
+          <div class="step-label">{{ $t(step.title) }}</div>
         </div>
       </div>
     </div>
@@ -26,6 +26,7 @@ import inProcessIcon from '@/assets/images/Process.png'
 import packedIcon from '@/assets/images/Packed.png'
 import onTheWayIcon from '@/assets/images/On-the-way.png'
 import deliveredIcon from '@/assets/images/Shipped.png'
+import { useI18n } from 'vue-i18n'
 
 // props
 const props = defineProps(['status'])
@@ -43,12 +44,12 @@ const steps = ref([
     icon: packedIcon
   },
   {
-    title: 'sent',
+    title: 'shipped',
     info: 'Your order is on the way to your delivery address.',
     icon: onTheWayIcon
   },
   {
-    title: 'shipped',
+    title: 'delivered',
     info: 'Congratulations! Your order has been successfully delivered..',
     icon: deliveredIcon
   }

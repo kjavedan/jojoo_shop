@@ -54,7 +54,7 @@ const handleLangaugeChange = (newLocale) => {
 @import '@/assets/scss/main.scss';
 
 .wrapper {
-  border: solid;
+  // border: solid;
 
   .languages {
     margin-top: 1.5rem;

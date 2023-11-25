@@ -35,9 +35,7 @@
           <h2>{{ heldProduct.name }}</h2>
           <span>{{ heldProduct.price }}AED</span>
         </div>
-        <p class="description">
-          {{ heldProduct.description }}
-        </p>
+        <p class="description">{{ heldProduct.description }}</p>
       </div>
       <div v-if="isCheckoutBtn" class="action-btns">
         <button class="small" @click="handleDecrease(heldProduct.id)">
@@ -51,14 +49,14 @@
             <div class="circle">{{ cartItemQty }}</div>
             <img src="@/assets/images/Basket.png" alt="basket" />
           </div>
-          checkout
+          {{ $t('checkout') }}
         </button>
       </div>
       <ButtonAddToCart v-else @click="handleClick(heldProduct.id)"></ButtonAddToCart>
       <div class="more-btn" @click="unHeldProduct">
-        <RouterLink :to="{ name: 'product', params: { id: heldProduct.id } }"
-          >see more details</RouterLink
-        >
+        <RouterLink :to="{ name: 'product', params: { id: heldProduct.id } }">{{
+          $t('seeMoreDetails')
+        }}</RouterLink>
       </div>
     </div>
   </div>

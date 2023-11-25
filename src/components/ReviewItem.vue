@@ -22,7 +22,7 @@
       </div>
       <div class="description-container">
         <span :class="['description', { expand: isExpandDescription }]" ref="descriptionRef">
-          {{ comment }}
+          {{ $t('comment') }}: {{ comment }}
         </span>
         <!-- if description length is more than 1 line then show read more btn -->
         <div
@@ -30,7 +30,7 @@
           class="read-more"
           @click="isExpandDescription = !isExpandDescription"
         >
-          {{ isExpandDescription ? 'Read less' : 'Read More' }}
+          {{ isExpandDescription ? $t('readLess') : $t('readMore') }}
         </div>
       </div>
     </div>

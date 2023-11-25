@@ -1,6 +1,6 @@
 <template>
   <button :class="['button', { loading }]" @click="handleClick">
-    <span>Add to cart</span>
+    <span>{{ $t('addToCart') }}</span>
     <div class="cart">
       <svg viewBox="0 0 36 26">
         <polyline points="1 0 6 0 10 16 25.5 16 28.5 5 7 5"></polyline>
@@ -9,6 +9,7 @@
     </div>
   </button>
 </template>
+
 <script setup>
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'

@@ -1,51 +1,51 @@
 <template>
-  <h1>My Info</h1>
-  <div class="user-info-wrapper">
-    <div class="avatar">
-      <img :src="userAvatar" alt="avatar" />
+  <div>
+    <h1>{{ $t('myInfoTitle') }}</h1>
+    <div class="user-info-wrapper">
+      <div class="avatar">
+        <img :src="userAvatar" alt="avatar" />
+      </div>
+      <UserInfoItem
+        v-for="(item, i) in userInfoItemsData"
+        :key="i"
+        :title="$t(item.title)"
+        :value="item.value"
+        :prop="item.prop"
+        @edit="handleEdit"
+      ></UserInfoItem>
     </div>
-    <UserInfoItem
-      v-for="(item, i) in userInfoItemsData"
-      :key="i"
-      :title="item.title"
-      :value="item.value"
-      :prop="item.prop"
-      @edit="handleEdit"
-    ></UserInfoItem>
+    <el-dialog v-model="dialogVisible" :title="dialogTitle" @close="handleCloseDialog">
+      <el-form
+        :model="form"
+        label-position="top"
+        :rules="rules"
+        ref="formRef"
+        @keydown.enter.prevent="confirmEdit(formRef)"
+      >
+        <el-form-item v-if="propValue == 'phoneNumber'" :prop="propValue" :error="phoneNumberError">
+          <MazPhoneNumberInput
+            v-model="form.phoneNumber"
+            show-code-on-list
+            :preferred-countries="['IR', 'AE', 'US', 'CN', 'IN']"
+            :ignored-countries="['AC']"
+            @update="phoneNumberResult = $event"
+            :success="phoneNumberResult?.isValid"
+            class="phone-input"
+            :default-country="selectedCountry"
+          />
+        </el-form-item>
+        <!-- You can add translations for other fields if needed -->
+        <el-form-item :prop="propValue" v-else>
+          <el-input :placeholder="heldInfo?.title" v-model="form[propValue]"></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary" :loading="loading" @click="confirmEdit(formRef)">
+          {{ $t('confirm') }}
+        </el-button>
+      </template>
+    </el-dialog>
   </div>
-  <el-dialog v-model="dialogVisible" :title="dialogTitle" @close="handleCloseDialog">
-    <el-form
-      :model="form"
-      label-position="top"
-      :rules="rules"
-      ref="formRef"
-      @keydown.enter.prevent="confirmEdit(formRef)"
-    >
-      <el-form-item v-if="propValue == 'phoneNumber'" prop="phoneNumber" :error="phoneNumberError">
-        <MazPhoneNumberInput
-          v-model="form.phoneNumber"
-          show-code-on-list
-          :preferred-countries="['IR', 'AE', 'US', 'CN', 'IN']"
-          :ignored-countries="['AC']"
-          @update="phoneNumberResult = $event"
-          :success="phoneNumberResult?.isValid"
-          class="phone-input"
-          :default-country="selectedCountry"
-        />
-      </el-form-item>
-      <!-- <el-form-item v-else-if="propValue == 'address'">
-        <GoogleMap></GoogleMap>
-      </el-form-item> -->
-      <el-form-item :prop="propValue" v-else>
-        <el-input :placeholder="heldInfo?.title" v-model="form[propValue]"></el-input>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <el-button type="primary" :loading="loading" @click="confirmEdit(formRef)">
-        Confirm
-      </el-button>
-    </template>
-  </el-dialog>
 </template>
 
 <script setup>
@@ -58,12 +58,14 @@ import { ElMessage } from 'element-plus'
 import { validateUsername } from '@/utils'
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
 import GoogleMap from '../components/GoogleMap.vue'
+import { useI18n } from 'vue-i18n'
 
 //store
 const store = useUserStore()
 const { userDetails } = storeToRefs(store)
 
 //refs
+const { t, locale } = useI18n()
 const loading = ref(false)
 const heldInfo = ref(null)
 const form = ref({})
@@ -74,32 +76,32 @@ const phoneNumberResult = ref(null)
 const selectedCountry = ref('IR')
 const userInfoItemsData = computed(() => [
   {
-    title: 'Full Name',
+    title: 'fullName',
     value: userDetails.value.fullName,
     prop: 'fullName'
   },
   {
-    title: 'Username',
+    title: 'username',
     value: userDetails.value.username,
     prop: 'username'
   },
   {
-    title: 'Email',
+    title: 'email',
     value: userDetails.value.email,
     prop: 'email'
   },
   {
-    title: 'Phone',
+    title: 'phone',
     value: userDetails.value.phoneNumber,
     prop: 'phoneNumber'
   },
   {
-    title: 'Password',
+    title: 'password',
     value: '•••••••••',
     prop: 'password'
   },
   {
-    title: 'Address',
+    title: 'address',
     value: userDetails.value.address,
     prop: 'address'
   }
@@ -124,7 +126,7 @@ const rules = ref({
 
 //computed
 const dialogTitle = computed(() =>
-  heldInfo.value ? `Confirm your new ${heldInfo.value.title}` : ''
+  heldInfo.value ? t('confirm') + ' ' + heldInfo.value.title : ''
 )
 
 const userAvatar = computed(() => {

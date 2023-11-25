@@ -13,15 +13,15 @@
         </div>
         <p class="txt-small">{{ description }}</p>
         <div class="row">
-          <h5>qty:</h5>
+          <h5>{{ $t('quantity') }}:</h5>
           <span class="txt-small black">{{ qty }}</span>
         </div>
         <div class="row">
-          <h6>Total price:</h6>
+          <h6>{{ $t('totalPrice') }}:</h6>
           <span class="txt-small">{{ qty * price }}AED</span>
         </div>
         <div class="row">
-          <h6>Discounted price:</h6>
+          <h6>{{ $t('discountedPrice') }}:</h6>
           <span class="txt-small">{{ (qty * discountedPrice).toFixed(2) }}AED</span>
         </div>
       </div>

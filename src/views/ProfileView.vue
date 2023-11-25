@@ -1,13 +1,13 @@
 <template>
   <div class="profile-wrapper">
-    <h1 class="page-title">my profile</h1>
+    <h1 class="page-title">{{ $t('myProfile') }}</h1>
     <div class="avatar-wrapper" @click="router.push({ name: 'user-info' })">
       <div class="avatar">
         <img :src="userAvatar" alt="avatar" />
       </div>
       <div class="info">
         <h3 class="title">{{ fullName }}</h3>
-        <h5 class="subtitle">@Khaled</h5>
+        <h5 class="subtitle">@{{ userDetails.username }}</h5>
       </div>
     </div>
     <div class="profile-body">
@@ -15,7 +15,7 @@
         v-for="(item, i) in profileItemsData"
         :key="i"
         :icon="item.icon"
-        :title="item.title"
+        :title="$t(item.title)"
         :path="item.path"
       ></ProfileItem>
     </div>

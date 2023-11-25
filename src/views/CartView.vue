@@ -2,7 +2,7 @@
   <div v-if="!loading">
     <OrderHistory></OrderHistory>
     <div class="wrapper">
-      <h3>My Cart</h3>
+      <h3>{{ $t('myCart') }}</h3>
       <div class="cart" v-if="cartData?.length">
         <CartItem
           v-for="item in cartData"
@@ -18,17 +18,19 @@
           :imgUrl="item.product.imgUrls[0]"
         ></CartItem>
         <div class="checkout" v-if="cartData?.length">
-          <h2 class="total-price">Total Price: {{ totalPrice.toFixed(2) }}AED</h2>
+          <h2 class="total-price">{{ $t('totalPrice') }}: {{ totalPrice.toFixed(2) }}AED</h2>
           <h2 class="total-price">
-            Discounted Total Price: {{ discountedTotalPrice.toFixed(2) }}AED
+            {{ $t('discountedTotalPrice') }} : {{ discountedTotalPrice.toFixed(2) }}AED
           </h2>
-          <button @click="handlePayment" class="payment">Make Payment</button>
+          <button @click="handlePayment" class="payment">{{ $t('makePayment') }}</button>
         </div>
       </div>
       <div v-else class="empty-cart">
         <img src="@/assets/images/empty-cart.png" alt="basket" />
-        <p>Your cart is empty what you are wating for?</p>
-        <button class="payment" @click="router.push({ name: 'home' })">start shopping</button>
+        <p>{{ $t('cartEmpty') }}</p>
+        <button class="payment" @click="router.push({ name: 'home' })">
+          {{ $t('startShopping') }}
+        </button>
       </div>
     </div>
   </div>

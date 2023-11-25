@@ -2,7 +2,7 @@
   <div class="leave-review">
     <el-form v-model="review" class="review-form">
       <div class="left">
-        <textarea v-model="review.comment" placeholder="leave your comment here"></textarea>
+        <textarea v-model="review.comment" :placeholder="$t('leaveCommentPlaceholder')"></textarea>
         <div class="character-counter">
           <span :class="{ overflow: review.comment?.length > 250 }">
             {{ review.comment?.length ? review.comment.length : 0 }}
@@ -15,7 +15,7 @@
           <el-rate v-model="review.rate"></el-rate>
         </div>
         <el-button @click="handleClick" :loading="loading" class="form-btn" type="primary">{{
-          isEditReview ? 'Save' : 'Send'
+          isEditReview ? $t('save') : $t('send')
         }}</el-button>
       </div>
     </el-form>

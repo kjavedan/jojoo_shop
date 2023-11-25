@@ -1,6 +1,6 @@
 <template>
   <div class="order-history-wrapper" v-if="ordersData.length">
-    <h3>Order history</h3>
+    <h3>{{ $t('orderHistoryTitle') }}</h3>
     <div class="order-history">
       <OrderHistoryItem
         v-for="order in ordersData.reverse()"

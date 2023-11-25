@@ -1,12 +1,12 @@
 <template>
   <div class="wrapper">
-    <h2>Login to proceed</h2>
-    <p>In order to give you the best experience and keep your data safe you need to login 😊</p>
+    <h2>{{ $t('loginToProceed') }}</h2>
+    <p>{{ $t('loginText') }}</p>
     <img src="@/assets/images/login-to-proceed.png" alt="login" />
-    <el-button class="login-btn" @click="router.push({ name: 'login' })" type="primary"
-      >login</el-button
-    >
-    <el-button @click="router.back(1)"> Nah I'm good</el-button>
+    <el-button class="login-btn" @click="router.push({ name: 'login' })" type="primary">{{
+      $t('login')
+    }}</el-button>
+    <el-button @click="router.back(1)"> {{ $t('imGood') }}</el-button>
   </div>
 </template>
 

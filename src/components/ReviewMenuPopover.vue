@@ -1,8 +1,12 @@
 <template>
   <el-popover placement="left" ref="popover" :width="50" trigger="click">
     <div>
-      <el-button size="small" type="danger" text @click="handleDeleteReview">Delete</el-button>
-      <el-button size="small" text @click="isEditReview = true">Edit</el-button>
+      <el-button size="small" type="danger" text @click="handleDeleteReview">
+        {{ $t('delete') }}
+      </el-button>
+      <el-button size="small" text @click="isEditReview = true">
+        {{ $t('edit') }}
+      </el-button>
     </div>
     <template #reference>
       <div>
@@ -10,7 +14,7 @@
       </div>
     </template>
   </el-popover>
-  <el-dialog v-model="isEditReview" title="Edit review" @close="isEditReview = false">
+  <el-dialog v-model="isEditReview" title="{{ $t('editReview') }}" @close="isEditReview = false">
     <LeaveReview
       :reviewId="reviewId"
       :productId="productId"

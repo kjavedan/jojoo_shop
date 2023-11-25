@@ -251,68 +251,38 @@ import FAQ from '@/assets/images/FAQ.png'
 export const profileItemsData = [
   {
     icon: Info,
-    title: 'My Info',
+    title: 'myInfo',
     path: 'user-info'
   },
   {
     icon: Order,
-    title: 'My Orders',
+    title: 'myOrders',
     path: 'orders'
   },
   {
     icon: Review,
-    title: 'My Reviews',
+    title: 'myReviews',
     path: 'reviews'
   },
   {
     icon: About,
-    title: 'About Us',
+    title: 'aboutUs',
     path: 'about'
   },
   {
     icon: Headset,
-    title: 'Customer support',
+    title: 'customerSupport',
     path: 'support'
   },
   {
     icon: FAQ,
-    title: 'FAQ',
+    title: 'faq',
     path: 'FAQ'
   },
   {
     icon: Settings,
-    title: 'Settings',
+    title: 'settings',
     path: 'settings'
   },
 ]
 
-export const userInfoData = [
-  { 
-    title: 'Full Name',
-    value: 'khaled javedan'
-  },
-  { 
-    title: 'Username',
-    value: 'khaled.j'
-  },
-  {
-    
-    title: 'Email',
-    value: 'Javedankhaled@gmail.com'
-  },
-  {
-    
-    title: 'Phone',
-    value: '+971502597949'
-  },
-  {
-    
-    title: 'Password',
-    value: '.........'
-  },
-  {
-    
-    title: 'Address',
-    value: 'United Arab Emirates, Dubai, Dubai investment park, Building 3, Apartment 203, room 1'
-  },
-]

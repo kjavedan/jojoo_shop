@@ -5,7 +5,7 @@
     @click="toggleSearch"
   >
     <div class="dialog-content animate__animated animate__pulse" v-if="isSearch" @click.stop>
-      <p class="title">What are you looking for?</p>
+      <p class="title">{{ $t('searchTitle') }}</p>
       <Input @change="handleChange"></Input>
       <div class="search-results" :class="{ 'show-results': searchResults.length }">
         <SearchResultItem

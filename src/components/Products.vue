@@ -16,15 +16,13 @@
   <div v-else class="no-data">
     <img src="@/assets/images/no-data-folder.png" alt="monkey" class="folder" />
     <img src="@/assets/images/no-data-monkey.png" alt="monkey" class="monkey" />
-    <p>sorry no data found !</p>
+    <p>{{ $t(routeName === 'home' ? 'noDataFoundMessage' : 'noSavedProductMessage') }}</p>
   </div>
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
 import { onBeforeMount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useProductStore } from '../stores/product'
 import Card from './Card.vue'
 import { getAllProducts } from '@/api/product'
 import { getAllFavoriteData } from '@/api/favorite'
@@ -34,8 +32,6 @@ import LoadingScreen from './LoadingScreen.vue'
 const route = useRoute()
 
 //store
-const store = useProductStore()
-const { productsData, favoriteData } = storeToRefs(store)
 const currentData = ref([])
 
 //refs

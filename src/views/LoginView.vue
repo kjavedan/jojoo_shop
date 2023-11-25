@@ -1,13 +1,13 @@
 <template>
   <div class="login">
-    <h2>login to your account</h2>
+    <h2>{{ $t('loginToAccount') }}</h2>
     <div class="with-google" @click="handleGoogleLogin(router)">
       <img src="@/assets/images/google.png" alt="google" />
-      <span>Google</span>
+      <span>{{ $t('loginWithGoogle') }}</span>
     </div>
     <div class="or-with-line">
       <div class="line"></div>
-      <span class="or-text">Or </span>
+      <span class="or-text">{{ $t('or') }} </span>
       <div class="line"></div>
     </div>
     <el-form
@@ -19,32 +19,32 @@
       status-icon
       @keydown.enter.prevent="submitLoginForm"
     >
-      <el-form-item label="Username" prop="username">
+      <el-form-item :label="$t('username')" prop="username">
         <el-input
           type="text"
           v-model="loginForm.username"
-          placeholder="enter your username"
+          :placeholder="$t('enterUsername')"
           class="custom-input"
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="Password" prop="password">
+      <el-form-item :label="$t('password')" prop="password">
         <el-input
           type="password"
           v-model="loginForm.password"
-          placeholder="enter your password"
+          :placeholder="$t('enterPassword')"
           class="custom-input"
         ></el-input>
       </el-form-item>
       <el-form-item class="form-footer">
         <el-button :loading="loading" type="primary" @click="submitLoginForm(loginFormRef)">
-          login
+          {{ $t('login') }}
         </el-button>
       </el-form-item>
     </el-form>
     <div class="no-account">
-      Don't have an account?
-      <RouterLink :to="{ name: 'sign-up' }"> Sign Up </RouterLink>
+      {{ $t('noAccount') }}
+      <RouterLink :to="{ name: 'sign-up' }">{{ $t('signUp') }}</RouterLink>
     </div>
   </div>
 </template>

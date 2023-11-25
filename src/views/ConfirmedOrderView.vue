@@ -1,6 +1,6 @@
 <template>
   <div class="confirmed-orders-wrapper" v-if="!loading">
-    <h2>Order Details</h2>
+    <h2>{{ $t('orderDetails') }}</h2>
     <h3 v-if="!loading">{{ formatDate(orderData.orderDate) }}</h3>
     <Stepper :status="orderData.status"></Stepper>
     <div class="cart">
@@ -18,7 +18,7 @@
         :history="true"
       ></CartItem>
       <div class="checkout">
-        <h2 class="total-price">Total Price: {{ orderData.discountedTotalPrice }}AED</h2>
+        <h2 class="total-price">{{ $t('totalPrice') }}: {{ orderData.discountedTotalPrice }}AED</h2>
       </div>
     </div>
   </div>

@@ -1,29 +1,33 @@
 <template>
-  <h1 class="page-title">my orders</h1>
-  <div v-if="!loading">
-    <div v-if="ordersData.length">
-      <el-radio-group class="group-btn" v-model="status" size="large">
-        <el-radio-button label="process"></el-radio-button>
-        <el-radio-button label="packed"></el-radio-button>
-        <el-radio-button label="shipped"></el-radio-button>
-        <el-radio-button label="delivered"></el-radio-button>
-      </el-radio-group>
+  <div>
+    <h1 class="page-title">{{ $t('myOrders') }}</h1>
+    <div v-if="!loading">
+      <div v-if="ordersData.length">
+        <el-radio-group class="group-btn" v-model="status" size="large">
+          <el-radio-button label="process">{{ $t('process') }}</el-radio-button>
+          <el-radio-button label="packed">{{ $t('packed') }}</el-radio-button>
+          <el-radio-button label="shipped">{{ $t('shipped') }}</el-radio-button>
+          <el-radio-button label="delivered">{{ $t('delivered') }}</el-radio-button>
+        </el-radio-group>
 
-      <div class="orders-wrapper" v-if="filteredOrdersData.length">
-        <OrderStatuCard
-          v-for="order in filteredOrdersData"
-          :key="order._id"
-          :orderData="order"
-        ></OrderStatuCard>
+        <div class="orders-wrapper" v-if="filteredOrdersData.length">
+          <OrderStatusCard
+            v-for="order in filteredOrdersData"
+            :key="order._id"
+            :orderData="order"
+          ></OrderStatusCard>
+        </div>
+      </div>
+      <div v-else class="no-orders">
+        <img src="@/assets/images/no-orders.jpg" alt="no-orders" />
+        <p>{{ $t('noOrders') }}</p>
+        <el-button type="primary" @click="router.push({ name: 'home' })">{{
+          $t('shopNow')
+        }}</el-button>
       </div>
     </div>
-    <div v-else class="no-orders">
-      <img src="@/assets/images/no-orders.jpg" alt="no-orders" />
-      <p>There is no order yet</p>
-      <el-button type="primary" @click="router.push({ name: 'home' })">Shop Now</el-button>
-    </div>
+    <LoadingScreen v-else></LoadingScreen>
   </div>
-  <LoadingScreen v-else></LoadingScreen>
 </template>
 
 <script setup>
